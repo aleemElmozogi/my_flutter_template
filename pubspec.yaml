@@ -1,0 +1,77 @@
+name: my_flutter_template
+description: "Flutter structure template"
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.18.0 <4.0.0'
+
+dependencies:
+  bloc: ^8.1.2
+  equatable: ^2.0.5
+  form_validator: ^2.1.1
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  flutter_bloc: ^8.1.3
+  flutter_screenutil: ^5.9.0
+  freezed_annotation: ^2.4.1
+  go_router: ^10.1.2
+  intl: any
+  dio: ^5.4.0
+  connectivity_plus: ^5.0.2
+  dartz: ^0.10.1
+  json_annotation: ^4.8.1
+  pretty_bloc_observer: ^1.0.0
+  get_it: ^7.6.6
+  shared_preferences: ^2.2.2
+  url_launcher: ^6.2.5
+  freezed: ^2.4.7
+  injectable: ^2.4.1
+  flutter_secure_storage: ^9.0.0
+  image_picker: ^1.0.7
+  qr_code_scanner: ^1.0.1
+  scan: ^1.6.0
+  firebase_messaging: ^14.8.2
+  image_network: ^2.5.6
+  pretty_dio_logger: ^1.3.1
+  loading_indicator: ^3.1.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  injectable_generator:
+  build_runner: ^2.4.6
+  dependency_validator: ^3.0.0
+  flutter_lints: ^2.0.0
+  freezed: ^2.4.2
+  json_serializable: ^6.7.1
+
+flutter:
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - lang/ar.json
+    - lang/en.json
+
+  fonts:
+    - family: Tajawal
+      fonts:
+        - asset: assets/fonts/Tajawal-Black.ttf
+          weight: 900
+        - asset: assets/fonts/Tajawal-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Tajawal-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Tajawal-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Tajawal-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Tajawal-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Tajawal-ExtraLight.ttf
+          weight: 200
