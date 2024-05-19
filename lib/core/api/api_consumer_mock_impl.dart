@@ -34,7 +34,7 @@ class DioConsumerMockImpl implements ApiConsumer {
       },
     );
 
-    client.interceptors.add(AppIntercepters());
+    client.interceptors.add(AppInterceptors());
   }
 
   @override

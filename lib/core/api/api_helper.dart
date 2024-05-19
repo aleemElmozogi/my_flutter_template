@@ -12,7 +12,6 @@ import 'api_consumer.dart';
 abstract class ApiHelper {
   T handleResponseAsJson<T extends JsonModel>(
       ResponseModelCreator<T> responseCreator, Response<String> response);
-
   dynamic handleDioError(DioException error);
 }
 
