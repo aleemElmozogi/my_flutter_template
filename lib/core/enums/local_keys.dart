@@ -6,5 +6,5 @@ enum LocalStorageKeys {
   publicToken;
 
   String get toEncryptedKey =>
-      md5.convert(utf8.encode(this.toString().split('.').last)).toString();
+      md5.convert(utf8.encode(toString().split('.').last)).toString();
 }

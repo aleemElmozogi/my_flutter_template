@@ -1,6 +1,5 @@
 import 'package:my_flutter_template/core/models/json_model.dart';
 import 'package:my_flutter_template/core/utils/network_method.dart';
-import 'package:injectable/injectable.dart';
 
 typedef ResponseModelCreator<R extends JsonModel> = R Function();
 

@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:my_flutter_template/core/api/api_consumer.dart';
@@ -44,7 +43,7 @@ class DioConsumerProdImpl implements ApiConsumer {
       ..validateStatus = (status) {
         return status! < StatusCode.internalServerError;
       };
-    client.interceptors.add(AppIntercepters());
+    client.interceptors.add(AppInterceptors());
     client.interceptors.add(PrettyDioLogger(
         requestHeader: true,
         requestBody: true,

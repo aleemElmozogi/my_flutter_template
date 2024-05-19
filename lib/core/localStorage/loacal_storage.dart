@@ -1,6 +1,5 @@
 import 'package:my_flutter_template/core/enums/local_keys.dart';
 import 'package:my_flutter_template/core/utils/app_strings.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
