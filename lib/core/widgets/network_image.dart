@@ -1,5 +1,3 @@
-import 'package:my_flutter_template/core/utils/app_colors.dart';
-import 'package:my_flutter_template/core/utils/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_network/image_network.dart';

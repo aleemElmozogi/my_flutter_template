@@ -1,7 +1,6 @@
 import 'package:my_flutter_template/core/models/response_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../utils/result_type.dart';
 
 part 'message_model.g.dart';
 
