@@ -39,10 +39,13 @@ class LoginScreen extends StatelessWidget {
                   const AppText('title'),
                   TextFormField(
                     validator: InputValidation.emailValidation(),
+                    onChanged: context.read<AuthCubit>().onEmailChange,
                   ),
                   SizedBox(height: 5.h),
                   TextFormField(
                     validator: InputValidation.notEmptyValidation(),
+                    onChanged: context.read<AuthCubit>().onPinChange,
+
                   ),
                   SizedBox(height: 5.h),
                   state.signInStatus.isInProgress

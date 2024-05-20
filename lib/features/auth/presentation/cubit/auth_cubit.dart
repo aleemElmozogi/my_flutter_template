@@ -17,7 +17,7 @@ import 'package:injectable/injectable.dart';
 import '../../../../core/localStorage/loacal_storage.dart';
 import 'auth_state.dart';
 
-@Injectable()
+@LazySingleton()
 class AuthCubit extends Cubit<AuthState> {
   final AuthUsecase _authUsecase;
   final UserInfoUsecase _userInfoUsecase;
