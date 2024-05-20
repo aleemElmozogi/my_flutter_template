@@ -2,7 +2,7 @@
 // * This project structure was built by Eng. Abdul-Aleem El-Mozughi.             *
 // * I hope you find the template useful!                                         *
 // *                                                                              *
-// * GitHub: https://github.com/aleemElmozogi                                     *
+// * My GitHub: https://github.com/aleemElmozogi                                  *
 // *                                                                              *
 // ********************************************************************************
 

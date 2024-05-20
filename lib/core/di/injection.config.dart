@@ -122,7 +122,7 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i27.AuthUsecase(authRepository: gh<_i23.AuthRepository>()));
     gh.lazySingleton<_i28.UserInfoUsecase>(() => _i28.UserInfoUsecase(
         userInfoRepository: gh<_i25.UserInfoRepository>()));
-    gh.factory<_i29.AuthCubit>(() => _i29.AuthCubit(
+    gh.lazySingleton<_i29.AuthCubit>(() => _i29.AuthCubit(
           authUsecase: gh<_i27.AuthUsecase>(),
           userInfoUsecase: gh<_i28.UserInfoUsecase>(),
           setUpRemoteNotificationUsecase:
