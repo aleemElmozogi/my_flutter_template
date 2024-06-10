@@ -61,17 +61,8 @@ class ApiHelperImpl implements ApiHelper {
       ResponseModelCreator<T> responseCreator, Response<String> response) {
     var parsedResponse = responseCreator() as ResponseModel;
     try {
-      if (response.statusCode != 200) {
-        throw BadRequestException();
-      }
       final messageResponse = jsonDecode(response.data!);
       parsedResponse = parsedResponse.fromJson(messageResponse);
-      if (parsedResponse.resultType == 2) {
-        throw BadRequestException(messageResponse['message']);
-      }
-      if (parsedResponse.resultType == 3) {
-        throw InternalServerErrorException(messageResponse['message']);
-      }
       return parsedResponse as T;
     } catch (e) {
       throw BadResponseException(e.toString());

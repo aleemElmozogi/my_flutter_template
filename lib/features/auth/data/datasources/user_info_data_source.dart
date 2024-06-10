@@ -27,7 +27,7 @@ class UserInfoDataSourceImpl implements UserInfoDataSource {
         method: NetworkMethod.get,
         authorization: await localStorage.accessToken,
         mockResponse: {
-          "type": 1,
+          "statusCode": 201,
           "content": {
             "id": '3234234',
             "name": 'عبدالعليم المزوغي',

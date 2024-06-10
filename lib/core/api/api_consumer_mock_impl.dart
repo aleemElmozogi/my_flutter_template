@@ -58,8 +58,10 @@ class DioConsumerMockImpl implements ApiConsumer {
       final response = Response(
           data: jsonEncode(mockResponse),
           requestOptions: RequestOptions(),
-          statusCode: 200);
-      return di.getIt<ApiHelper>().handleResponseAsJson<T>(responseCreator, response);
+          statusCode: jsonDecode(jsonEncode(mockResponse))["statusCode"]);
+      return di
+          .getIt<ApiHelper>()
+          .handleResponseAsJson<T>(responseCreator, response);
     } on DioException catch (error) {
       return di.getIt<ApiHelper>().handleDioError(error);
     }

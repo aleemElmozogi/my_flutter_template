@@ -3,8 +3,6 @@ import 'package:json_annotation/json_annotation.dart';
 
 @JsonSerializable(genericArgumentFactories: true)
 abstract class ResponseModel<T, C extends Object> extends JsonModel<T> {
-  @JsonKey(name: 'type', defaultValue: 0)
-  int? resultType;
 
   @JsonKey(name: 'message', defaultValue: "")
   String? message;

@@ -28,7 +28,7 @@ class AuthDataSourceImpl implements AuthDataSource {
         method: NetworkMethod.post,
         queryParameters: userDto.toJson(),
         authorization: await localStorage.publicToken, // This is empty
-        mockResponse: {"type": 1, "content": 'Token-Mock', "message": "assss"});
+        mockResponse: {"statusCode": 200, "content": 'Token-Mock', "message": "assss"});
     await localStorage.refreshAccessToken(response.content ?? '');
     return response.content ?? '';
   }
