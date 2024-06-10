@@ -13,10 +13,33 @@ abstract class ApiHelper {
   T handleResponseAsJson<T extends JsonModel>(
       ResponseModelCreator<T> responseCreator, Response<String> response);
   dynamic handleDioError(DioException error);
+  dynamic handleStatusCodeError(int statusCode);
 }
 
 @LazySingleton(as: ApiHelper)
 class ApiHelperImpl implements ApiHelper {
+  @override
+  dynamic handleStatusCodeError(int statusCode) {
+    switch (statusCode) {
+      case StatusCode.badRequest:
+      case StatusCode.fulfilledRequest:
+        throw BadRequestException();
+      case StatusCode.unauthorized:
+      case StatusCode.forbidden:
+        throw UnauthorizedException();
+      case StatusCode.notFound:
+      case StatusCode.redirectError:
+        throw NotFoundException();
+      case StatusCode.conflict:
+        throw ConflictException();
+      case StatusCode.invalidMethod:
+        throw BadRequestException();
+      case StatusCode.internalServerError:
+      case StatusCode.serverFileConflict:
+        throw InternalServerErrorException();
+    }
+  }
+
   @override
   dynamic handleDioError(DioException error) {
     switch (error.type) {
@@ -25,24 +48,7 @@ class ApiHelperImpl implements ApiHelper {
       case DioExceptionType.receiveTimeout:
         throw FetchDataException();
       case DioExceptionType.badResponse:
-        switch (error.response?.statusCode) {
-          case StatusCode.badRequest:
-          case StatusCode.fulfilledRequest:
-            throw BadRequestException();
-          case StatusCode.unauthorized:
-          case StatusCode.forbidden:
-            throw UnauthorizedException();
-          case StatusCode.notFound:
-          case StatusCode.redirectError:
-            throw NotFoundException();
-          case StatusCode.conflict:
-            throw ConflictException();
-          case StatusCode.invalidMethod:
-            throw BadRequestException();
-          case StatusCode.internalServerError:
-          case StatusCode.serverFileConflict:
-            throw InternalServerErrorException();
-        }
+        handleStatusCodeError(error.response?.statusCode ?? 200);
         break;
       case DioExceptionType.cancel:
         break;
