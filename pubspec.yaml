@@ -25,7 +25,7 @@ dependencies:
   connectivity_plus: ^5.0.2
   dartz: ^0.10.1
   json_annotation: ^4.8.1
-  pretty_bloc_observer: ^1.0.0
+  pretty_bloc_observer: ^1.0.4
   get_it: ^7.6.6
   shared_preferences: ^2.2.2
   url_launcher: ^6.2.5

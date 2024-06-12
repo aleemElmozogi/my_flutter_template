@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:my_flutter_template/core/api/status_code.dart';
 import 'package:my_flutter_template/core/error/exceptions.dart';
+import 'package:my_flutter_template/core/models/error_response_model.dart';
 import 'package:my_flutter_template/core/models/json_model.dart';
 import 'package:my_flutter_template/core/models/response_model.dart';
 import 'package:injectable/injectable.dart';
@@ -64,12 +65,24 @@ class ApiHelperImpl implements ApiHelper {
 
   @override
   T handleResponseAsJson<T extends JsonModel>(
-      ResponseModelCreator<T> responseCreator, Response<String> response) {
+    ResponseModelCreator<T> responseCreator,
+    Response<String> response,
+  ) {
     var parsedResponse = responseCreator() as ResponseModel;
     try {
       final messageResponse = jsonDecode(response.data!);
-      parsedResponse = parsedResponse.fromJson(messageResponse);
-      return parsedResponse as T;
+
+      if (response.statusCode != null &&
+              response.statusCode! >= 200 &&
+              response.statusCode! < 300) {
+        // Handle success response
+        parsedResponse = parsedResponse.fromJson(messageResponse);
+        return parsedResponse as T;
+      } else {
+        // Handle error response
+        final errorResponse = ErrorResponseModel.fromJson(messageResponse);
+        throw ApiException(errorResponse);
+      }
     } catch (e) {
       throw BadResponseException(e.toString());
     }

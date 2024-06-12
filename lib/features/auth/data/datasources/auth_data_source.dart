@@ -1,5 +1,3 @@
-
-
 import 'package:my_flutter_template/core/api/api_consumer.dart';
 import 'package:my_flutter_template/core/api/end_points.dart';
 import 'package:my_flutter_template/core/localStorage/loacal_storage.dart';
@@ -11,6 +9,7 @@ import 'package:injectable/injectable.dart';
 abstract class AuthDataSource {
   Future<String> auth(UserAuthDto userDto);
 }
+
 @Singleton(as: AuthDataSource)
 class AuthDataSourceImpl implements AuthDataSource {
   final ApiConsumer apiConsumer;
@@ -28,8 +27,11 @@ class AuthDataSourceImpl implements AuthDataSource {
         method: NetworkMethod.post,
         queryParameters: userDto.toJson(),
         authorization: await localStorage.publicToken, // This is empty
-        mockResponse: {"statusCode": 200, "content": 'Token-Mock', "message": "assss"});
-    await localStorage.refreshAccessToken(response.content ?? '');
-    return response.content ?? '';
+        mockResponse: {
+          "statusCode": 200,
+          "data": "Successful response"
+        });
+    await localStorage.refreshAccessToken(response.data ?? '');
+    return response.data ?? '';
   }
 }

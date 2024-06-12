@@ -1,4 +1,3 @@
-
 import 'package:my_flutter_template/config/routes/navigation.dart';
 import 'package:my_flutter_template/core/widgets/app_button.dart';
 import 'package:my_flutter_template/core/widgets/app_text.dart';
@@ -55,16 +54,13 @@ extension DialogExtension on BuildContext {
                       onClose();
                     }
                   : context.pop,
-              title:   'حسنًا',
-
+              title: 'حسنًا',
             ),
           ],
         );
       },
     );
   }
-
-
 
   Future<void> showAppBottomSheet({required Widget child}) async {
     showModalBottomSheet(
@@ -104,15 +100,14 @@ extension DialogExtension on BuildContext {
           actions: <Widget>[
             AppButton(
               onTab: onSubmit,
-              title:
-                submitTxt ?? 'حسنًا',
+              title: submitTxt ?? 'حسنًا',
             ),
             SizedBox(
               height: 7.h,
             ),
             AppButton(
               onTab: context.goPop,
-              title:submitTxt ?? 'إلغاء',
+              title: submitTxt ?? 'إلغاء',
             ),
           ],
         );
@@ -135,9 +130,7 @@ extension DialogExtension on BuildContext {
             color: AppColors.red,
             size: 48.0,
           ),
-          content: AppText(message,
-            maxLines: 3,
-          ),
+          content: AppText(message),
           actions: <Widget>[
             AppButton(
               backgroundColor: AppColors.red,
@@ -145,7 +138,7 @@ extension DialogExtension on BuildContext {
                 context.pop(); // Close the dialog
               },
               elevation: 2,
-              title:  'حسنًا',
+              title: 'حسنًا',
             ),
           ],
         );
@@ -189,8 +182,7 @@ extension DialogExtension on BuildContext {
                 context.pop(); // Close the dialog
               },
               elevation: 2,
-              title:  'حسنًا',
-
+              title: 'حسنًا',
             ),
           ],
         );

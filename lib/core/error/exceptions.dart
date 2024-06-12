@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
+import 'package:my_flutter_template/core/models/error_response_model.dart';
+import 'package:my_flutter_template/core/utils/error_fromatter.dart';
 
 class ServerException extends Equatable implements Exception {
   final String? message;
@@ -11,6 +15,21 @@ class ServerException extends Equatable implements Exception {
   @override
   String toString() {
     return '$message';
+  }
+}
+
+class ApiException extends ServerException {
+  final ErrorResponseModel errorResponse;
+
+  ApiException(this.errorResponse, [String? message])
+      : super(message ?? errorResponse.message);
+
+  @override
+  List<Object?> get props => [errorResponse, message];
+
+  @override
+  String toString() {
+    return '${errorResponse.message}${DetailsModel.fromJson(errorResponse.details!.toJson()).errors?.formatErrors}';
   }
 }
 
