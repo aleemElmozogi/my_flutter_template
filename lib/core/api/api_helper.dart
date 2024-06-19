@@ -101,14 +101,9 @@ class ApiHelperImpl implements ApiHelper {
 
   dynamic _handleBackEndError(Response<dynamic>? response) {
     if (response != null) {
-      try{
         final decodedResponse = jsonDecode(response.data!);
         final errorResponse = ErrorResponseModel.fromJson(decodedResponse);
         throw ApiException(errorResponse);
-      }on Exception catch(e){
-        throw FetchDataException();
-      }
-
     }
   }
 }

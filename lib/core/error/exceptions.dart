@@ -29,7 +29,7 @@ class ApiException extends ServerException {
 
   @override
   String toString() {
-    return '${errorResponse.message}${DetailsModel.fromJson(errorResponse.details!.toJson()).errors?.formatErrors}';
+    return '${errorResponse.message}\n${DetailsModel.fromJson(errorResponse.details!.toJson()).errors?.formatErrors}';
   }
 }
 

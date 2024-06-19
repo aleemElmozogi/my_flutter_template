@@ -40,11 +40,11 @@ class UserInfoDataSourceImpl implements UserInfoDataSource {
     return response.data ?? UserContentModel();
   }
 }
-//"statusCode": 400,
-//   "message": "Bad request",
-//   "details": {
-//     "errors": {
-//       "username": ["Username is required", "Username must be unique"],
-//       "email": ["Invalid email format"]
-//     }
+// "statusCode": 400,
+// "message": "Bad request",
+// "details": {
+//   "errors": {
+//     "username": ["Username is required", "Username must be unique"],
+//     "email": ["Invalid email format"]
 //   }
+// }
