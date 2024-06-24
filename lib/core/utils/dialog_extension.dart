@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:my_flutter_template/generated/l10n.dart';
 import 'app_colors.dart';
 
 extension DialogExtension on BuildContext {
@@ -55,7 +56,7 @@ extension DialogExtension on BuildContext {
                       onClose();
                     }
                   : context.pop,
-              title:   'حسنًا',
+              title:   S.of(context).ok,
 
             ),
           ],
@@ -105,14 +106,14 @@ extension DialogExtension on BuildContext {
             AppButton(
               onTab: onSubmit,
               title:
-                submitTxt ?? 'حسنًا',
+                submitTxt ?? S.of(context).ok,
             ),
             SizedBox(
               height: 7.h,
             ),
             AppButton(
               onTab: context.goPop,
-              title:submitTxt ?? 'إلغاء',
+              title:submitTxt ?? S.of(context).cancel,
             ),
           ],
         );
