@@ -3,7 +3,6 @@ import 'package:my_flutter_template/core/enums/fetch_status.dart';
 import 'package:my_flutter_template/core/utils/app_locale.dart';
 import 'package:my_flutter_template/core/utils/app_strings.dart';
 import 'package:my_flutter_template/core/utils/dialog_extension.dart';
-import 'package:my_flutter_template/core/utils/snackbar_extention.dart';
 import 'package:my_flutter_template/core/widgets/app_button.dart';
 import 'package:my_flutter_template/core/widgets/app_scaffold.dart';
 import 'package:my_flutter_template/core/widgets/app_text.dart';
@@ -87,7 +86,7 @@ class LoginScreen extends StatelessWidget {
                             if (_formKey.currentState!.validate()) {
                               context.read<AuthCubit>().login();
                             }
-                          })
+                          }),
                 ],
               ),
             );

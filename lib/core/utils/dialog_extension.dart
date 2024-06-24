@@ -5,7 +5,7 @@ import 'package:my_flutter_template/core/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'app_colors.dart';
 
 extension DialogExtension on BuildContext {
@@ -188,6 +188,24 @@ extension DialogExtension on BuildContext {
         );
       },
     );
+  }
+
+  void showAppSnackBar(
+      {required ContentType type,
+      required String title,
+      required String message}) {
+    ScaffoldMessenger.of(this)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+          title: type.message,
+          message: message,
+          contentType: type,
+        ),
+      ));
   }
 
   void showSnackBar({
