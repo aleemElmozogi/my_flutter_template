@@ -13,14 +13,14 @@ class InputValidation {
 
   static StringValidationCallback passwordValidation() {
     return ValidationBuilder()
-        .minLength(8, S.current.password_error_message)
+        .minLength(8, S.current.passwordErrorMessage)
         .required()
         .build();
   }
 
   static StringValidationCallback phoneNumberValidation() {
     return ValidationBuilder()
-        .regExp(RegExp(r'^9\d{8}$'), S.current.phone_error_message)
+        .regExp(RegExp(r'^9\d{8}$'), S.current.phoneErrorMessage)
         .required()
         .build();
   }
