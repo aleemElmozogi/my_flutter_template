@@ -8,7 +8,7 @@ extension ErrorMapFormatter on Map<String, List<String>> {
         if (error.isNotEmpty) {
           if (!firstError) {
             messageBuffer
-                .writeln(); // Add a newline before appending a new error
+                .write(', '); // Add a newline before appending a new error
           }
           messageBuffer.write(error);
           firstError = false;
