@@ -111,11 +111,11 @@ abstract class AppLocalizations {
   /// **'Oops!'**
   String get opps;
 
-  /// No description provided for @internet_connection_error.
+  /// No description provided for @internetConnectionError.
   ///
   /// In en, this message translates to:
   /// **'Please check your internet connection and try again'**
-  String get internet_connection_error;
+  String get internetConnectionError;
 
   /// No description provided for @try_again.
   ///
@@ -171,35 +171,35 @@ abstract class AppLocalizations {
   /// **'Do you want to log out?'**
   String get want_to_logout;
 
-  /// No description provided for @singin_with_phone.
+  /// No description provided for @signinWithPhone.
   ///
   /// In en, this message translates to:
   /// **'Sign in with phone number'**
-  String get singin_with_phone;
+  String get signinWithPhone;
 
-  /// No description provided for @verify_with_phone.
+  /// No description provided for @verifyWithPhone.
   ///
   /// In en, this message translates to:
   /// **'Verify with phone number'**
-  String get verify_with_phone;
+  String get verifyWithPhone;
 
-  /// No description provided for @change_password.
+  /// No description provided for @changePassword.
   ///
   /// In en, this message translates to:
   /// **'Change Password'**
-  String get change_password;
+  String get changePassword;
 
-  /// No description provided for @change_email.
+  /// No description provided for @changeEmail.
   ///
   /// In en, this message translates to:
   /// **'Change Email'**
-  String get change_email;
+  String get changeEmail;
 
-  /// No description provided for @code_will_be_sent.
+  /// No description provided for @codeWillBeSent.
   ///
   /// In en, this message translates to:
   /// **'A code will be sent to the phone number'**
-  String get code_will_be_sent;
+  String get codeWillBeSent;
 
   /// No description provided for @continio.
   ///
@@ -213,11 +213,11 @@ abstract class AppLocalizations {
   /// **'Check'**
   String get check;
 
-  /// No description provided for @code_has_been_sent.
+  /// No description provided for @codeHasBeenSent.
   ///
   /// In en, this message translates to:
   /// **'The code has been sent to your phone number'**
-  String get code_has_been_sent;
+  String get codeHasBeenSent;
 
   /// No description provided for @resend.
   ///
@@ -225,17 +225,17 @@ abstract class AppLocalizations {
   /// **'Resend'**
   String get resend;
 
-  /// No description provided for @enter_pin.
+  /// No description provided for @enterPin.
   ///
   /// In en, this message translates to:
   /// **'Enter PIN'**
-  String get enter_pin;
+  String get enterPin;
 
-  /// No description provided for @enter_number_to_add.
+  /// No description provided for @enterNumberToAdd.
   ///
   /// In en, this message translates to:
   /// **'Enter the number of the friend to be added'**
-  String get enter_number_to_add;
+  String get enterNumberToAdd;
 
   /// No description provided for @save.
   ///
@@ -243,23 +243,23 @@ abstract class AppLocalizations {
   /// **'Save'**
   String get save;
 
-  /// No description provided for @add_friend.
+  /// No description provided for @addFriend.
   ///
   /// In en, this message translates to:
   /// **'Add Friend'**
-  String get add_friend;
+  String get addFriend;
 
-  /// No description provided for @use_strong_pin.
+  /// No description provided for @useStrongPin.
   ///
   /// In en, this message translates to:
   /// **'Use a strong PIN for your account'**
-  String get use_strong_pin;
+  String get useStrongPin;
 
-  /// No description provided for @enter_new_pin.
+  /// No description provided for @enterNewPin.
   ///
   /// In en, this message translates to:
   /// **'Enter new PIN'**
-  String get enter_new_pin;
+  String get enterNewPin;
 
   /// No description provided for @logout.
   ///

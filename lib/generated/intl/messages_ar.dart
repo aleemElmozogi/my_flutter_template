@@ -61,15 +61,28 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("لا يوجد اتصال بالإنترنت"),
         "ok": MessageLookupByLibrary.simpleMessage("موافق"),
         "opps": MessageLookupByLibrary.simpleMessage("عفواً !"),
+        "passwordErrorMessage": MessageLookupByLibrary.simpleMessage(
+            "يجب ان تتكون كلمة المرور من 8 أرقام على الأقل"),
+        "phoneErrorMessage": MessageLookupByLibrary.simpleMessage(
+            "الرجاء إدخال رقم الهاتف بالصيغة الصحيحة"),
+        "qrParsingError": MessageLookupByLibrary.simpleMessage(
+            "حدث خطأ أثناء تجهيز رمز الQR"),
+        "reloadScreen":
+            MessageLookupByLibrary.simpleMessage("إعادة تحميل الصفحة"),
         "resend": MessageLookupByLibrary.simpleMessage("أعد الإرسال"),
         "save": MessageLookupByLibrary.simpleMessage("حفظ"),
         "signinWithPhone":
             MessageLookupByLibrary.simpleMessage("تسجيل الدخول برقم الهاتف"),
+        "somethingWentWrong":
+            MessageLookupByLibrary.simpleMessage("حدث خطأ ما"),
+        "tryAgain": MessageLookupByLibrary.simpleMessage("حاول مجدداَ"),
         "unauthorized": MessageLookupByLibrary.simpleMessage("غير مصرح به"),
         "useStrongPin": MessageLookupByLibrary.simpleMessage(
             "إستخدم رمز تعريف شخصي قوي لحسابك"),
         "verifyWithPhone":
             MessageLookupByLibrary.simpleMessage("التحقق من رقم الهاتف"),
+        "wantToLogout":
+            MessageLookupByLibrary.simpleMessage("هل تريد تسجيل الخروج؟"),
         "welcome": MessageLookupByLibrary.simpleMessage("أهلًا بك")
       };
 }

@@ -14,7 +14,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get opps => 'Oops!';
 
   @override
-  String get internet_connection_error => 'Please check your internet connection and try again';
+  String get internetConnectionError => 'Please check your internet connection and try again';
 
   @override
   String get try_again => 'Try Again';
@@ -44,19 +44,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get want_to_logout => 'Do you want to log out?';
 
   @override
-  String get singin_with_phone => 'Sign in with phone number';
+  String get signinWithPhone => 'Sign in with phone number';
 
   @override
-  String get verify_with_phone => 'Verify with phone number';
+  String get verifyWithPhone => 'Verify with phone number';
 
   @override
-  String get change_password => 'Change Password';
+  String get changePassword => 'Change Password';
 
   @override
-  String get change_email => 'Change Email';
+  String get changeEmail => 'Change Email';
 
   @override
-  String get code_will_be_sent => 'A code will be sent to the phone number';
+  String get codeWillBeSent => 'A code will be sent to the phone number';
 
   @override
   String get continio => 'Continue';
@@ -65,28 +65,28 @@ class AppLocalizationsEn extends AppLocalizations {
   String get check => 'Check';
 
   @override
-  String get code_has_been_sent => 'The code has been sent to your phone number';
+  String get codeHasBeenSent => 'The code has been sent to your phone number';
 
   @override
   String get resend => 'Resend';
 
   @override
-  String get enter_pin => 'Enter PIN';
+  String get enterPin => 'Enter PIN';
 
   @override
-  String get enter_number_to_add => 'Enter the number of the friend to be added';
+  String get enterNumberToAdd => 'Enter the number of the friend to be added';
 
   @override
   String get save => 'Save';
 
   @override
-  String get add_friend => 'Add Friend';
+  String get addFriend => 'Add Friend';
 
   @override
-  String get use_strong_pin => 'Use a strong PIN for your account';
+  String get useStrongPin => 'Use a strong PIN for your account';
 
   @override
-  String get enter_new_pin => 'Enter new PIN';
+  String get enterNewPin => 'Enter new PIN';
 
   @override
   String get logout => 'Log Out';

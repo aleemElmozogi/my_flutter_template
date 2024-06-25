@@ -91,10 +91,10 @@ class S {
   }
 
   /// `Try Again`
-  String get try_again {
+  String get tryAgain {
     return Intl.message(
       'Try Again',
-      name: 'try_again',
+      name: 'tryAgain',
       desc: '',
       args: [],
     );
@@ -141,40 +141,40 @@ class S {
   }
 
   /// `Something went wrong`
-  String get something_went_wrong {
+  String get somethingWentWrong {
     return Intl.message(
       'Something went wrong',
-      name: 'something_went_wrong',
+      name: 'somethingWentWrong',
       desc: '',
       args: [],
     );
   }
 
   /// `An error occurred while parsing the QR code`
-  String get qr_parsing_error {
+  String get qrParsingError {
     return Intl.message(
       'An error occurred while parsing the QR code',
-      name: 'qr_parsing_error',
+      name: 'qrParsingError',
       desc: '',
       args: [],
     );
   }
 
   /// `Reload Screen`
-  String get reload_screen {
+  String get reloadScreen {
     return Intl.message(
       'Reload Screen',
-      name: 'reload_screen',
+      name: 'reloadScreen',
       desc: '',
       args: [],
     );
   }
 
   /// `Do you want to log out?`
-  String get want_to_logout {
+  String get wantToLogout {
     return Intl.message(
       'Do you want to log out?',
-      name: 'want_to_logout',
+      name: 'wantToLogout',
       desc: '',
       args: [],
     );
@@ -341,20 +341,20 @@ class S {
   }
 
   /// `Password must be at least 8 digits`
-  String get password_error_message {
+  String get passwordErrorMessage {
     return Intl.message(
       'Password must be at least 8 digits',
-      name: 'password_error_message',
+      name: 'passwordErrorMessage',
       desc: '',
       args: [],
     );
   }
 
   /// `Please enter the phone number in the correct format`
-  String get phone_error_message {
+  String get phoneErrorMessage {
     return Intl.message(
       'Please enter the phone number in the correct format',
-      name: 'phone_error_message',
+      name: 'phoneErrorMessage',
       desc: '',
       args: [],
     );

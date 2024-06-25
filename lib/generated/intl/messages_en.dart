@@ -61,26 +61,26 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No internet connection"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "opps": MessageLookupByLibrary.simpleMessage("Oops!"),
-        "password_error_message": MessageLookupByLibrary.simpleMessage(
+        "passwordErrorMessage": MessageLookupByLibrary.simpleMessage(
             "Password must be at least 8 digits"),
-        "phone_error_message": MessageLookupByLibrary.simpleMessage(
+        "phoneErrorMessage": MessageLookupByLibrary.simpleMessage(
             "Please enter the phone number in the correct format"),
-        "qr_parsing_error": MessageLookupByLibrary.simpleMessage(
+        "qrParsingError": MessageLookupByLibrary.simpleMessage(
             "An error occurred while parsing the QR code"),
-        "reload_screen": MessageLookupByLibrary.simpleMessage("Reload Screen"),
+        "reloadScreen": MessageLookupByLibrary.simpleMessage("Reload Screen"),
         "resend": MessageLookupByLibrary.simpleMessage("Resend"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "signinWithPhone":
             MessageLookupByLibrary.simpleMessage("Sign in with phone number"),
-        "something_went_wrong":
+        "somethingWentWrong":
             MessageLookupByLibrary.simpleMessage("Something went wrong"),
-        "try_again": MessageLookupByLibrary.simpleMessage("Try Again"),
+        "tryAgain": MessageLookupByLibrary.simpleMessage("Try Again"),
         "unauthorized": MessageLookupByLibrary.simpleMessage("Unauthorized"),
         "useStrongPin": MessageLookupByLibrary.simpleMessage(
             "Use a strong PIN for your account"),
         "verifyWithPhone":
             MessageLookupByLibrary.simpleMessage("Verify with phone number"),
-        "want_to_logout":
+        "wantToLogout":
             MessageLookupByLibrary.simpleMessage("Do you want to log out?"),
         "welcome": MessageLookupByLibrary.simpleMessage("Welcome")
       };
