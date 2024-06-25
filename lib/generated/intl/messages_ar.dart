@@ -23,6 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "addFriend": MessageLookupByLibrary.simpleMessage("إضافة صديق"),
+        "agree": MessageLookupByLibrary.simpleMessage("موافق"),
         "appName": MessageLookupByLibrary.simpleMessage("تمبلت فلاتر"),
         "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
         "changeEmail":
@@ -56,7 +57,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "لا يوجد بيانات أو محتوى متاح"),
         "noInternetConnection":
             MessageLookupByLibrary.simpleMessage("لا يوجد اتصال بالإنترنت"),
-        "ok": MessageLookupByLibrary.simpleMessage("موافق"),
+        "ok": MessageLookupByLibrary.simpleMessage("حسنًا"),
         "opps": MessageLookupByLibrary.simpleMessage("عفواً !"),
         "passwordErrorMessage": MessageLookupByLibrary.simpleMessage(
             "يجب ان تتكون كلمة المرور من 8 أرقام على الأقل"),

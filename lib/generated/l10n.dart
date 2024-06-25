@@ -111,6 +111,16 @@ class S {
   }
 
   /// `OK`
+  String get agree {
+    return Intl.message(
+      'OK',
+      name: 'agree',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `OK`
   String get ok {
     return Intl.message(
       'OK',

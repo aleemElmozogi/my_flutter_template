@@ -23,6 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "addFriend": MessageLookupByLibrary.simpleMessage("Add Friend"),
+        "agree": MessageLookupByLibrary.simpleMessage("OK"),
         "appName": MessageLookupByLibrary.simpleMessage("My Flutter Template"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "changeEmail": MessageLookupByLibrary.simpleMessage("Change Email"),
