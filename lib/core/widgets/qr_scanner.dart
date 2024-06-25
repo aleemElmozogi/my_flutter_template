@@ -38,6 +38,7 @@ class _AppQrScannerState extends State<AppQrScanner> {
     widget.controller!.scannedDataStream.listen((scanData) {
       if (scanData.code != null) {
         widget.onQrScan.call(scanData.code.toString());
+        return;
       }
     });
   }
