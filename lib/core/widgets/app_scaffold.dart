@@ -8,6 +8,7 @@ class AppScaffold extends StatelessWidget {
   final Widget? titleWidget;
   final List<Widget>? actions;
   final Widget? floatingActionButton;
+  final AppBar? appBar;
   final FloatingActionButtonLocation floatingActionButtonLocation;
   final Widget? bottomNavigation;
   final EdgeInsets contentPadding;
@@ -29,6 +30,7 @@ class AppScaffold extends StatelessWidget {
       this.appBarBackgroundColor = Colors.transparent,
       this.title = '',
       this.titleWidget,
+      this.appBar,
       this.drawer,
       this.bottomNavigation,
       this.floatingActionButton,
@@ -70,38 +72,39 @@ class AppScaffold extends StatelessWidget {
             backgroundColor: backgroundColorGradient.isEmpty
                 ? backgroundColor
                 : Colors.transparent,
-            appBar: title.isNotEmpty
-                ? AppBar(
-                    elevation: 0,
-                    actionsIconTheme: IconThemeData(
-                        color: backgroundColor == AppColors.background
-                            ? AppColors.black
-                            : null),
-                    backgroundColor: appBarBackgroundColor,
-                    iconTheme: IconThemeData(
-                        color: backgroundColor == AppColors.background
-                            ? AppColors.black
-                            : null),
-                    actions: actions,
-                    title: titleWidget ??
-                        AppText(
-                          title,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                  )
-                : AppBar(
-                    forceMaterialTransparency: true,
-                    elevation: 0,
-                    actionsIconTheme: IconThemeData(
-                        color: backgroundColor == AppColors.background
-                            ? AppColors.black
-                            : null),
-              iconTheme: IconThemeData(
-                  color: backgroundColor == AppColors.background
-                      ? AppColors.black
-                      : null),
-                  ),
+            appBar: appBar ??
+                (title.isNotEmpty
+                    ? AppBar(
+                        elevation: 0,
+                        actionsIconTheme: IconThemeData(
+                            color: backgroundColor == AppColors.background
+                                ? AppColors.black
+                                : null),
+                        backgroundColor: appBarBackgroundColor,
+                        iconTheme: IconThemeData(
+                            color: backgroundColor == AppColors.background
+                                ? AppColors.black
+                                : null),
+                        actions: actions,
+                        title: titleWidget ??
+                            AppText(
+                              title,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                      )
+                    : AppBar(
+                        forceMaterialTransparency: true,
+                        elevation: 0,
+                        actionsIconTheme: IconThemeData(
+                            color: backgroundColor == AppColors.background
+                                ? AppColors.black
+                                : null),
+                        iconTheme: IconThemeData(
+                            color: backgroundColor == AppColors.background
+                                ? AppColors.black
+                                : null),
+                      )),
             resizeToAvoidBottomInset: resizeToAvoidBottomInset,
             body: Container(
               decoration: backgroundImage != null

@@ -61,10 +61,10 @@ class S {
   }
 
   /// `My Flutter Template`
-  String get app_name {
+  String get appName {
     return Intl.message(
       'My Flutter Template',
-      name: 'app_name',
+      name: 'appName',
       desc: '',
       args: [],
     );
@@ -81,10 +81,10 @@ class S {
   }
 
   /// `Please check your internet connection and try again`
-  String get internet_connection_error {
+  String get internetConnectionError {
     return Intl.message(
       'Please check your internet connection and try again',
-      name: 'internet_connection_error',
+      name: 'internetConnectionError',
       desc: '',
       args: [],
     );
@@ -105,6 +105,16 @@ class S {
     return Intl.message(
       'Welcome',
       name: 'welcome',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Agree`
+  String get agree {
+    return Intl.message(
+      'Agree',
+      name: 'agree',
       desc: '',
       args: [],
     );
@@ -171,50 +181,50 @@ class S {
   }
 
   /// `Sign in with phone number`
-  String get singin_with_phone {
+  String get signinWithPhone {
     return Intl.message(
       'Sign in with phone number',
-      name: 'singin_with_phone',
+      name: 'signinWithPhone',
       desc: '',
       args: [],
     );
   }
 
   /// `Verify with phone number`
-  String get verify_with_phone {
+  String get verifyWithPhone {
     return Intl.message(
       'Verify with phone number',
-      name: 'verify_with_phone',
+      name: 'verifyWithPhone',
       desc: '',
       args: [],
     );
   }
 
   /// `Change Password`
-  String get change_password {
+  String get changePassword {
     return Intl.message(
       'Change Password',
-      name: 'change_password',
+      name: 'changePassword',
       desc: '',
       args: [],
     );
   }
 
   /// `Change Email`
-  String get change_email {
+  String get changeEmail {
     return Intl.message(
       'Change Email',
-      name: 'change_email',
+      name: 'changeEmail',
       desc: '',
       args: [],
     );
   }
 
   /// `A code will be sent to the phone number`
-  String get code_will_be_sent {
+  String get codeWillBeSent {
     return Intl.message(
       'A code will be sent to the phone number',
-      name: 'code_will_be_sent',
+      name: 'codeWillBeSent',
       desc: '',
       args: [],
     );
@@ -241,10 +251,10 @@ class S {
   }
 
   /// `The code has been sent to your phone number`
-  String get code_has_been_sent {
+  String get codeHasBeenSent {
     return Intl.message(
       'The code has been sent to your phone number',
-      name: 'code_has_been_sent',
+      name: 'codeHasBeenSent',
       desc: '',
       args: [],
     );
@@ -261,20 +271,20 @@ class S {
   }
 
   /// `Enter PIN`
-  String get enter_pin {
+  String get enterPin {
     return Intl.message(
       'Enter PIN',
-      name: 'enter_pin',
+      name: 'enterPin',
       desc: '',
       args: [],
     );
   }
 
   /// `Enter the number of the friend to be added`
-  String get enter_number_to_add {
+  String get enterNumberToAdd {
     return Intl.message(
       'Enter the number of the friend to be added',
-      name: 'enter_number_to_add',
+      name: 'enterNumberToAdd',
       desc: '',
       args: [],
     );
@@ -291,30 +301,30 @@ class S {
   }
 
   /// `Add Friend`
-  String get add_friend {
+  String get addFriend {
     return Intl.message(
       'Add Friend',
-      name: 'add_friend',
+      name: 'addFriend',
       desc: '',
       args: [],
     );
   }
 
   /// `Use a strong PIN for your account`
-  String get use_strong_pin {
+  String get useStrongPin {
     return Intl.message(
       'Use a strong PIN for your account',
-      name: 'use_strong_pin',
+      name: 'useStrongPin',
       desc: '',
       args: [],
     );
   }
 
   /// `Enter new PIN`
-  String get enter_new_pin {
+  String get enterNewPin {
     return Intl.message(
       'Enter new PIN',
-      name: 'enter_new_pin',
+      name: 'enterNewPin',
       desc: '',
       args: [],
     );

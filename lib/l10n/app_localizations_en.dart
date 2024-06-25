@@ -8,7 +8,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get helloWorld => 'Hello World!';
 
   @override
-  String get app_name => 'My Flutter Template';
+  String get appName => 'My Flutter Template';
 
   @override
   String get opps => 'Oops!';
@@ -21,6 +21,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get welcome => 'Welcome';
+
+  @override
+  String get agree => 'Agree';
 
   @override
   String get ok => 'OK';

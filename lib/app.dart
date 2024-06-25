@@ -64,7 +64,7 @@ class _MyTemplateAppState extends State<MyTemplateApp> {
               minTextAdapt: true,
               builder: (context, child) {
                 return MaterialApp.router(
-                  title: AppStrings.appName,
+                  onGenerateTitle: (context) => S.of(context).appName,
                   locale: state.locale,
                   theme: appTheme(),
                   routerConfig: _router,

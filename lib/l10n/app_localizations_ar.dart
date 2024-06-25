@@ -8,7 +8,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get helloWorld => 'مرحبا بالعالم!';
 
   @override
-  String get app_name => 'My Flutter Template';
+  String get appName => 'تمبلت فلاتر';
 
   @override
   String get opps => 'عفواً !';
@@ -21,6 +21,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get welcome => 'أهلًا بك';
+
+  @override
+  String get agree => 'حسنًا';
 
   @override
   String get ok => 'موافق';
