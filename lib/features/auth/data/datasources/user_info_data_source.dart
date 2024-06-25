@@ -27,8 +27,8 @@ class UserInfoDataSourceImpl implements UserInfoDataSource {
         method: NetworkMethod.get,
         authorization: await localStorage.accessToken,
         mockResponse: {
-          "type": 1,
-          "content": {
+          "statusCode": 200,
+          "data": {
             "id": '3234234',
             "name": 'عبدالعليم المزوغي',
             "email": 'Elmozogiabdalalim@gmail.com',
@@ -36,14 +36,15 @@ class UserInfoDataSourceImpl implements UserInfoDataSource {
             "phoneNumber": "924397976",
             "accountType": 3
           },
-          "message": "تمت العملية بنجاح"
         });
-    return response.content ??
-        UserContentModel(
-            userId: '',
-            userName: '',
-            profileImageUrl: '',
-            phoneNumber: '',
-            userEmail: '');
+    return response.data ?? UserContentModel();
   }
 }
+// "statusCode": 400,
+// "message": "Bad request",
+// "details": {
+//   "errors": {
+//     "username": ["Username is required", "Username must be unique"],
+//     "email": ["Invalid email format"]
+//   }
+// }

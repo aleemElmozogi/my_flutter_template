@@ -1,3 +1,6 @@
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:form_validator/form_validator.dart';
+
 import 'config/routes/routes.dart';
 import 'core/enums/auth_status.dart';
 import 'core/utils/dialog_extension.dart';
@@ -5,7 +8,6 @@ import 'features/auth/presentation/cubit/auth_cubit.dart';
 import 'features/auth/presentation/cubit/auth_state.dart';
 import 'features/splash/presentation/cubit/locale_cubit.dart';
 import 'features/splash/presentation/screens/splash_screen.dart';
-
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,11 +15,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_web_plugins/src/navigation_non_web/url_strategy.dart';
-import 'config/locale/app_localizations_setup.dart';
 import 'config/themes/app_theme.dart';
 import 'core/utils/app_strings.dart';
 import 'features/auth/presentation/pages/auth_page.dart';
 import 'core/di/injection.dart' as di;
+import 'generated/l10n.dart';
 
 part 'app_routes.dart';
 part 'auth_listener.dart';
@@ -50,35 +52,37 @@ class _MyTemplateAppState extends State<MyTemplateApp> {
             return previousState != currentState;
           },
           builder: (context, state) {
+            //This is needed to prevent the app from rotating right or left
             SystemChrome.setPreferredOrientations([
               DeviceOrientation.portraitUp,
               DeviceOrientation.portraitDown,
             ]);
+            //This sets the form validator locale to the app default
+            ValidationBuilder.setLocale(state.locale.languageCode);
             return ScreenUtilInit(
               designSize: const Size(375, 812),
               minTextAdapt: true,
               builder: (context, child) {
-                return Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: MaterialApp.router(
-                    title: AppStrings.appName,
-                    locale: state.locale,
-                    theme: appTheme(),
-                    routerConfig: _router,
-                    builder: (BuildContext context, Widget? child) =>
-                        BlocListener<AuthCubit, AuthState>(
-                      listenWhen: (previous, current) =>
-                          previous.authState != current.authState,
-                      listener: _authStatus,
-                      child: child ?? const SizedBox.shrink(),
-                    ),
-                    debugShowCheckedModeBanner: false,
-                    supportedLocales: AppLocalizationsSetup.supportedLocales,
-                    localeResolutionCallback:
-                        AppLocalizationsSetup.localeResolutionCallback,
-                    localizationsDelegates:
-                        AppLocalizationsSetup.localizationsDelegates,
+                return MaterialApp.router(
+                  title: AppStrings.appName,
+                  locale: state.locale,
+                  theme: appTheme(),
+                  routerConfig: _router,
+                  builder: (BuildContext context, Widget? child) =>
+                      BlocListener<AuthCubit, AuthState>(
+                    listenWhen: (previous, current) =>
+                        previous.authState != current.authState,
+                    listener: _authStatus,
+                    child: child ?? const SizedBox.shrink(),
                   ),
+                  debugShowCheckedModeBanner: false,
+                  localizationsDelegates: const [
+                    S.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                  ],
+                  supportedLocales: S.delegate.supportedLocales,
                 );
               },
             );

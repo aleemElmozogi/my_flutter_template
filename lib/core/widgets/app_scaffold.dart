@@ -61,10 +61,10 @@ class AppScaffold extends StatelessWidget {
         bottom: safeBottomArea,
         child: Scaffold(
             extendBody: true,
+            key: scaffoldKey,
             floatingActionButton: floatingActionButton,
             floatingActionButtonLocation: floatingActionButtonLocation,
             extendBodyBehindAppBar: extendBodyBehindAppBar,
-            key: scaffoldKey,
             bottomNavigationBar: bottomNavigation,
             drawer: drawer,
             backgroundColor: backgroundColorGradient.isEmpty
@@ -74,12 +74,12 @@ class AppScaffold extends StatelessWidget {
                 ? AppBar(
                     elevation: 0,
                     actionsIconTheme: IconThemeData(
-                        color: backgroundColor == AppColors.backGround
+                        color: backgroundColor == AppColors.background
                             ? AppColors.black
                             : null),
                     backgroundColor: appBarBackgroundColor,
                     iconTheme: IconThemeData(
-                        color: backgroundColor == AppColors.backGround
+                        color: backgroundColor == AppColors.background
                             ? AppColors.black
                             : null),
                     actions: actions,
@@ -94,11 +94,11 @@ class AppScaffold extends StatelessWidget {
                     forceMaterialTransparency: true,
                     elevation: 0,
                     actionsIconTheme: IconThemeData(
-                        color: backgroundColor == AppColors.backGround
+                        color: backgroundColor == AppColors.background
                             ? AppColors.black
                             : null),
               iconTheme: IconThemeData(
-                  color: backgroundColor == AppColors.backGround
+                  color: backgroundColor == AppColors.background
                       ? AppColors.black
                       : null),
                   ),

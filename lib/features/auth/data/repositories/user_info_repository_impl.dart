@@ -23,7 +23,7 @@ class UserInfoRepositoryImpl implements UserInfoRepository {
         final response = await userInfoDataSource.fetch();
         return Right(response);
       } else {
-        throw  NoInternetConnectionException();
+        throw NoInternetConnectionException();
       }
     } on ServerException catch (e) {
       return Left(ServerFailure(e.message));

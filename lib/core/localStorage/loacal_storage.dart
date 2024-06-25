@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:my_flutter_template/core/enums/local_keys.dart';
+import 'package:my_flutter_template/core/utils/app_locale.dart';
 import 'package:my_flutter_template/core/utils/app_strings.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectable/injectable.dart';
@@ -40,7 +43,7 @@ class LocalStorageImpl implements LocalStorage {
     await SharedPreferences.getInstance();
     return sharedPreferences.containsKey(AppStrings.locale)
         ? sharedPreferences.getString(AppStrings.locale)!
-        : AppStrings.englishCode;
+        : AppLocale.en.languageCode;
   }
   @override
   Future<bool> get isSubscribeToNotificationTopic async {

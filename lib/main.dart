@@ -1,6 +1,6 @@
 // ********************************************************************************
 // * This project structure was built by Eng. Abdul-Aleem El-Mozughi.             *
-// * I hope you find the template useful!                                         *
+// * I hope you find the template useful!                                          *
 // *                                                                              *
 // * My GitHub: https://github.com/aleemElmozogi                                  *
 // *                                                                              *

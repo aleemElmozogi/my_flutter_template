@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 class AppText extends StatelessWidget {
   final String title;
   final double fontSize;
-  final int maxLines;
+  final int? maxLines;
   final TextAlign textAlign;
   final Color textColor;
   final TextOverflow overflow;
@@ -18,7 +18,7 @@ class AppText extends StatelessWidget {
     this.fontWeight = FontWeight.normal,
     this.fontSize = 16,
     this.overflow = TextOverflow.ellipsis,
-    this.maxLines = 1,
+    this.maxLines,
     this.textAlign = TextAlign.center,
     this.textColor = AppColors.black,
   });

@@ -11,7 +11,8 @@ environment:
 dependencies:
   bloc: ^8.1.2
   equatable: ^2.0.5
-  form_validator: ^2.1.1
+  form_validator:
+    git: https://github.com/themisir/form-validator.git
   flutter:
     sdk: flutter
   flutter_localizations:
@@ -25,7 +26,7 @@ dependencies:
   connectivity_plus: ^5.0.2
   dartz: ^0.10.1
   json_annotation: ^4.8.1
-  pretty_bloc_observer: ^1.0.0
+  pretty_bloc_observer: ^1.0.4
   get_it: ^7.6.6
   shared_preferences: ^2.2.2
   url_launcher: ^6.2.5
@@ -49,14 +50,15 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   freezed: ^2.4.2
   json_serializable: ^6.7.1
+  awesome_snackbar_content:
+    git:
+      url: https://github.com/aleemElmozogi/awesome_snackbar_content.git
+      ref: fix/bubble-icon-cropping
 
 flutter:
   uses-material-design: true
+  generate: true
 
-  # To add assets to your application, add an assets section, like this:
-  assets:
-    - lang/ar.json
-    - lang/en.json
 
   fonts:
     - family: Tajawal
@@ -75,3 +77,5 @@ flutter:
           weight: 300
         - asset: assets/fonts/Tajawal-ExtraLight.ttf
           weight: 200
+flutter_intl:
+  enabled: true

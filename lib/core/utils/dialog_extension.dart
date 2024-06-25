@@ -1,4 +1,3 @@
-
 import 'package:my_flutter_template/config/routes/navigation.dart';
 import 'package:my_flutter_template/core/widgets/app_button.dart';
 import 'package:my_flutter_template/core/widgets/app_text.dart';
@@ -6,7 +5,8 @@ import 'package:my_flutter_template/core/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:my_flutter_template/generated/l10n.dart';
 import 'app_colors.dart';
 
 extension DialogExtension on BuildContext {
@@ -55,16 +55,13 @@ extension DialogExtension on BuildContext {
                       onClose();
                     }
                   : context.pop,
-              title:   'حسنًا',
-
+              title: S.of(context).agree,
             ),
           ],
         );
       },
     );
   }
-
-
 
   Future<void> showAppBottomSheet({required Widget child}) async {
     showModalBottomSheet(
@@ -104,15 +101,14 @@ extension DialogExtension on BuildContext {
           actions: <Widget>[
             AppButton(
               onTab: onSubmit,
-              title:
-                submitTxt ?? 'حسنًا',
+              title: submitTxt ?? S.of(context).agree,
             ),
             SizedBox(
               height: 7.h,
             ),
             AppButton(
               onTab: context.goPop,
-              title:submitTxt ?? 'إلغاء',
+              title: submitTxt ?? S.of(context).cancel,
             ),
           ],
         );
@@ -135,9 +131,7 @@ extension DialogExtension on BuildContext {
             color: AppColors.red,
             size: 48.0,
           ),
-          content: AppText(message,
-            maxLines: 3,
-          ),
+          content: AppText(message),
           actions: <Widget>[
             AppButton(
               backgroundColor: AppColors.red,
@@ -145,7 +139,7 @@ extension DialogExtension on BuildContext {
                 context.pop(); // Close the dialog
               },
               elevation: 2,
-              title:  'حسنًا',
+              title: S.of(context).agree,
             ),
           ],
         );
@@ -189,13 +183,30 @@ extension DialogExtension on BuildContext {
                 context.pop(); // Close the dialog
               },
               elevation: 2,
-              title:  'حسنًا',
-
+              title: S.of(context).agree,
             ),
           ],
         );
       },
     );
+  }
+
+  void showAppSnackBar(
+      {required ContentType type,
+      required String title,
+      required String message}) {
+    ScaffoldMessenger.of(this)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+          title: type.message,
+          message: message,
+          contentType: type,
+        ),
+      ));
   }
 
   void showSnackBar({

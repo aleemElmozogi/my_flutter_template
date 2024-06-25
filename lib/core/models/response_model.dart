@@ -1,14 +1,11 @@
-import 'package:my_flutter_template/core/models/json_model.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:my_flutter_template/core/models/json_model.dart';
 
 @JsonSerializable(genericArgumentFactories: true)
-abstract class ResponseModel<T, C extends Object> extends JsonModel<T> {
-  @JsonKey(name: 'type', defaultValue: 0)
-  int? resultType;
+abstract class ResponseModel<T, D extends Object> extends JsonModel<T> {
+  @JsonKey(name: 'statusCode')
+  int? statusCode;
 
-  @JsonKey(name: 'message', defaultValue: "")
-  String? message;
-
-  @JsonKey(name: 'content')
-  C? content;
+  @JsonKey(name: 'data')
+  D? data;
 }
