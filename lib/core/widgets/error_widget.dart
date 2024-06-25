@@ -24,12 +24,12 @@ class ErrorWidget extends StatelessWidget {
         Container(
           margin: const EdgeInsets.symmetric(vertical: 12),
           child: AppText(
-            S.current.something_went_wrong,
+            S.current.somethingWentWrong,
             fontSize: 20,
           ),
         ),
         AppText(
-          S.current.try_again,
+          S.current.tryAgain,
           fontSize: 18,
         ),
         Container(
@@ -43,7 +43,7 @@ class ErrorWidget extends StatelessWidget {
                 elevation: 500,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50))),
-            child: AppText(S.current.reload_screen,
+            child: AppText(S.current.reloadScreen,
                 textColor: Colors.white, fontWeight: FontWeight.w700),
             onPressed: () {
               if (onPress != null) {
