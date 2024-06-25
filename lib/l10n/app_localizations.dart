@@ -99,11 +99,11 @@ abstract class AppLocalizations {
   /// **'Hello World!'**
   String get helloWorld;
 
-  /// No description provided for @app_name.
+  /// No description provided for @appName.
   ///
   /// In en, this message translates to:
   /// **'My Flutter Template'**
-  String get app_name;
+  String get appName;
 
   /// No description provided for @opps.
   ///
@@ -128,6 +128,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Welcome'**
   String get welcome;
+
+  /// No description provided for @agree.
+  ///
+  /// In en, this message translates to:
+  /// **'Agree'**
+  String get agree;
 
   /// No description provided for @ok.
   ///

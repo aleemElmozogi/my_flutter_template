@@ -25,6 +25,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return AppScaffold(
       body: BlocListener<AuthCubit, AuthState>(
         listenWhen: (previous, current) =>

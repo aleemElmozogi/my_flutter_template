@@ -22,9 +22,26 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "addFriend": MessageLookupByLibrary.simpleMessage("إضافة صديق"),
+        "agree": MessageLookupByLibrary.simpleMessage("حسنًا"),
+        "appName": MessageLookupByLibrary.simpleMessage("تمبلت فلاتر"),
         "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
+        "changeEmail":
+            MessageLookupByLibrary.simpleMessage("تغيير البريد الإلكتروني"),
+        "changePassword":
+            MessageLookupByLibrary.simpleMessage("تغيير كلمة المرور"),
         "check": MessageLookupByLibrary.simpleMessage("تحقق"),
+        "codeHasBeenSent": MessageLookupByLibrary.simpleMessage(
+            "تم إرسال الرمز إلى رقم هاتفك"),
+        "codeWillBeSent": MessageLookupByLibrary.simpleMessage(
+            "سيتم إرسال رمز إلى رقم الهاتف"),
         "conflictOccurred": MessageLookupByLibrary.simpleMessage("حدث تضارب"),
+        "enterNewPin": MessageLookupByLibrary.simpleMessage(
+            "أدخل رمز التعريف الشخصي الجديد"),
+        "enterNumberToAdd": MessageLookupByLibrary.simpleMessage(
+            "أدخل رقم الصديق المراد إضافته"),
+        "enterPin":
+            MessageLookupByLibrary.simpleMessage("أدخل رمز التعريف الشخصي"),
         "errorDuringCommunication":
             MessageLookupByLibrary.simpleMessage("خطأ أثناء التواصل"),
         "helloWorld": MessageLookupByLibrary.simpleMessage("مرحبا بالعالم!"),
@@ -32,6 +49,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "المعلومات المطلوبة غير موجودة"),
         "internalServerError":
             MessageLookupByLibrary.simpleMessage("خطأ داخلي في الخادم"),
+        "internetConnectionError": MessageLookupByLibrary.simpleMessage(
+            "من فضلك أفحص اتصالك بالانترنت ، وأعد المحاولة"),
         "invalidRequest": MessageLookupByLibrary.simpleMessage("طلب غير صالح"),
         "invalidResponse":
             MessageLookupByLibrary.simpleMessage("استجابة غير صالحة"),
@@ -44,7 +63,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "opps": MessageLookupByLibrary.simpleMessage("عفواً !"),
         "resend": MessageLookupByLibrary.simpleMessage("أعد الإرسال"),
         "save": MessageLookupByLibrary.simpleMessage("حفظ"),
+        "signinWithPhone":
+            MessageLookupByLibrary.simpleMessage("تسجيل الدخول برقم الهاتف"),
         "unauthorized": MessageLookupByLibrary.simpleMessage("غير مصرح به"),
+        "useStrongPin": MessageLookupByLibrary.simpleMessage(
+            "إستخدم رمز تعريف شخصي قوي لحسابك"),
+        "verifyWithPhone":
+            MessageLookupByLibrary.simpleMessage("التحقق من رقم الهاتف"),
         "welcome": MessageLookupByLibrary.simpleMessage("أهلًا بك")
       };
 }

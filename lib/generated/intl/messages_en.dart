@@ -22,24 +22,25 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "add_friend": MessageLookupByLibrary.simpleMessage("Add Friend"),
-        "app_name": MessageLookupByLibrary.simpleMessage("My Flutter Template"),
+        "addFriend": MessageLookupByLibrary.simpleMessage("Add Friend"),
+        "agree": MessageLookupByLibrary.simpleMessage("Agree"),
+        "appName": MessageLookupByLibrary.simpleMessage("My Flutter Template"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
-        "change_email": MessageLookupByLibrary.simpleMessage("Change Email"),
-        "change_password":
+        "changeEmail": MessageLookupByLibrary.simpleMessage("Change Email"),
+        "changePassword":
             MessageLookupByLibrary.simpleMessage("Change Password"),
         "check": MessageLookupByLibrary.simpleMessage("Check"),
-        "code_has_been_sent": MessageLookupByLibrary.simpleMessage(
+        "codeHasBeenSent": MessageLookupByLibrary.simpleMessage(
             "The code has been sent to your phone number"),
-        "code_will_be_sent": MessageLookupByLibrary.simpleMessage(
+        "codeWillBeSent": MessageLookupByLibrary.simpleMessage(
             "A code will be sent to the phone number"),
         "conflictOccurred":
             MessageLookupByLibrary.simpleMessage("A conflict occurred"),
         "continio": MessageLookupByLibrary.simpleMessage("Continue"),
-        "enter_new_pin": MessageLookupByLibrary.simpleMessage("Enter new PIN"),
-        "enter_number_to_add": MessageLookupByLibrary.simpleMessage(
+        "enterNewPin": MessageLookupByLibrary.simpleMessage("Enter new PIN"),
+        "enterNumberToAdd": MessageLookupByLibrary.simpleMessage(
             "Enter the number of the friend to be added"),
-        "enter_pin": MessageLookupByLibrary.simpleMessage("Enter PIN"),
+        "enterPin": MessageLookupByLibrary.simpleMessage("Enter PIN"),
         "errorDuringCommunication":
             MessageLookupByLibrary.simpleMessage("Error during communication"),
         "helloWorld": MessageLookupByLibrary.simpleMessage("Hello World!"),
@@ -47,7 +48,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "The requested information is not available"),
         "internalServerError":
             MessageLookupByLibrary.simpleMessage("Internal server error"),
-        "internet_connection_error": MessageLookupByLibrary.simpleMessage(
+        "internetConnectionError": MessageLookupByLibrary.simpleMessage(
             "Please check your internet connection and try again"),
         "invalidRequest":
             MessageLookupByLibrary.simpleMessage("Invalid request"),
@@ -69,15 +70,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "reload_screen": MessageLookupByLibrary.simpleMessage("Reload Screen"),
         "resend": MessageLookupByLibrary.simpleMessage("Resend"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
-        "singin_with_phone":
+        "signinWithPhone":
             MessageLookupByLibrary.simpleMessage("Sign in with phone number"),
         "something_went_wrong":
             MessageLookupByLibrary.simpleMessage("Something went wrong"),
         "try_again": MessageLookupByLibrary.simpleMessage("Try Again"),
         "unauthorized": MessageLookupByLibrary.simpleMessage("Unauthorized"),
-        "use_strong_pin": MessageLookupByLibrary.simpleMessage(
+        "useStrongPin": MessageLookupByLibrary.simpleMessage(
             "Use a strong PIN for your account"),
-        "verify_with_phone":
+        "verifyWithPhone":
             MessageLookupByLibrary.simpleMessage("Verify with phone number"),
         "want_to_logout":
             MessageLookupByLibrary.simpleMessage("Do you want to log out?"),
