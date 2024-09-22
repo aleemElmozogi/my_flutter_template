@@ -16,6 +16,8 @@ import 'package:my_flutter_template/core/validation/input_validation.dart';
 import 'package:my_flutter_template/features/splash/presentation/cubit/locale_cubit.dart';
 import 'package:my_flutter_template/core/utils/app_locale.dart';
 import 'package:my_flutter_template/generated/l10n.dart';
+import 'package:my_flutter_template/core/di/injection.dart' as di;
+
 part '../listeners/sign_in_listener.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -25,7 +27,6 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return AppScaffold(
       body: BlocListener<AuthCubit, AuthState>(
         listenWhen: (previous, current) =>

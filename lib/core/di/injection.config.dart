@@ -69,7 +69,7 @@ extension GetItInjectableX on _i1.GetIt {
     gh.singleton<_i4.NotificationRepository>(() =>
         _i5.NotificationRepositoryImpl(localStorage: gh<_i3.LocalStorage>()));
     gh.lazySingleton<_i6.ApiHelper>(() => _i6.ApiHelperImpl());
-    gh.singleton<_i7.NetworkInfo>(() => _i7.NetworkInfoImpl());
+    gh.lazySingleton<_i7.NetworkInfo>(() => _i7.NetworkInfoImpl());
     gh.singleton<_i8.LangLocalDataSource>(() =>
         _i8.LangLocalDataSourceImpl(localStorage: gh<_i3.LocalStorage>()));
     gh.singleton<_i9.LangRepository>(() => _i10.LangRepositoryImpl(

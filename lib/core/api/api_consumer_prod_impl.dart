@@ -27,9 +27,9 @@ class DioConsumerProdImpl implements ApiConsumer {
     client.httpClientAdapter = IOHttpClientAdapter(
       createHttpClient: () {
         final HttpClient client =
-            HttpClient(context: SecurityContext(withTrustedRoots: false));
+        HttpClient(context: SecurityContext(withTrustedRoots: false));
         client.badCertificateCallback =
-            ((X509Certificate cert, String host, int port) {
+        ((X509Certificate cert, String host, int port) {
           return true;
         });
         return client;
@@ -56,16 +56,16 @@ class DioConsumerProdImpl implements ApiConsumer {
 
   @override
   Future<T> request<T extends JsonModel>(
-    ResponseModelCreator<T> responseCreator, {
-    required String path,
-    required NetworkMethod method,
-    bool formDataIsEnabled = false,
-    Map<String, String> header = const {},
-    Map<String, dynamic> body = const {},
-    Map<String, dynamic> queryParameters = const {},
-    Map<String, dynamic> mockResponse = const {},
-    String authorization = '',
-  }) async {
+      ResponseModelCreator<T> responseCreator, {
+        required String path,
+        required NetworkMethod method,
+        bool formDataIsEnabled = false,
+        Map<String, String> header = const {},
+        Map<String, dynamic> body = const {},
+        Map<String, dynamic> queryParameters = const {},
+        Map<String, dynamic> mockResponse = const {},
+        String authorization = '',
+      }) async {
     if (!await networkInfo.isConnected) {
       throw NoInternetConnectionException();
     }
@@ -83,10 +83,10 @@ class DioConsumerProdImpl implements ApiConsumer {
   }
 
   BaseOptions _configureDioOptions(
-    NetworkMethod method,
-    String authorization,
-    Map<String, String> header,
-  ) {
+      NetworkMethod method,
+      String authorization,
+      Map<String, String> header,
+      ) {
     return BaseOptions(
       method: method.key,
       sendTimeout: const Duration(minutes: 1),
@@ -98,8 +98,8 @@ class DioConsumerProdImpl implements ApiConsumer {
 
   Map<String, String> _handleHttpHeader(
       {required NetworkMethod method,
-      required String authorization,
-      required Map<String, String> header}) {
+        required String authorization,
+        required Map<String, String> header}) {
     final contentType = method == NetworkMethod.multipart
         ? 'multipart/form-data'
         : 'application/json';
