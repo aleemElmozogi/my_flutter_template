@@ -1,15 +1,18 @@
 import 'package:dartz/dartz.dart';
 import 'package:my_flutter_template/core/error/failures.dart';
+import 'package:my_flutter_template/core/network/netwok_info.dart';
 import 'package:my_flutter_template/core/usecases/usecase.dart';
 import 'package:injectable/injectable.dart';
 import 'package:my_flutter_template/features/authentication/auth/domain/entities/user_entity.dart';
 import 'package:my_flutter_template/features/authentication/auth/domain/repositories/user_info_repository.dart';
 
 @lazySingleton
-class UserInfoUsecase implements UseCase<UserEntity, NoParams> {
+class UserInfoUsecase extends UseCase<UserEntity, NoParams> {
   final UserInfoRepository userInfoRepository;
 
-  UserInfoUsecase({required this.userInfoRepository});
+  UserInfoUsecase(
+      {required this.userInfoRepository, required NetworkInfo networkInfo})
+      : super(networkInfo: networkInfo);
 
   @override
   Future<Either<Failure, UserEntity>> call(NoParams params) async =>

@@ -17,17 +17,7 @@ class AuthRepositoryImpl implements AuthRepository {
   });
   @override
   Future<Either<Failure, String>> auth(userDto) async {
-    try {
-      if (await networkInfo.isConnected) {
-        final response = await authDataSource.auth(userDto);
-        return Right(response);
-      } else {
-        throw NoInternetConnectionException();
-      }
-    } on ServerException catch (e) {
-      return Left(ServerFailure(e.message));
-    } on Exception catch (e) {
-      return const Left(CacheFailure());
-    }
+    final response = await authDataSource.auth(userDto);
+    return Right(response);
   }
 }
