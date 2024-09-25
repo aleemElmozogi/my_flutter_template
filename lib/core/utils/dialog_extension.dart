@@ -1,10 +1,9 @@
-import 'package:my_flutter_template/config/routes/navigation.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:my_flutter_template/core/widgets/app_button.dart';
 import 'package:my_flutter_template/core/widgets/app_text.dart';
 import 'package:my_flutter_template/core/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:my_flutter_template/generated/l10n.dart';
 import 'app_colors.dart';
@@ -51,10 +50,10 @@ extension DialogExtension on BuildContext {
             AppButton(
               onTab: onClose != null
                   ? () {
-                      context.pop();
+                      Navigator.of(context).pop();
                       onClose();
                     }
-                  : context.pop,
+                  : Navigator.of(context).pop,
               title: S.of(context).agree,
             ),
           ],
@@ -107,7 +106,7 @@ extension DialogExtension on BuildContext {
               height: 7.h,
             ),
             AppButton(
-              onTab: context.goPop,
+              onTab: () => Navigator.pop(context),
               title: submitTxt ?? S.of(context).cancel,
             ),
           ],
@@ -135,9 +134,7 @@ extension DialogExtension on BuildContext {
           actions: <Widget>[
             AppButton(
               backgroundColor: AppColors.red,
-              onTab: () {
-                context.pop(); // Close the dialog
-              },
+              onTab: Navigator.of(context).pop,
               elevation: 2,
               title: S.of(context).agree,
             ),
@@ -179,9 +176,7 @@ extension DialogExtension on BuildContext {
           actions: <Widget>[
             AppButton(
               backgroundColor: AppColors.primary,
-              onTab: () {
-                context.pop(); // Close the dialog
-              },
+              onTab: Navigator.of(context).pop,
               elevation: 2,
               title: S.of(context).agree,
             ),

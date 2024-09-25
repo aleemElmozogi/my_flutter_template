@@ -1,6 +1,6 @@
 part of 'app.dart';
 
-extension AuthListener on _MyTemplateAppState {
+extension AuthListener on MyTemplateApp {
   Future<void> _authStatus(BuildContext context, AuthState state) async {
     switch (state.authState) {
       case AuthStatus.authenticated:
@@ -11,10 +11,10 @@ extension AuthListener on _MyTemplateAppState {
         // });
         break;
       case AuthStatus.unAuthenticated:
-        _router.goNamed(AppRoute.login.toName);
+        _appRouter.replaceAll([const LoginRoute()]);
         SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-          _router.routerDelegate.navigatorKey.currentContext
-              ?.showSuccessDialog(message: 'تم تسحيل الخروج بنجاح');
+          // .navigatorKey.currentContext
+          //     ?.showSuccessDialog(message: 'تم تسحيل الخروج بنجاح');
         });
         break;
     }
