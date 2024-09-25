@@ -1,4 +1,3 @@
-import 'package:my_flutter_template/config/routes/navigation.dart';
 import 'package:my_flutter_template/core/enums/validation_status.dart';
 import 'package:my_flutter_template/core/utils/app_colors.dart';
 import 'package:my_flutter_template/core/widgets/app_text.dart';
@@ -72,7 +71,7 @@ class FieldDialog extends StatelessWidget {
                 if (onClear != null) {
                   onClear!();
                 }
-                context.goPop();
+               Navigator.pop(context);
               },
             ),
           ],

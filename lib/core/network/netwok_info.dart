@@ -7,7 +7,7 @@ abstract class NetworkInfo {
   Future<bool> get isConnected;
 }
 
-@Singleton(as: NetworkInfo)
+@LazySingleton(as: NetworkInfo)
 class NetworkInfoImpl implements NetworkInfo {
   final Connectivity connectionChecker = Connectivity();
   // final StreamSubscription internetSubscription;

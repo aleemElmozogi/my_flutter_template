@@ -41,8 +41,6 @@ class ApiHelperImpl implements ApiHelper {
     }
   }
 
-
-
   @override
   dynamic handleDioError(DioException error) {
     try {
@@ -64,7 +62,7 @@ class ApiHelperImpl implements ApiHelper {
       case DioExceptionType.unknown:
         throw NoInternetConnectionException();
       case DioExceptionType.badCertificate:
-        // TODO: Handle this case.
+      // TODO: Handle this case.
         break;
       case DioExceptionType.connectionError:
         throw NoInternetConnectionException();
@@ -73,9 +71,7 @@ class ApiHelperImpl implements ApiHelper {
 
   @override
   T handleResponseAsJson<T extends JsonModel>(
-    ResponseModelCreator<T> responseCreator,
-    Response<String> response,
-  ) {
+      ResponseModelCreator<T> responseCreator, Response<String> response) {
     var parsedResponse = responseCreator() as ResponseModel;
     try {
       final messageResponse = jsonDecode(response.data!);
@@ -98,12 +94,11 @@ class ApiHelperImpl implements ApiHelper {
     }
   }
 
-
   dynamic _handleBackEndError(Response<dynamic>? response) {
     if (response != null) {
-        final decodedResponse = jsonDecode(response.data!);
-        final errorResponse = ErrorResponseModel.fromJson(decodedResponse);
-        throw ApiException(errorResponse);
+      final decodedResponse = jsonDecode(response.data!);
+      final errorResponse = ErrorResponseModel.fromJson(decodedResponse);
+      throw ApiException(errorResponse);
     }
   }
 }

@@ -14,10 +14,9 @@ import 'package:flutter/material.dart';
 import 'app.dart';
 import 'core/enums/environment_types.dart';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   di.configureDependencies(environment: EnvironmentType.mock.name);
   Bloc.observer = PrettyBlocObserver();
-  runApp(const MyTemplateApp());
+  runApp(MyTemplateApp());
 }

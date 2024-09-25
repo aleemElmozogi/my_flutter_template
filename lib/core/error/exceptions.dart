@@ -27,11 +27,6 @@ class ApiException extends ServerException {
 
   @override
   List<Object?> get props => [errorResponse, message];
-
-  @override
-  String toString() {
-    return '${errorResponse.message}\n${DetailsModel.fromJson(errorResponse.details!.toJson()).errors?.formatErrors}';
-  }
 }
 
 class FetchDataException extends ServerException {
@@ -73,7 +68,7 @@ class NotFoundException extends ServerException {
   NotFoundException([message])
       : super((message != null && message.toString().isNotEmpty)
             ? message.toString()
-            :S.current.informationNotAvailable);
+            : S.current.informationNotAvailable);
 }
 
 class ConflictException extends ServerException {
@@ -87,14 +82,14 @@ class InternalServerErrorException extends ServerException {
   InternalServerErrorException([message])
       : super((message != null && message.toString().isNotEmpty)
             ? message.toString()
-            :S.current.internalServerError);
+            : S.current.internalServerError);
 }
 
 class NoInternetConnectionException extends ServerException {
   NoInternetConnectionException([message])
       : super((message != null && message.toString().isNotEmpty)
             ? message.toString()
-            :S.current.noInternetConnection);
+            : S.current.noInternetConnection);
 }
 
 class CacheException extends ServerException {

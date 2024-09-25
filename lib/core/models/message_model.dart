@@ -1,7 +1,6 @@
 import 'package:my_flutter_template/core/models/response_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-
 part 'message_model.g.dart';
 
 @JsonSerializable()
@@ -10,7 +9,6 @@ class MessageModel extends ResponseModel<MessageModel, String> {
 
   factory MessageModel.fromJson(Map<String, dynamic> json) =>
       _$MessageModelFromJson(json);
-
 
   @override
   Map<String, dynamic> toJson() => _$MessageModelToJson(this);

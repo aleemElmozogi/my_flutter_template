@@ -1,6 +1,6 @@
-import 'package:my_flutter_template/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:my_flutter_template/core/di/injection.dart' as di;
+import 'package:my_flutter_template/features/authentication/auth/presentation/cubit/auth_cubit.dart';
 
 
 class AppInterceptors extends Interceptor {
