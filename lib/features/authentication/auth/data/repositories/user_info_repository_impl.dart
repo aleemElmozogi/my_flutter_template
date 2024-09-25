@@ -19,15 +19,7 @@ class UserInfoRepositoryImpl implements UserInfoRepository {
   });
   @override
   Future<Either<Failure, UserContentModel>> fetch() async {
-    try {
-      if (await networkInfo.isConnected) {
-        final response = await userInfoDataSource.fetch();
-        return Right(response);
-      } else {
-        throw NoInternetConnectionException();
-      }
-    } on ServerException catch (e) {
-      return Left(ServerFailure(e.message));
-    }
+    final response = await userInfoDataSource.fetch();
+    return Right(response);
   }
 }

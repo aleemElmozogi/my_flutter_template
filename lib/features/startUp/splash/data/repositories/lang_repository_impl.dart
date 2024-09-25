@@ -5,7 +5,6 @@ import 'package:my_flutter_template/core/usecases/usecase.dart';
 import 'package:injectable/injectable.dart';
 import 'package:my_flutter_template/features/startUp/splash/data/datasources/lang_local_data_source.dart';
 
-
 import '../../domain/repositories/lang_repository.dart';
 
 @Singleton(as: LangRepository)
@@ -15,22 +14,14 @@ class LangRepositoryImpl implements LangRepository {
   LangRepositoryImpl({required this.langLocalDataSource});
   @override
   UseCaseResponse<bool> changeLang({required String langCode}) async {
-    try {
-      final langIsChanged =
-          await langLocalDataSource.changeLang(langCode: langCode);
-      return Right(langIsChanged);
-    } on CacheException catch(e) {
-      return Left(CacheFailure(e.toString()));
-    }
+    final langIsChanged =
+        await langLocalDataSource.changeLang(langCode: langCode);
+    return Right(langIsChanged);
   }
 
   @override
   UseCaseResponse<String> getSavedLang() async {
-    try {
-      final langCode = await langLocalDataSource.getSavedLang();
-      return Right(langCode);
-    } on CacheException catch(e) {
-      return Left(CacheFailure(e.toString()));
-    }
+    final langCode = await langLocalDataSource.getSavedLang();
+    return Right(langCode);
   }
 }

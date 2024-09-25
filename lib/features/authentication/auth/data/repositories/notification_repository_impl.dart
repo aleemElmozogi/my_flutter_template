@@ -4,6 +4,7 @@ import 'package:my_flutter_template/core/error/failures.dart';
 import 'package:my_flutter_template/core/localStorage/loacal_storage.dart';
 import 'package:injectable/injectable.dart';
 import 'package:my_flutter_template/features/authentication/auth/domain/repositories/notification_repository.dart';
+
 @Singleton(as: NotificationRepository)
 class NotificationRepositoryImpl implements NotificationRepository {
   // final NotificationDataSource notificationDataSource;
@@ -16,45 +17,28 @@ class NotificationRepositoryImpl implements NotificationRepository {
 
   @override
   Future<Either<Failure, void>> setUpRemoteNotification() async {
-    try {
-      // await notificationDataSource.setUpRemoteNotification();
-      return const Right('sent');
-    } on ServerException catch (e) {
-      return Left(ServerFailure(e.message));
-    }
+    return const Right('sent');
   }
 
   @override
   Future<Either<Failure, bool>> isSubscribedToTopic() async {
-    try {
-      final value =await localStorage.isSubscribeToNotificationTopic;
-      return Right(value);
-    } on ServerException catch (e) {
-      return Left(ServerFailure(e.message));
-    }
+    final value = await localStorage.isSubscribeToNotificationTopic;
+    return Right(value);
   }
 
   @override
   Future<Either<Failure, void>> subscribeToTopic(topic) async {
-    try {
-      if (!await localStorage.isSubscribeToNotificationTopic) {
-        // await notificationDataSource.subscribeToTopic(topic);
-      }
-      await localStorage.subscribeToNotificationTopic();
-      return const Right("sent");
-    } on ServerException catch (e) {
-      return Left(ServerFailure(e.message));
+    if (!await localStorage.isSubscribeToNotificationTopic) {
+      // await notificationDataSource.subscribeToTopic(topic);
     }
+    await localStorage.subscribeToNotificationTopic();
+    return const Right("sent");
   }
 
   @override
   Future<Either<Failure, void>> unSubscribeToTopic(topic) async {
-    try {
-      // await notificationDataSource.unSubscribeToTopic(topic);
-      await localStorage.unSubscribeToNotificationTopic();
-      return const Right('sent');
-    } on ServerException catch (e) {
-      return Left(ServerFailure(e.message));
-    }
+    // await notificationDataSource.unSubscribeToTopic(topic);
+    await localStorage.unSubscribeToNotificationTopic();
+    return const Right('sent');
   }
 }

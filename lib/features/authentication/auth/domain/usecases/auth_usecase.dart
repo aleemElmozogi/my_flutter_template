@@ -8,14 +8,14 @@ import 'package:my_flutter_template/features/authentication/auth/domain/reposito
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class AuthUsecase implements UseCase<String, UserAuthEntity> {
+class AuthUsecase extends UseCase<String, UserAuthEntity> {
   final AuthRepository authRepository;
 
-  AuthUsecase({required this.authRepository});
+  AuthUsecase({required this.authRepository, required NetworkInfo networkInfo})
+      : super(networkInfo: networkInfo);
 
   @override
   Future<Either<Failure, String>> call(UserAuthEntity params) async =>
       await authRepository
           .auth(UserAuthDto(email: params.email, pin: params.pin));
-
 }
