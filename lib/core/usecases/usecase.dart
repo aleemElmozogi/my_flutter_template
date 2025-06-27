@@ -22,7 +22,7 @@ class UseCase<Type, Params> {
     } on ServerException catch (e) {
       return Left(ServerFailure(e.message));
     } on Exception catch (e) {
-      return const Left(CacheFailure());
+      return Left(CacheFailure(e.toString()));
     }
     return result;
   }

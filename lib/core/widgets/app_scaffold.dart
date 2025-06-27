@@ -1,7 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_flutter_template/core/utils/app_colors.dart';
+import 'package:my_flutter_template/core/utils/bloc_wrapper.dart';
 import 'package:my_flutter_template/core/widgets/app_text.dart';
 import 'package:flutter/material.dart';
+
+
 
 class AppScaffold extends StatelessWidget {
   final Widget body;
@@ -23,7 +26,7 @@ class AppScaffold extends StatelessWidget {
   final bool safeBottomArea;
   final bool extendBodyBehindAppBar;
   final List<BlocListener> listenersList;
-  final List<BlocProvider> providersList;
+  final List<BlocWrapper> blocList;
   final GlobalKey<ScaffoldState>? scaffoldKey;
 
   const AppScaffold(
@@ -45,7 +48,7 @@ class AppScaffold extends StatelessWidget {
       this.backgroundImage,
       this.backgroundColorGradient = const [],
       this.listenersList = const [],
-      this.providersList = const [],
+      this.blocList = const [],
       this.scaffoldKey,
       this.extendBodyBehindAppBar = true,
       this.floatingActionButtonLocation =
@@ -123,9 +126,13 @@ class AppScaffold extends StatelessWidget {
               child: Center(
                 child: Padding(
                   padding: contentPadding,
-                  child: providersList.isNotEmpty
+                  child: blocList.isNotEmpty
                       ? MultiBlocProvider(
-                          providers: [...providersList],
+                          providers: blocList.map((wrapper) {
+                            return BlocProvider(
+                              create: (_) => wrapper.bloc,
+                            );
+                          }).toList(),
                           child: listenersList.isNotEmpty
                               ? MultiBlocListener(
                                   listeners: [...listenersList],

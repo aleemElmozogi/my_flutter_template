@@ -3,6 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:my_flutter_template/core/enums/fetch_status.dart';
 import 'package:my_flutter_template/core/utils/app_locale.dart';
 import 'package:my_flutter_template/core/utils/app_strings.dart';
+import 'package:my_flutter_template/core/utils/bloc_wrapper.dart';
 import 'package:my_flutter_template/core/utils/dialog_extension.dart';
 import 'package:my_flutter_template/core/widgets/app_button.dart';
 import 'package:my_flutter_template/core/widgets/app_scaffold.dart';
@@ -30,6 +31,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
+      blocList: [BlocWrapper(di.getIt<LocaleCubit>())],
       listenersList: listeners,
       body: BlocBuilder<AuthCubit, AuthState>(
         buildWhen: (previous, current) =>
@@ -66,7 +68,6 @@ class LoginScreen extends StatelessWidget {
                   validator: InputValidation.emailValidation(),
                   onChanged: context.read<AuthCubit>().onEmailChange,
                 ),
-                SizedBox(height: 5.h),
                 TextFormField(
                   validator: InputValidation.passwordValidation(),
                   onChanged: context.read<AuthCubit>().onPinChange,
