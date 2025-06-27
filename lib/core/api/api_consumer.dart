@@ -8,7 +8,6 @@ abstract class ApiConsumer {
       ResponseModelCreator<T> responseCreator,
       {required String path,
       required NetworkMethod method,
-      bool formDataIsEnabled = false,
       Map<String, String> header = const {},
       Map<String, dynamic> body = const {},
       Map<String, dynamic> mockResponse = const {},

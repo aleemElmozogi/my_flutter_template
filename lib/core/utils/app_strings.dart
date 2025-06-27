@@ -1,5 +1,4 @@
 class AppStrings {
-  static const String appName = 'Dinaro';
   static const String fontFamily = 'Tajawal';
   static const String noRouteFound = 'No Route Found';
   static const String cachedGoldNissap = 'CACHED_SILVER_NISSAP';
@@ -13,5 +12,8 @@ class AppStrings {
   static const String arabicCode = 'ar';
   static const String locale = 'locale';
   static const String notificationTopicSubscribe = 'notificationTopicSubscribe';
+  static const String isFirstStart = 'isFirstStart';
   static const String accessToken = 'accessToken';
+  static const String googleMapsApiKey = 'AIzaSyD3Fol2RWtjq3NHUhZYtOIPAYKkT9Hw0tg';
+
 }

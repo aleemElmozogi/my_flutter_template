@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:my_flutter_template/core/error/exceptions.dart';
 import 'package:my_flutter_template/core/error/failures.dart';
 import 'package:equatable/equatable.dart';
-import 'package:my_flutter_template/core/network/netwok_info.dart';
+import 'package:my_flutter_template/core/network/network_info.dart';
 
 typedef UseCaseResponse<T> = Future<Either<Failure, T>>;
 
@@ -19,11 +19,16 @@ class UseCase<Type, Params> {
       } else {
         throw NoInternetConnectionException();
       }
+    } on ApiException catch (e) {
+      return Left(ApiFailure(e.toString()));
     } on ServerException catch (e) {
       return Left(ServerFailure(e.message));
     } on Exception catch (e) {
-      return Left(CacheFailure(e.toString()));
+      return Left(FetchErrorFailure(e.toString()));
+    } catch (e) {
+      return Left(FetchErrorFailure(e.toString()));
     }
+
     return result;
   }
 }

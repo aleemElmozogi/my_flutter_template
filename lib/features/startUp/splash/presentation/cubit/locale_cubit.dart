@@ -17,7 +17,7 @@ class LocaleCubit extends Cubit<LocaleState> {
   final ChangeLangUseCase changeLangUseCase;
   LocaleCubit(
       {required this.getSavedLangUseCase, required this.changeLangUseCase})
-      : super(const ChangeLocaleState(AppLocale.en)) {
+      : super(const ChangeLocaleState(AppLocale.ar)) {
     getSavedLang();
   }
 

@@ -10,20 +10,35 @@ extension StringExtension on String {
 
   String get monthName {
     final int monthNumber = int.tryParse(this) ?? 0;
+    // List<String> monthNames = [
+    //   '', // leave an empty string for index 0
+    //   'January',
+    //   'February',
+    //   'March',
+    //   'April',
+    //   'May',
+    //   'June',
+    //   'July',
+    //   'August',
+    //   'September',
+    //   'October',
+    //   'November',
+    //   'December'
+    // ];
     List<String> monthNames = [
       '', // leave an empty string for index 0
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December'
+      'يناير', // January
+      'فبراير', // February
+      'مارس', // March
+      'أبريل', // April
+      'مايو', // May
+      'يونيو', // June
+      'يوليو', // July
+      'أغسطس', // August
+      'سبتمبر', // September
+      'أكتوبر', // October
+      'نوفمبر', // November
+      'ديسمبر' // December
     ];
 
     // Check if the month number is valid
@@ -33,7 +48,19 @@ extension StringExtension on String {
 
     return monthNames[monthNumber];
   }
+  String get formatMoney {
+    final int number = int.tryParse(trim()) ?? 0;
 
+    if (number >= 1000000) {
+      int floored = (number * 10) ~/ 1000000;
+      return '${floored ~/ 10}.${floored % 10} مليون';
+    } else if (number >= 1000) {
+      int floored = (number * 10) ~/ 1000;
+      return '${floored ~/ 10}.${floored % 10} ألف';
+    }
+
+    return number.toString();
+  }
   String get reverseName {
     List<String> words = split(' ');
 

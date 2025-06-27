@@ -15,11 +15,15 @@ extension DialogExtension on BuildContext {
       barrierDismissible:
           false, // Dialog cannot be dismissed by tapping outside
       builder: (BuildContext context) {
-        return const Dialog(
-            backgroundColor: Colors.transparent,
+        return Dialog(
+            backgroundColor: Colors.white,
             elevation: 0,
-            child: Center(
-              child: AppLoadingIndicator(),
+            child: SizedBox(
+              height: 100.h,
+              width: 100.h,
+              child: const Center(
+                child: AppLoadingIndicator(),
+              ),
             ));
       },
     );
@@ -30,8 +34,7 @@ extension DialogExtension on BuildContext {
     showDialog(
       context: this,
 
-      barrierDismissible:
-          false, // Dialog cannot be dismissed by tapping outside
+      barrierDismissible: true, // Dialog cannot be dismissed by tapping outside
       builder: (BuildContext context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
@@ -66,14 +69,17 @@ extension DialogExtension on BuildContext {
     showModalBottomSheet(
       context: this,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(20),
-        ),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       clipBehavior: Clip.antiAliasWithSaveLayer,
       isScrollControlled: true,
       builder: (BuildContext context) {
-        return child;
+        return Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom, // Prevent hiding
+          ),
+          child: child,
+        );
       },
     );
   }
@@ -86,7 +92,7 @@ extension DialogExtension on BuildContext {
     showDialog(
       context: this,
       barrierDismissible:
-          dismissible ?? false, // Dialog cannot be dismissed by tapping outside
+          dismissible ?? true, // Dialog cannot be dismissed by tapping outside
       builder: (BuildContext context) {
         return AlertDialog(
           contentPadding: EdgeInsets.all(10.r),
@@ -115,11 +121,103 @@ extension DialogExtension on BuildContext {
     );
   }
 
+  void showTwoChoicesDialog({
+    required String title,
+    String? message,
+    required String firstChoice,
+    required VoidCallback onFirstChoice,
+    required String secondChoice,
+    required VoidCallback onSecondChoice,
+    bool? dismissible,
+  }) {
+    showDialog(
+      context: this,
+      barrierDismissible: dismissible ?? true,
+      builder: (BuildContext context) {
+        int? selectedOption; // To track selected radio button
+
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.r),
+              ),
+              title: AppText(
+                title,
+                fontWeight: FontWeight.bold,
+              ),
+              content: SizedBox(
+                width: 1.sw,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if ((message ?? '').isNotEmpty) ...[
+                      AppText(
+                        message ?? '',
+                        textColor: AppColors.darkGrey,
+                        maxLines: 3,
+                      ),
+                      SizedBox(height: 10.h),
+                    ],
+
+                    // First Choice
+                    RadioListTile<int>(
+                      value: 1,
+                      groupValue: selectedOption,
+                      tileColor: AppColors.lightGrey,
+                      selectedTileColor: AppColors.lightPrimary,
+                      onChanged: (value) {
+                        setState(() => selectedOption = value);
+                      },
+                      title: AppText(
+                        firstChoice,
+                        textAlign: TextAlign.start,
+                      ),
+                      activeColor: AppColors.primary,
+                    ),
+                    SizedBox(height: 7.h),
+                    // Second Choice
+                    RadioListTile<int>(
+                      value: 2,
+                      groupValue: selectedOption,
+                      tileColor: AppColors.lightGrey,
+                      selectedTileColor: AppColors.lightPrimary,
+                      onChanged: (value) {
+                        setState(() => selectedOption = value);
+                      },
+                      title: AppText(
+                        secondChoice,
+                        textAlign: TextAlign.start,
+                      ),
+                      activeColor: AppColors.primary,
+                    ),
+                  ],
+                ),
+              ),
+              actions: [
+                AppButton(
+                  backgroundColor: AppColors.primary,
+                  title: 'تأكيد',
+                  onTab: () {
+                    if (selectedOption == 1) {
+                      onFirstChoice();
+                    } else if (selectedOption == 2) {
+                      onSecondChoice();
+                    }
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
   void showErrorDialog(String message) {
     showDialog(
       context: this,
-      barrierDismissible:
-          false, // Dialog cannot be dismissed by tapping outside
+      barrierDismissible: true, // Dialog cannot be dismissed by tapping outside
       builder: (BuildContext context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
@@ -130,7 +228,10 @@ extension DialogExtension on BuildContext {
             color: AppColors.red,
             size: 48.0,
           ),
-          content: AppText(message),
+          content: AppText(
+            message,
+            maxLines: 5,
+          ),
           actions: <Widget>[
             AppButton(
               backgroundColor: AppColors.red,
@@ -197,9 +298,11 @@ extension DialogExtension on BuildContext {
         behavior: SnackBarBehavior.floating,
         backgroundColor: Colors.transparent,
         content: AwesomeSnackbarContent(
-          title: type.message,
+          title: title,
           message: message,
           contentType: type,
+          messageFontSize: 13.sp,
+          titleFontSize: 14.sp,
         ),
       ));
   }

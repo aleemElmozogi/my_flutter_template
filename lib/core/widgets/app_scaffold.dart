@@ -1,10 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_flutter_template/core/utils/app_colors.dart';
-import 'package:my_flutter_template/core/utils/bloc_wrapper.dart';
 import 'package:my_flutter_template/core/widgets/app_text.dart';
 import 'package:flutter/material.dart';
-
-
 
 class AppScaffold extends StatelessWidget {
   final Widget body;
@@ -22,11 +19,12 @@ class AppScaffold extends StatelessWidget {
   final String title;
   final String? backgroundImage;
   final bool resizeToAvoidBottomInset;
+  final bool extendBody;
   final bool safeTopArea;
   final bool safeBottomArea;
   final bool extendBodyBehindAppBar;
   final List<BlocListener> listenersList;
-  final List<BlocWrapper> blocList;
+  final List<BlocProvider> providersList;
   final GlobalKey<ScaffoldState>? scaffoldKey;
 
   const AppScaffold(
@@ -41,16 +39,17 @@ class AppScaffold extends StatelessWidget {
       this.bottomNavigation,
       this.floatingActionButton,
       this.contentPadding =
-          const EdgeInsets.symmetric(vertical: 25.0, horizontal: 30),
+          const EdgeInsets.symmetric(vertical: 25.0, horizontal: 20),
       this.resizeToAvoidBottomInset = true,
-      this.safeTopArea = false,
+      this.safeTopArea = true,
       this.safeBottomArea = false,
+      this.extendBody = false,
       this.backgroundImage,
       this.backgroundColorGradient = const [],
       this.listenersList = const [],
-      this.blocList = const [],
+      this.providersList = const [],
       this.scaffoldKey,
-      this.extendBodyBehindAppBar = true,
+      this.extendBodyBehindAppBar = false,
       this.floatingActionButtonLocation =
           FloatingActionButtonLocation.centerFloat,
       this.actions});
@@ -70,12 +69,13 @@ class AppScaffold extends StatelessWidget {
         top: safeTopArea,
         bottom: safeBottomArea,
         child: Scaffold(
-            extendBody: true,
+            extendBody: extendBody,
             key: scaffoldKey,
             floatingActionButton: floatingActionButton,
             floatingActionButtonLocation: floatingActionButtonLocation,
             extendBodyBehindAppBar: extendBodyBehindAppBar,
             bottomNavigationBar: bottomNavigation,
+            resizeToAvoidBottomInset: resizeToAvoidBottomInset,
             drawer: drawer,
             backgroundColor: backgroundColorGradient.isEmpty
                 ? backgroundColor
@@ -83,7 +83,6 @@ class AppScaffold extends StatelessWidget {
             appBar: appBar ??
                 (title.isNotEmpty
                     ? AppBar(
-                        elevation: 0,
                         actionsIconTheme: IconThemeData(
                             color: backgroundColor == AppColors.background
                                 ? AppColors.black
@@ -98,6 +97,8 @@ class AppScaffold extends StatelessWidget {
                             AppText(
                               title,
                               fontSize: 18,
+                              maxLines: 2,
+                              textAlign: TextAlign.center,
                               fontWeight: FontWeight.bold,
                             ),
                       )
@@ -113,7 +114,6 @@ class AppScaffold extends StatelessWidget {
                                 ? AppColors.black
                                 : null),
                       )),
-            resizeToAvoidBottomInset: resizeToAvoidBottomInset,
             body: Container(
               decoration: backgroundImage != null
                   ? BoxDecoration(
@@ -126,13 +126,9 @@ class AppScaffold extends StatelessWidget {
               child: Center(
                 child: Padding(
                   padding: contentPadding,
-                  child: blocList.isNotEmpty
+                  child: providersList.isNotEmpty
                       ? MultiBlocProvider(
-                          providers: blocList.map((wrapper) {
-                            return BlocProvider(
-                              create: (_) => wrapper.bloc,
-                            );
-                          }).toList(),
+                          providers: [...providersList],
                           child: listenersList.isNotEmpty
                               ? MultiBlocListener(
                                   listeners: [...listenersList],

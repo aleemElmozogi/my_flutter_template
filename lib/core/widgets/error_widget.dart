@@ -1,12 +1,14 @@
 import 'package:my_flutter_template/core/utils/app_colors.dart';
 import 'package:my_flutter_template/core/utils/media_query_values.dart';
+import 'package:my_flutter_template/core/widgets/app_custom_button.dart';
 import 'package:my_flutter_template/core/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:my_flutter_template/generated/l10n.dart';
 
-class ErrorWidget extends StatelessWidget {
+class AppErrorWidget extends StatelessWidget {
   final VoidCallback? onPress;
-  const ErrorWidget({super.key, this.onPress});
+  final String? message;
+  const AppErrorWidget({super.key, this.onPress, this.message});
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +26,9 @@ class ErrorWidget extends StatelessWidget {
         Container(
           margin: const EdgeInsets.symmetric(vertical: 12),
           child: AppText(
-            S.current.somethingWentWrong,
+            message ?? S.current.somethingWentWrong,
             fontSize: 20,
+            maxLines: 10,
           ),
         ),
         AppText(
@@ -36,15 +39,8 @@ class ErrorWidget extends StatelessWidget {
           height: 55,
           width: context.width * 0.55,
           margin: const EdgeInsets.symmetric(vertical: 15),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                foregroundColor: Theme.of(context).primaryColor,
-                backgroundColor: AppColors.primary,
-                elevation: 500,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50))),
-            child: AppText(S.current.reloadScreen,
-                textColor: Colors.white, fontWeight: FontWeight.w700),
+          child: AppCustomButton(
+            child: AppText(S.current.reloadScreen, fontWeight: FontWeight.w700),
             onPressed: () {
               if (onPress != null) {
                 onPress!();

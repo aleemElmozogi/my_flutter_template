@@ -12,6 +12,18 @@ class AppLauncher {
       _appEmailUri,
     );
   }
+
+  void openLocation(String lat, String lng, {int zoom = 15}) async {
+    final Uri googleMapsUri = Uri(
+      scheme: 'geo',
+      host: '0,0',
+      queryParameters: {
+        'q': '$lat,$lng($zoom)',
+        'z': zoom.toString(), // Optional, sometimes respected
+      },
+    );
+    launchUrl(googleMapsUri);
+  }
   void callPhoneNumber() async {
     final phoneUri = Uri(scheme: 'tel', path: '0924397976');
     launchUrl(phoneUri);

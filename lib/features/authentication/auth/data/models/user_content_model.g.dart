@@ -6,24 +6,26 @@ part of 'user_content_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-UserContentModel _$UserContentModelFromJson(Map<String, dynamic> json) =>
-    UserContentModel(
-      userId: json['id'] as String? ?? '',
+_$UserContentModelImpl _$$UserContentModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$UserContentModelImpl(
       userName: json['fullName'] as String? ?? '',
       userEmail: json['email'] as String? ?? '',
       profileImageUrl: json['imageUrl'] as String? ?? '',
       phoneNumber: json['phoneNumber'] as String? ?? '',
-      accountType: json['type'] == null
-          ? AccountTypeStatus.customer
-          : AccountTypeStatus.fromJson((json['type'] as num).toInt()),
+      walletTotal: json['walletTotal'] as String? ?? '0',
+      accountType: json['accountType'] == null
+          ? AccountTypeStatus.helper
+          : AccountTypeStatus.fromJson((json['accountType'] as num).toInt()),
     );
 
-Map<String, dynamic> _$UserContentModelToJson(UserContentModel instance) =>
+Map<String, dynamic> _$$UserContentModelImplToJson(
+        _$UserContentModelImpl instance) =>
     <String, dynamic>{
-      'id': instance.userId,
       'fullName': instance.userName,
       'email': instance.userEmail,
       'imageUrl': instance.profileImageUrl,
       'phoneNumber': instance.phoneNumber,
-      'type': instance.accountType,
+      'walletTotal': instance.walletTotal,
+      'accountType': instance.accountType,
     };

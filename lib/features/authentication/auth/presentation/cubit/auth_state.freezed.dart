@@ -16,16 +16,16 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$AuthState {
-  String get pin => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
-  String get email => throw _privateConstructorUsedError;
-  bool get isSubscribeToFcmTopic => throw _privateConstructorUsedError;
-  UserEntity? get userEntity => throw _privateConstructorUsedError;
+  UserContentModel? get userEntity => throw _privateConstructorUsedError;
   AuthStatus get authState => throw _privateConstructorUsedError;
-  CallStatus get fetchUserInfoState => throw _privateConstructorUsedError;
   CallStatus get signInStatus => throw _privateConstructorUsedError;
+  CallStatus get changePasswordStatus => throw _privateConstructorUsedError;
+  CallStatus get getWalletBalanceStatus => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AuthState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AuthStateCopyWith<AuthState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -36,14 +36,14 @@ abstract class $AuthStateCopyWith<$Res> {
       _$AuthStateCopyWithImpl<$Res, AuthState>;
   @useResult
   $Res call(
-      {String pin,
-      String message,
-      String email,
-      bool isSubscribeToFcmTopic,
-      UserEntity? userEntity,
+      {String message,
+      UserContentModel? userEntity,
       AuthStatus authState,
-      CallStatus fetchUserInfoState,
-      CallStatus signInStatus});
+      CallStatus signInStatus,
+      CallStatus changePasswordStatus,
+      CallStatus getWalletBalanceStatus});
+
+  $UserContentModelCopyWith<$Res>? get userEntity;
 }
 
 /// @nodoc
@@ -56,52 +56,58 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AuthState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? pin = null,
     Object? message = null,
-    Object? email = null,
-    Object? isSubscribeToFcmTopic = null,
     Object? userEntity = freezed,
     Object? authState = null,
-    Object? fetchUserInfoState = null,
     Object? signInStatus = null,
+    Object? changePasswordStatus = null,
+    Object? getWalletBalanceStatus = null,
   }) {
     return _then(_value.copyWith(
-      pin: null == pin
-          ? _value.pin
-          : pin // ignore: cast_nullable_to_non_nullable
-              as String,
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      isSubscribeToFcmTopic: null == isSubscribeToFcmTopic
-          ? _value.isSubscribeToFcmTopic
-          : isSubscribeToFcmTopic // ignore: cast_nullable_to_non_nullable
-              as bool,
       userEntity: freezed == userEntity
           ? _value.userEntity
           : userEntity // ignore: cast_nullable_to_non_nullable
-              as UserEntity?,
+              as UserContentModel?,
       authState: null == authState
           ? _value.authState
           : authState // ignore: cast_nullable_to_non_nullable
               as AuthStatus,
-      fetchUserInfoState: null == fetchUserInfoState
-          ? _value.fetchUserInfoState
-          : fetchUserInfoState // ignore: cast_nullable_to_non_nullable
-              as CallStatus,
       signInStatus: null == signInStatus
           ? _value.signInStatus
           : signInStatus // ignore: cast_nullable_to_non_nullable
               as CallStatus,
+      changePasswordStatus: null == changePasswordStatus
+          ? _value.changePasswordStatus
+          : changePasswordStatus // ignore: cast_nullable_to_non_nullable
+              as CallStatus,
+      getWalletBalanceStatus: null == getWalletBalanceStatus
+          ? _value.getWalletBalanceStatus
+          : getWalletBalanceStatus // ignore: cast_nullable_to_non_nullable
+              as CallStatus,
     ) as $Val);
+  }
+
+  /// Create a copy of AuthState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $UserContentModelCopyWith<$Res>? get userEntity {
+    if (_value.userEntity == null) {
+      return null;
+    }
+
+    return $UserContentModelCopyWith<$Res>(_value.userEntity!, (value) {
+      return _then(_value.copyWith(userEntity: value) as $Val);
+    });
   }
 }
 
@@ -114,14 +120,15 @@ abstract class _$$AuthStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String pin,
-      String message,
-      String email,
-      bool isSubscribeToFcmTopic,
-      UserEntity? userEntity,
+      {String message,
+      UserContentModel? userEntity,
       AuthStatus authState,
-      CallStatus fetchUserInfoState,
-      CallStatus signInStatus});
+      CallStatus signInStatus,
+      CallStatus changePasswordStatus,
+      CallStatus getWalletBalanceStatus});
+
+  @override
+  $UserContentModelCopyWith<$Res>? get userEntity;
 }
 
 /// @nodoc
@@ -132,50 +139,42 @@ class __$$AuthStateImplCopyWithImpl<$Res>
       _$AuthStateImpl _value, $Res Function(_$AuthStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AuthState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? pin = null,
     Object? message = null,
-    Object? email = null,
-    Object? isSubscribeToFcmTopic = null,
     Object? userEntity = freezed,
     Object? authState = null,
-    Object? fetchUserInfoState = null,
     Object? signInStatus = null,
+    Object? changePasswordStatus = null,
+    Object? getWalletBalanceStatus = null,
   }) {
     return _then(_$AuthStateImpl(
-      pin: null == pin
-          ? _value.pin
-          : pin // ignore: cast_nullable_to_non_nullable
-              as String,
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      isSubscribeToFcmTopic: null == isSubscribeToFcmTopic
-          ? _value.isSubscribeToFcmTopic
-          : isSubscribeToFcmTopic // ignore: cast_nullable_to_non_nullable
-              as bool,
       userEntity: freezed == userEntity
           ? _value.userEntity
           : userEntity // ignore: cast_nullable_to_non_nullable
-              as UserEntity?,
+              as UserContentModel?,
       authState: null == authState
           ? _value.authState
           : authState // ignore: cast_nullable_to_non_nullable
               as AuthStatus,
-      fetchUserInfoState: null == fetchUserInfoState
-          ? _value.fetchUserInfoState
-          : fetchUserInfoState // ignore: cast_nullable_to_non_nullable
-              as CallStatus,
       signInStatus: null == signInStatus
           ? _value.signInStatus
           : signInStatus // ignore: cast_nullable_to_non_nullable
+              as CallStatus,
+      changePasswordStatus: null == changePasswordStatus
+          ? _value.changePasswordStatus
+          : changePasswordStatus // ignore: cast_nullable_to_non_nullable
+              as CallStatus,
+      getWalletBalanceStatus: null == getWalletBalanceStatus
+          ? _value.getWalletBalanceStatus
+          : getWalletBalanceStatus // ignore: cast_nullable_to_non_nullable
               as CallStatus,
     ));
   }
@@ -185,42 +184,34 @@ class __$$AuthStateImplCopyWithImpl<$Res>
 
 class _$AuthStateImpl implements _AuthState {
   const _$AuthStateImpl(
-      {this.pin = '',
-      this.message = '',
-      this.email = '',
-      this.isSubscribeToFcmTopic = false,
+      {this.message = '',
       this.userEntity,
       this.authState = AuthStatus.unAuthenticated,
-      this.fetchUserInfoState = CallStatus.pure,
-      this.signInStatus = CallStatus.pure});
+      this.signInStatus = CallStatus.pure,
+      this.changePasswordStatus = CallStatus.pure,
+      this.getWalletBalanceStatus = CallStatus.pure});
 
-  @override
-  @JsonKey()
-  final String pin;
   @override
   @JsonKey()
   final String message;
   @override
-  @JsonKey()
-  final String email;
-  @override
-  @JsonKey()
-  final bool isSubscribeToFcmTopic;
-  @override
-  final UserEntity? userEntity;
+  final UserContentModel? userEntity;
   @override
   @JsonKey()
   final AuthStatus authState;
   @override
   @JsonKey()
-  final CallStatus fetchUserInfoState;
+  final CallStatus signInStatus;
   @override
   @JsonKey()
-  final CallStatus signInStatus;
+  final CallStatus changePasswordStatus;
+  @override
+  @JsonKey()
+  final CallStatus getWalletBalanceStatus;
 
   @override
   String toString() {
-    return 'AuthState(pin: $pin, message: $message, email: $email, isSubscribeToFcmTopic: $isSubscribeToFcmTopic, userEntity: $userEntity, authState: $authState, fetchUserInfoState: $fetchUserInfoState, signInStatus: $signInStatus)';
+    return 'AuthState(message: $message, userEntity: $userEntity, authState: $authState, signInStatus: $signInStatus, changePasswordStatus: $changePasswordStatus, getWalletBalanceStatus: $getWalletBalanceStatus)';
   }
 
   @override
@@ -228,34 +219,26 @@ class _$AuthStateImpl implements _AuthState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AuthStateImpl &&
-            (identical(other.pin, pin) || other.pin == pin) &&
             (identical(other.message, message) || other.message == message) &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.isSubscribeToFcmTopic, isSubscribeToFcmTopic) ||
-                other.isSubscribeToFcmTopic == isSubscribeToFcmTopic) &&
             (identical(other.userEntity, userEntity) ||
                 other.userEntity == userEntity) &&
             (identical(other.authState, authState) ||
                 other.authState == authState) &&
-            (identical(other.fetchUserInfoState, fetchUserInfoState) ||
-                other.fetchUserInfoState == fetchUserInfoState) &&
             (identical(other.signInStatus, signInStatus) ||
-                other.signInStatus == signInStatus));
+                other.signInStatus == signInStatus) &&
+            (identical(other.changePasswordStatus, changePasswordStatus) ||
+                other.changePasswordStatus == changePasswordStatus) &&
+            (identical(other.getWalletBalanceStatus, getWalletBalanceStatus) ||
+                other.getWalletBalanceStatus == getWalletBalanceStatus));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      pin,
-      message,
-      email,
-      isSubscribeToFcmTopic,
-      userEntity,
-      authState,
-      fetchUserInfoState,
-      signInStatus);
+  int get hashCode => Object.hash(runtimeType, message, userEntity, authState,
+      signInStatus, changePasswordStatus, getWalletBalanceStatus);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AuthState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AuthStateImplCopyWith<_$AuthStateImpl> get copyWith =>
@@ -264,33 +247,30 @@ class _$AuthStateImpl implements _AuthState {
 
 abstract class _AuthState implements AuthState {
   const factory _AuthState(
-      {final String pin,
-      final String message,
-      final String email,
-      final bool isSubscribeToFcmTopic,
-      final UserEntity? userEntity,
+      {final String message,
+      final UserContentModel? userEntity,
       final AuthStatus authState,
-      final CallStatus fetchUserInfoState,
-      final CallStatus signInStatus}) = _$AuthStateImpl;
+      final CallStatus signInStatus,
+      final CallStatus changePasswordStatus,
+      final CallStatus getWalletBalanceStatus}) = _$AuthStateImpl;
 
-  @override
-  String get pin;
   @override
   String get message;
   @override
-  String get email;
-  @override
-  bool get isSubscribeToFcmTopic;
-  @override
-  UserEntity? get userEntity;
+  UserContentModel? get userEntity;
   @override
   AuthStatus get authState;
   @override
-  CallStatus get fetchUserInfoState;
-  @override
   CallStatus get signInStatus;
   @override
-  @JsonKey(ignore: true)
+  CallStatus get changePasswordStatus;
+  @override
+  CallStatus get getWalletBalanceStatus;
+
+  /// Create a copy of AuthState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AuthStateImplCopyWith<_$AuthStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

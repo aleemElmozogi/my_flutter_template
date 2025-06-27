@@ -1,9 +1,8 @@
-part of '../pages/auth_page.dart';
+part of '../screens/auth_page.dart';
 
 final List<BlocListener> listeners = [
   BlocListener<AuthCubit, AuthState>(
       listenWhen: (previous, current) =>
-          previous.fetchUserInfoState != current.fetchUserInfoState ||
           previous.signInStatus != current.signInStatus,
       listener: (BuildContext context, AuthState state) {
         {
@@ -14,6 +13,9 @@ final List<BlocListener> listeners = [
               context.showErrorDialog(state.message);
               break;
             case CallStatus.success:
+              //Route to the home page
+              break;
+            case CallStatus.inProgress:
               //Route to the home page
               break;
             default:

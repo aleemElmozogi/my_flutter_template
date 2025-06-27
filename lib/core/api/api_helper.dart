@@ -62,7 +62,7 @@ class ApiHelperImpl implements ApiHelper {
       case DioExceptionType.unknown:
         throw NoInternetConnectionException();
       case DioExceptionType.badCertificate:
-      // TODO: Handle this case.
+        // TODO: Handle this case.
         break;
       case DioExceptionType.connectionError:
         throw NoInternetConnectionException();
@@ -75,10 +75,14 @@ class ApiHelperImpl implements ApiHelper {
     var parsedResponse = responseCreator() as ResponseModel;
     try {
       final messageResponse = jsonDecode(response.data!);
+      final errorResponse = ErrorResponseModel.fromJson(messageResponse);
 
-      if (response.statusCode != null &&
-          response.statusCode! >= 200 &&
-          response.statusCode! < 300) {
+      if ((response.statusCode != null &&
+              response.statusCode! >= 200 &&
+              response.statusCode! < 300) &&
+          (errorResponse.statusCode != null &&
+              errorResponse.statusCode! >= 200 &&
+              errorResponse.statusCode! < 300)) {
         // Handle success response
         parsedResponse = parsedResponse.fromJson(messageResponse);
         return parsedResponse as T;
@@ -89,6 +93,8 @@ class ApiHelperImpl implements ApiHelper {
         // However, Dart requires a return statement to satisfy the return type.
         throw FetchDataException(); // or any default error handling
       }
+    } on ApiException catch (e) {
+      rethrow;
     } catch (e) {
       throw BadResponseException(e.toString());
     }

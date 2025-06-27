@@ -1,20 +1,33 @@
-
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:my_flutter_template/core/enums/environment_types.dart';
+import 'package:my_flutter_template/core/network/network_info.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
-import 'package:my_flutter_template/core/api/api_consumer.dart';
-import 'package:my_flutter_template/core/network/netwok_info.dart';
 
 import 'injection.config.dart';
 
 final getIt = GetIt.instance;
 
 @InjectableInit(
-  initializerName: 'init', // default
-  preferRelativeImports: true, // default
-  asExtension: true, // default
-)
-void configureDependencies({required String environment}) =>
-    getIt.init(environment: environment);
-const mock = Environment('mock');
-const production = Environment('prod');
+    initializerName: 'init', preferRelativeImports: true, asExtension: true)
+void configureDependencies({required EnvironmentType environment}) {
+  getIt.init(
+    environment: environment.name,
+  );
+  getIt.registerSingleton(AppSettings(environment));
+}
 
+@module
+abstract class FirebaseModule {
+  @lazySingleton
+  FirebaseMessaging get firebaseMessaging => FirebaseMessaging.instance;
+}
+
+const mock = Environment('mock');
+
+class AppSettings {
+  final EnvironmentType environment;
+
+  AppSettings(this.environment);
+}

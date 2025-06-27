@@ -6,7 +6,8 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.18.0 <4.0.0'
+  sdk: ">=3.0.0 <4.0.0"
+
 
 dependencies:
   bloc: ^8.1.2
@@ -19,33 +20,46 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^8.1.3
   flutter_screenutil: ^5.9.0
+  skeletonizer: ^1.4.1+1
   freezed_annotation: ^2.4.1
+  webview_flutter: ^4.7.0
+
   intl: any
   dio: ^5.4.0
-  connectivity_plus: ^5.0.2
+  connectivity_plus: ^6.1.3
   dartz: ^0.10.1
   json_annotation: ^4.8.1
   pretty_bloc_observer: ^1.0.4
-  get_it: ^7.6.6
+  get_it: ^8.0.3
   shared_preferences: ^2.2.2
   url_launcher: ^6.2.5
   freezed: ^2.4.7
-  injectable: ^2.4.1
-  flutter_secure_storage: ^9.2.1
-  image_picker: ^1.0.7
-  qr_code_scanner: ^1.0.1
-  scan: ^1.6.0
-  firebase_messaging: ^14.8.2
-  image_network: ^2.5.6
-  pretty_dio_logger: ^1.3.1
+  injectable: ^2.5.0
+  flutter_secure_storage: ^9.2.4
+  image_picker: ^1.1.2
+  firebase_auth: ^5.5.1
+  firebase_core: ^3.12.1
+  firebase_messaging: ^15.2.4
+  image_network: ^2.6.0
+  pretty_dio_logger: ^1.4.0
   loading_indicator: ^3.1.1
   auto_route: ^9.2.0
+  flutter_svg: ^2.0.10+1
+  smooth_page_indicator: ^1.2.0+3
+  pin_code_fields: ^8.0.1
+  flashy_tab_bar2: ^0.0.10
+  icons_plus: ^5.0.0
+  google_maps_flutter: ^2.10.1
+  map_location_picker: ^1.3.3
+  toggle_switch: ^2.3.0
+  flutter_speed_dial: ^7.0.0
+  flutter_swipe_button: ^2.1.1+1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   injectable_generator:
-  build_runner: ^2.4.6
+  build_runner: ^2.4.15
   dependency_validator: ^3.0.0
   flutter_lints: ^2.0.0
   freezed: ^2.4.2
@@ -55,12 +69,17 @@ dev_dependencies:
       url: https://github.com/aleemElmozogi/awesome_snackbar_content.git
       ref: fix/bubble-icon-cropping
   auto_route_generator:
+  flutter_form_builder: ^9.3.0
 
 
 flutter:
   uses-material-design: true
   generate: true
 
+  assets:
+    - assets/logo/
+    - assets/images/
+    - assets/icons/
 
   fonts:
     - family: Tajawal

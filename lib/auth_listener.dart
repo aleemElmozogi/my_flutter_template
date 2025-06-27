@@ -4,17 +4,23 @@ extension AuthListener on MyTemplateApp {
   Future<void> _authStatus(BuildContext context, AuthState state) async {
     switch (state.authState) {
       case AuthStatus.authenticated:
-        // _router.replace(AppRoute.home.toPath);
-        // SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-        //   _router.routerDelegate.navigatorKey.currentContext
-        //       ?.showSuccessDialog(message: 'تم تسحيل الدخول بنجاح');
-        // });
+        _appRouter.replaceAll([const MainRoute()]);
+        SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+          context.showAppSnackBar(
+            message: 'تم تسجيل الدخول بنجاح',
+            type: snackBarContent.ContentType.success,
+            title: 'تسجيل الدخول',
+          );
+        });
         break;
       case AuthStatus.unAuthenticated:
-        _appRouter.replaceAll([const LoginRoute()]);
+        _appRouter.replaceAll([LoginRoute()]);
         SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-          // .navigatorKey.currentContext
-          //     ?.showSuccessDialog(message: 'تم تسحيل الخروج بنجاح');
+          context.showAppSnackBar(
+            message: 'تم تسجيل الخروج بنجاح',
+            type: snackBarContent.ContentType.success,
+            title: 'تسجيل الخروج',
+          );
         });
         break;
     }

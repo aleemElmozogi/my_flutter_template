@@ -1,5 +1,6 @@
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:form_validator/form_validator.dart';
+import 'package:my_flutter_template/core/utils/dialog_extension.dart';
 import 'package:my_flutter_template/features/authentication/auth/presentation/cubit/auth_cubit.dart';
 import 'package:my_flutter_template/features/authentication/auth/presentation/cubit/auth_state.dart';
 import 'package:my_flutter_template/features/startUp/splash/presentation/cubit/locale_cubit.dart';
@@ -14,11 +15,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'config/themes/app_theme.dart';
 import 'core/di/injection.dart' as di;
 import 'generated/l10n.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart'
+    as snackBarContent;
 
 part 'auth_listener.dart';
 
 class MyTemplateApp extends StatelessWidget {
-   MyTemplateApp({super.key}) : _appRouter = getIt();
+  MyTemplateApp({super.key}) : _appRouter = getIt();
   final AppRouter _appRouter;
 
   @override
