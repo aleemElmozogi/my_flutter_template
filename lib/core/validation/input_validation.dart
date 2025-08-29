@@ -7,11 +7,13 @@ class InputValidation {
     return ValidationBuilder().required().build();
   }
 
-  static StringValidationCallback requiredAmountValidation() {
+  static Future<StringValidationCallback> requiredAmountValidation() async {
     final amountRegex = RegExp(r'^\d+(\.\d{1,2})?$');
 
     return ValidationBuilder().required().add((value) {
-      if (value == null || value.isEmpty) return 'الرجاء إدخال المبلغ';
+      if (value == null || value.isEmpty) {
+        return 'الرجاء إدخال المبلغ';
+      }
       if (!amountRegex.hasMatch(value)) return 'صيغة المبلغ غير صحيحة';
       final parsed = double.tryParse(value);
       if (parsed == null) return 'الرجاء إدخال مبلغ صحيح';

@@ -39,5 +39,7 @@
   "informationNotAvailable": "The requested information is not available",
   "conflictOccurred": "A conflict occurred",
   "internalServerError": "Internal server error",
-  "noInternetConnection": "No internet connection"
+  "noInternetConnection": "No internet connection",
+  "otpErrorMessage": "Please enter the otp in correct form"
+
 }

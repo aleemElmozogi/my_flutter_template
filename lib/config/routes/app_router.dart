@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:my_flutter_template/features/authenticated/main_screen.dart';
 import 'package:my_flutter_template/features/startUp/onBoarding/presentation/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
@@ -37,19 +36,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: SplashRoute.page, initial: true),
     AutoRoute(page: OnBoardingRoute.page),
     AutoRoute(page: LoginRoute.page),
-    AutoRoute(page: RegisterRoute.page),
-    AutoRoute(page: PhoneInputRoute.page),
-    AutoRoute(page: OtpInputRoute.page),
-    AutoRoute(page: ForgetPasswordRoute.page),
 
-    AutoRoute(page: MainRoute.page, children: [
-      AutoRoute(page: HomeRoute.page),
-      AutoRoute(page: ProfileRoute.page),
-      AutoRoute(page: PostsRoute.page),
-      AutoRoute(page: ProjectsRoute.page),
-    ]),
-    AutoRoute(page: ProfilePostsRoute.page),
-    AutoRoute(page: WebRoute.page),
     // // private routes
     // AutoRoute(page: MainRoute.page, initial: true, guards: [
     //   _softGuard

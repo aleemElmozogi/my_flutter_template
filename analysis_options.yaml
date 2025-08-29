@@ -1,28 +1,61 @@
 # This file configures the analyzer, which statically analyzes Dart code to
 # check for errors, warnings, and lints.
 #
-# The issues identified by the analyzer are surfaced in the UI of Dart-enabled
-# IDEs (https://dart.dev/tools#ides-and-editors). The analyzer can also be
-# invoked from the command line by running `flutter analyze`.
 
-# The following line activates a set of recommended lints for Flutter apps,
-# packages, and plugins designed to encourage good coding practices.
-include: package:flutter_lints/flutter.yaml
+# Include and activate all lint rules, later below we disable the not used or desired ones.
+# You can find a list of all lint rules to put in your all_lint_rules.yaml file here:
+# https://dart.dev/tools/linter-rules/all
+include: all_lint_rules.yaml
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "test/.test_coverage.dart"
+    - "bin/cache/**"
+    - "lib/generated_plugin_registrant.dart"
+    - "lib/core/di/injection.config.dart"
 
+  # For more information see: https://dart.dev/tools/analysis
+  language:
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
+
+  errors:
+    # Without ignore here, we cause import of all_lint_rules to warn, because some rules conflict.
+    # We explicitly enable conflicting rules and are fixing the conflicts in this file.
+    # Put it to warning temporarily if you need to troubleshoot lint rule settings.
+    included_file_warning: ignore
+
+    # Treat missing required parameters as an error, not as a hint or a warning.
+    missing_required_param: error
+
+    # Treat missing returns as an error, not as a hint or a warning.
+    missing_return: error
+
+    # A record literal with exactly one positional field requires a trailing comma.
+    record_literal_one_positional_no_trailing_comma: error
+
+    # Invocation collection methods with arguments of unrelated types.
+    collection_methods_unrelated_type: warning
+
+    # Invocation of equality operator == with references of unrelated types.
+    unrelated_type_equality_checks: warning
+
+    # Allow self-reference to deprecated members. This is done because otherwise we have
+    # to annotate every member in every test, assert, etc. when we deprecate something.
+    # This is useful and typically needed when developing packages and libraries.
+    deprecated_member_use_from_same_package: ignore
+
+    # DON'T assign new values to parameters of methods or functions.
+    parameter_assignments: warning
+
+    # Allow having TODOs in the code.
+    todo: ignore
+
+# LINTER Preferences
+#
+# Explicitly disable only the rules we do not want.
 linter:
-  # The lint rules applied to this project can be customized in the
-  # section below to disable rules from the `package:flutter_lints/flutter.yaml`
-  # included above or to enable additional rules. A list of all available lints
-  # and their documentation is published at https://dart.dev/lints.
-  #
-  # Instead of disabling a lint rule for the entire project in the
-  # section below, it can also be suppressed for a single line of code
-  # or a specific dart file by using the `// ignore: name_of_lint` and
-  # `// ignore_for_file: name_of_lint` syntax on the line or in the file
-  # producing the lint.
   rules:
-    # avoid_print: false  # Uncomment to disable the `avoid_print` rule
-    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
 
-# Additional information about this file can be found at
-# https://dart.dev/guides/language/analysis-options

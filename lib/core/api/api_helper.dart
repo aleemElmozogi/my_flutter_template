@@ -75,7 +75,8 @@ class ApiHelperImpl implements ApiHelper {
     var parsedResponse = responseCreator() as ResponseModel;
     try {
       final messageResponse = jsonDecode(response.data!);
-      final errorResponse = ErrorResponseModel.fromJson(messageResponse);
+      final errorResponse =
+          ErrorResponseModel.fromJson(messageResponse as Map<String, dynamic>);
 
       if ((response.statusCode != null &&
               response.statusCode! >= 200 &&
@@ -84,7 +85,8 @@ class ApiHelperImpl implements ApiHelper {
               errorResponse.statusCode! >= 200 &&
               errorResponse.statusCode! < 300)) {
         // Handle success response
-        parsedResponse = parsedResponse.fromJson(messageResponse);
+        parsedResponse =
+            responseCreator().fromJson(messageResponse) as ResponseModel;
         return parsedResponse as T;
       } else {
         // Handle error response
@@ -102,8 +104,9 @@ class ApiHelperImpl implements ApiHelper {
 
   dynamic _handleBackEndError(Response<dynamic>? response) {
     if (response != null) {
-      final decodedResponse = jsonDecode(response.data!);
-      final errorResponse = ErrorResponseModel.fromJson(decodedResponse);
+      final decodedResponse = jsonDecode(response.data as String);
+      final errorResponse =
+          ErrorResponseModel.fromJson(decodedResponse as Map<String, dynamic>);
       throw ApiException(errorResponse);
     }
   }

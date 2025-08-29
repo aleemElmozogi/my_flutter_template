@@ -39,5 +39,6 @@
   "informationNotAvailable": "المعلومات المطلوبة غير موجودة",
   "conflictOccurred": "حدث تضارب",
   "internalServerError": "خطأ داخلي في الخادم",
-  "noInternetConnection": "لا يوجد اتصال بالإنترنت"
+  "noInternetConnection": "لا يوجد اتصال بالإنترنت",
+  "otpErrorMessage": "الرجاء التأكد من كتابة رمز الـOTP بشكل صحيح"
 }

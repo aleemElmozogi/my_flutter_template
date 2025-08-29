@@ -60,16 +60,16 @@ class LoginScreen extends StatelessWidget {
                     prefixIcon: Icons.lock_rounded,
                   ),
                   const SizedBox(height: 15),
-                  InkWell(
-                    onTap: () => context.router.push(PhoneInputRoute(
-                        onSuccess: (v) => context.router
-                            .push(ForgetPasswordRoute(phoneNumber: v)))),
-                    child: AppText(
-                      'نسيت كلمة السر؟',
-                      textColor: AppColors.primary,
-                      fontSize: 15.sp,
-                    ),
-                  ),
+                  // InkWell(
+                  //   onTap: () => context.router.push(PhoneInputRoute(
+                  //       onSuccess: (v) => context.router
+                  //           .push(ForgetPasswordRoute(phoneNumber: v)))),
+                  //   child: AppText(
+                  //     'نسيت كلمة السر؟',
+                  //     textColor: AppColors.primary,
+                  //     fontSize: 15.sp,
+                  //   ),
+                  // ),
                   const SizedBox(height: 15),
                   BlocBuilder<AuthCubit, AuthState>(
                     buildWhen: (previous, current) =>
@@ -99,27 +99,27 @@ class LoginScreen extends StatelessWidget {
                         'ليس لديك حساب؟ ',
                         fontSize: 15.sp,
                       ),
-                      InkWell(
-                        onTap: () => context.router.push(PhoneInputRoute(
-                            onSuccess: (v) => context.router
-                                .push(RegisterRoute(phoneNumber: v)))),
-                        child: AppText(
-                          'التسجيل',
-                          fontSize: 15.sp,
-                          textColor: AppColors.primary,
-                        ),
-                      ),
+                      // InkWell(
+                      //   onTap: () => context.router.push(PhoneInputRoute(
+                      //       onSuccess: (v) => context.router
+                      //           .push(RegisterRoute(phoneNumber: v)))),
+                      //   child: AppText(
+                      //     'التسجيل',
+                      //     fontSize: 15.sp,
+                      //     textColor: AppColors.primary,
+                      //   ),
+                      // ),
                     ],
                   ),
                   const SizedBox(height: 20),
-                  InkWell(
-                    onTap: () => context.router.replaceAll([const MainRoute()]),
-                    child: AppText(
-                      'الإستمرار كضيف',
-                      textColor: AppColors.primary,
-                      fontSize: 15.sp,
-                    ),
-                  ),
+                  // InkWell(
+                  //   onTap: () => context.router.replaceAll([const MainRoute()]),
+                  //   child: AppText(
+                  //     'الإستمرار كضيف',
+                  //     textColor: AppColors.primary,
+                  //     fontSize: 15.sp,
+                  //   ),
+                  // ),
                 ],
               ),
             );

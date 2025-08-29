@@ -54,9 +54,10 @@ class DioConsumerMockImpl implements ApiConsumer {
 
     try {
       await Future.delayed(const Duration(seconds: 2));
-      final response = Response(
+      final response = Response<String>(
           data: jsonEncode(mockResponse),
-          statusCode: jsonDecode(jsonEncode(mockResponse))["statusCode"] ?? 200,
+          statusCode:
+              jsonDecode(jsonEncode(mockResponse))["statusCode"] as int ?? 200,
           requestOptions: RequestOptions());
       return di
           .getIt<ApiHelper>()
@@ -64,12 +65,13 @@ class DioConsumerMockImpl implements ApiConsumer {
     } on ApiException catch (e) {
       rethrow;
     } on DioException catch (error) {
-      return di.getIt<ApiHelper>().handleDioError(error);
+      di.getIt<ApiHelper>().handleDioError(error);
+      rethrow;
     } on Exception catch (error) {
-      print(error);
-      return di
+      di
           .getIt<ApiHelper>()
           .handleDioError(DioException(requestOptions: RequestOptions()));
+      rethrow;
     }
   }
 }

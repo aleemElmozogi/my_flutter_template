@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:my_flutter_template/core/models/json_model.dart';
 import 'package:my_flutter_template/core/models/response_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -14,6 +15,13 @@ class CredentialsContentModel extends JsonModel<CredentialsContentModel> {
     required this.refreshToken,
     required this.user,
   });
+  factory CredentialsContentModel.fromJson(Map<String, dynamic> json) =>
+      _$CredentialsContentModelFromJson(json);
+
+  factory CredentialsContentModel.fromStorage(String data) =>
+      CredentialsContentModel.fromJson(
+        json.decode(data) as Map<String, dynamic>,
+      );
 
   @JsonKey(defaultValue: '')
   final String accessToken;
@@ -21,14 +29,9 @@ class CredentialsContentModel extends JsonModel<CredentialsContentModel> {
   final String refreshToken;
   @JsonKey(name: 'userProfile')
   final UserContentModel user;
-  factory CredentialsContentModel.fromJson(Map<String, dynamic> json) =>
-      _$CredentialsContentModelFromJson(json);
 
   @override
   Map<String, dynamic> toJson() => _$CredentialsContentModelToJson(this);
-
-  factory CredentialsContentModel.fromStorage(String data) =>
-      CredentialsContentModel.fromJson(json.decode(data));
 
   @override
   CredentialsContentModel fromJson(Map<String, dynamic> json) =>

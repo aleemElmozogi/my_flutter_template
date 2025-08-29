@@ -87,11 +87,13 @@ class DioConsumerProdImpl implements ApiConsumer {
     } on ApiException catch (e) {
       rethrow;
     } on DioException catch (error) {
-      return di.getIt<ApiHelper>().handleDioError(error);
+      di.getIt<ApiHelper>().handleDioError(error);
+      rethrow;
     } on Exception catch (error) {
-      return di
+      di
           .getIt<ApiHelper>()
           .handleDioError(DioException(requestOptions: RequestOptions()));
+      rethrow;
     }
   }
 
@@ -99,15 +101,14 @@ class DioConsumerProdImpl implements ApiConsumer {
     NetworkMethod method,
     String authorization,
     Map<String, String> header,
-  ) {
-    return BaseOptions(
-      method: method.key,
-      sendTimeout: const Duration(minutes: 1),
-      receiveTimeout: const Duration(minutes: 1),
-      headers: _handleHttpHeader(
-          method: method, authorization: authorization, header: header),
-    );
-  }
+  ) =>
+      BaseOptions(
+        method: method.key,
+        sendTimeout: const Duration(minutes: 1),
+        receiveTimeout: const Duration(minutes: 1),
+        headers: _handleHttpHeader(
+            method: method, authorization: authorization, header: header),
+      );
 
   Map<String, String> _handleHttpHeader(
       {required NetworkMethod method,

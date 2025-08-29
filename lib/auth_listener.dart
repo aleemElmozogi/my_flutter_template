@@ -4,7 +4,7 @@ extension AuthListener on MyTemplateApp {
   Future<void> _authStatus(BuildContext context, AuthState state) async {
     switch (state.authState) {
       case AuthStatus.authenticated:
-        _appRouter.replaceAll([const MainRoute()]);
+        // _appRouter.replaceAll([const MainRoute()]);
         SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
           context.showAppSnackBar(
             message: 'تم تسجيل الدخول بنجاح',
