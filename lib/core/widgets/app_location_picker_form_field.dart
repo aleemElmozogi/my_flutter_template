@@ -35,10 +35,10 @@ class _AppLocationPickerFormFieldState
       child: SizedBox(
         height: .8.sh,
         child: MapLocationPicker(
+            config: MapLocationPickerConfig(
           apiKey: AppStrings.googleMapsApiKey,
-          hideMapTypeButton: true,
           hideMoreOptions: true,
-          mapType: MapType.normal,
+          initialMapType: MapType.normal,
           onNext: (result) {
             if (result != null) {
               result.geometry.location.lat;
@@ -62,7 +62,7 @@ class _AppLocationPickerFormFieldState
               Navigator.pop(context);
             }
           },
-        ),
+        )),
       ),
     );
   }
