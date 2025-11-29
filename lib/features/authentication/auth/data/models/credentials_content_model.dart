@@ -1,8 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:my_flutter_template/core/models/json_model.dart';
-import 'package:my_flutter_template/core/models/response_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:my_flutter_template/features/authentication/auth/data/models/user_content_model.dart';
 

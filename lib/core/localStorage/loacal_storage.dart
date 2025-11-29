@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:my_flutter_template/core/enums/local_keys.dart';
 import 'package:my_flutter_template/core/utils/app_locale.dart';

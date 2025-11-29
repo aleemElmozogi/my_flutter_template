@@ -3,7 +3,6 @@ import 'package:my_flutter_template/core/utils/dialog_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:map_location_picker/map_location_picker.dart';
 import 'package:my_flutter_template/core/utils/app_colors.dart';
 import 'package:my_flutter_template/core/widgets/app_text.dart';

@@ -2,14 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:my_flutter_template/config/routes/app_router.dart';
 import 'package:my_flutter_template/core/utils/app_colors.dart';
 import 'package:my_flutter_template/core/utils/assets_manager.dart';
-import 'package:my_flutter_template/core/utils/media_query_values.dart';
 import 'package:my_flutter_template/core/widgets/app_button.dart';
 import 'package:my_flutter_template/core/widgets/app_scaffold.dart';
 import 'package:my_flutter_template/core/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:my_flutter_template/core/utils/assets_manager.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 part 'widgets/onboardong_item.dart';

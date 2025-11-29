@@ -1,6 +1,4 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:my_flutter_template/core/enums/environment_types.dart';
-import 'package:my_flutter_template/core/network/network_info.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';

@@ -1,6 +1,5 @@
 import 'package:my_flutter_template/core/enums/auth_status.dart';
 import 'package:my_flutter_template/core/enums/fetch_status.dart';
-import 'package:my_flutter_template/core/enums/transaction_state.dart';
 import 'package:my_flutter_template/features/authentication/auth/data/models/user_content_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

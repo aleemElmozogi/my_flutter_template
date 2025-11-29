@@ -1,9 +1,7 @@
-import 'dart:convert';
 
 import 'package:my_flutter_template/core/models/response_model.dart';
 import 'package:my_flutter_template/features/authentication/auth/data/models/credentials_content_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:my_flutter_template/features/authentication/auth/data/models/user_content_model.dart';
 
 part 'credentials_model.g.dart';
 

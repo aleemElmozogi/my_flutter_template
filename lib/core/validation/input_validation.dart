@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:form_validator/form_validator.dart';
 import 'package:my_flutter_template/generated/l10n.dart';
 

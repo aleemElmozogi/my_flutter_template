@@ -50,11 +50,11 @@ class AppButton extends StatelessWidget {
           style: ButtonStyle(
             overlayColor: withSplash
                 ? null
-                : MaterialStateColor.resolveWith(
+                : WidgetStateColor.resolveWith(
                     (states) => Colors.transparent),
-            padding: MaterialStateProperty.all<EdgeInsets>(innerPadding),
-            foregroundColor: MaterialStateProperty.all<Color>(foregroundColor),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            padding: WidgetStateProperty.all<EdgeInsets>(innerPadding),
+            foregroundColor: WidgetStateProperty.all<Color>(foregroundColor),
+            shape: WidgetStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(borderRadius),
                 side: BorderSide(color: borderColor),

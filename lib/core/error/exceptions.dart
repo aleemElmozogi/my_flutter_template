@@ -1,8 +1,6 @@
-import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:my_flutter_template/core/models/error_response_model.dart';
-import 'package:my_flutter_template/core/utils/error_fromatter.dart';
 import 'package:my_flutter_template/generated/l10n.dart';
 
 class ServerException extends Equatable implements Exception {
