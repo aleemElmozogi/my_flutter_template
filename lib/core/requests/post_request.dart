@@ -1,4 +1,3 @@
-import 'package:my_flutter_template/core/enums/post_type.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'post_request.g.dart';

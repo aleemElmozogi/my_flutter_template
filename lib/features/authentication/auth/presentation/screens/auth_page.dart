@@ -1,7 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:my_flutter_template/config/routes/app_router.dart';
 import 'package:my_flutter_template/core/enums/fetch_status.dart';
-import 'package:my_flutter_template/core/utils/app_colors.dart';
 import 'package:my_flutter_template/core/utils/dialog_extension.dart';
 import 'package:my_flutter_template/core/widgets/app_button.dart';
 import 'package:my_flutter_template/core/widgets/app_scaffold.dart';

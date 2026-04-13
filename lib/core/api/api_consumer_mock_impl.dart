@@ -62,12 +62,12 @@ class DioConsumerMockImpl implements ApiConsumer {
       return di
           .getIt<ApiHelper>()
           .handleResponseAsJson<T>(responseCreator, response);
-    } on ApiException catch (e) {
+    } on ApiException {
       rethrow;
     } on DioException catch (error) {
       di.getIt<ApiHelper>().handleDioError(error);
       rethrow;
-    } on Exception catch (error) {
+    } on Exception {
       di
           .getIt<ApiHelper>()
           .handleDioError(DioException(requestOptions: RequestOptions()));

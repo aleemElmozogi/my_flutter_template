@@ -95,7 +95,7 @@ class ApiHelperImpl implements ApiHelper {
         // However, Dart requires a return statement to satisfy the return type.
         throw FetchDataException(); // or any default error handling
       }
-    } on ApiException catch (e) {
+    } on ApiException {
       rethrow;
     } catch (e) {
       throw BadResponseException(e.toString());

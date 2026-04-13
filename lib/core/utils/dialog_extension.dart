@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:my_flutter_template/core/widgets/app_button.dart';
 import 'package:my_flutter_template/core/widgets/app_text.dart';
 import 'package:my_flutter_template/core/widgets/loading_indicator.dart';
