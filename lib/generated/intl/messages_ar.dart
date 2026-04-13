@@ -61,6 +61,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("لا يوجد اتصال بالإنترنت"),
         "ok": MessageLookupByLibrary.simpleMessage("موافق"),
         "opps": MessageLookupByLibrary.simpleMessage("عفواً !"),
+        "otpErrorMessage": MessageLookupByLibrary.simpleMessage(
+            "الرجاء التأكد من كتابة رمز الـOTP بشكل صحيح"),
         "passwordErrorMessage": MessageLookupByLibrary.simpleMessage(
             "يجب ان تتكون كلمة المرور من 8 أرقام على الأقل"),
         "phoneErrorMessage": MessageLookupByLibrary.simpleMessage(

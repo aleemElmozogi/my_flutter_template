@@ -449,6 +449,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Please enter the otp in correct form`
+  String get otpErrorMessage {
+    return Intl.message(
+      'Please enter the otp in correct form',
+      name: 'otpErrorMessage',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

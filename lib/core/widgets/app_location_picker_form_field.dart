@@ -30,38 +30,42 @@ class _AppLocationPickerFormFieldState
   String? city;
   String? country;
   Future<void> _pickLocation(
-      FormFieldState<String> field, BuildContext context) async {
+    FormFieldState<String> field,
+    BuildContext context,
+  ) async {
     context.showAppBottomSheet(
       child: SizedBox(
         height: .8.sh,
         child: MapLocationPicker(
-          apiKey: AppStrings.googleMapsApiKey,
-          hideMapTypeButton: true,
-          hideMoreOptions: true,
-          mapType: MapType.normal,
-          onNext: (result) {
-            if (result != null) {
-              result.geometry.location.lat;
-              String? address = result.formattedAddress;
-              for (var component in result.addressComponents) {
-                if (component.types.contains('locality')) {
-                  setState(() {
-                    city = component.longName;
-                  });
-                } else if (component.types.contains('country')) {
-                  setState(() {
-                    country = component.longName;
-                  });
+          config: MapLocationPickerConfig(
+            initialZoom: 15,
+            initialPosition: LatLng(30.033333, 31.233334),
+            apiKey: AppStrings.googleMapsApiKey,
+            hideMoreOptions: true,
+            onNext: (result) {
+              if (result != null) {
+                result.geometry.location.lat;
+                String? address = result.formattedAddress;
+                for (var component in result.addressComponents) {
+                  if (component.types.contains('locality')) {
+                    setState(() {
+                      city = component.longName;
+                    });
+                  } else if (component.types.contains('country')) {
+                    setState(() {
+                      country = component.longName;
+                    });
+                  }
                 }
+                setState(() {
+                  _selectedLocation =
+                      "Address\nLat: ${result.geometry.location.lat}, Lng: ${result.geometry.location.lng}";
+                });
+                field.didChange(_selectedLocation);
+                Navigator.pop(context);
               }
-              setState(() {
-                _selectedLocation =
-                    "Address\nLat: ${result.geometry.location.lat}, Lng: ${result.geometry.location.lng}";
-              });
-              field.didChange(_selectedLocation);
-              Navigator.pop(context);
-            }
-          },
+            },
+          ),
         ),
       ),
     );
@@ -78,39 +82,41 @@ class _AppLocationPickerFormFieldState
             AppCustomButton(
               borderColor:
                   field.hasError ? Colors.red.shade900 : AppColors.grey,
-              contentPadding:
-                  EdgeInsets.all(_selectedLocation != null ? 0 : 5.r),
+              contentPadding: EdgeInsets.all(
+                _selectedLocation != null ? 0 : 5.r,
+              ),
               onPressed: () async => await _pickLocation(field, context),
-              child: _selectedLocation != null
-                  ? SizedBox(
-                      height: 100.h,
-                      width: 1.sw,
-                      child: Center(
-                        child: AppText(
-                          'تم اختيار العنوان',
-                          textColor: AppColors.primary,
-                          fontSize: 15.sp,
+              child:
+                  _selectedLocation != null
+                      ? SizedBox(
+                        height: 100.h,
+                        width: 1.sw,
+                        child: Center(
+                          child: AppText(
+                            'تم اختيار العنوان',
+                            textColor: AppColors.primary,
+                            fontSize: 15.sp,
+                          ),
                         ),
+                      )
+                      : Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.location_on_outlined,
+                            size: 35.r,
+                            color: AppColors.primary,
+                          ),
+                          SizedBox(height: 10.h),
+                          const AppText('اختر موقعك'),
+                          SizedBox(height: 2.h),
+                          const AppText(
+                            'اضغط هنا لفتح الخريطة واختيار موقعك',
+                            maxLines: 2,
+                            textColor: AppColors.grey,
+                          ),
+                        ],
                       ),
-                    )
-                  : Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.location_on_outlined,
-                          size: 35.r,
-                          color: AppColors.primary,
-                        ),
-                        SizedBox(height: 10.h),
-                        const AppText('اختر موقعك'),
-                        SizedBox(height: 2.h),
-                        const AppText(
-                          'اضغط هنا لفتح الخريطة واختيار موقعك',
-                          maxLines: 2,
-                          textColor: AppColors.grey,
-                        ),
-                      ],
-                    ),
             ),
             if (field.hasError)
               Padding(

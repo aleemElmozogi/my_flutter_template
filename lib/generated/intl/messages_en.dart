@@ -61,6 +61,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No internet connection"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "opps": MessageLookupByLibrary.simpleMessage("Oops!"),
+        "otpErrorMessage": MessageLookupByLibrary.simpleMessage(
+            "Please enter the otp in correct form"),
         "passwordErrorMessage": MessageLookupByLibrary.simpleMessage(
             "Password must be at least 8 digits"),
         "phoneErrorMessage": MessageLookupByLibrary.simpleMessage(
