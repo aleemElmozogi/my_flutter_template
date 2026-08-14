@@ -1,7 +1,7 @@
 {
   "@@locale": "ar",
   "helloWorld": "مرحبا بالعالم!",
-  "appName": "تمبلت فلاتر",
+  "appName": "كتّاب",
   "opps": "عفواً !",
   "internetConnectionError": "من فضلك أفحص اتصالك بالانترنت ، وأعد المحاولة",
   "tryAgain": "حاول مجدداَ",
@@ -14,6 +14,7 @@
   "reloadScreen": "إعادة تحميل الصفحة",
   "wantToLogout": "هل تريد تسجيل الخروج؟",
   "signinWithPhone": "تسجيل الدخول برقم الهاتف",
+  "signIn": "تسجيل الدخول",
   "verifyWithPhone": "التحقق من رقم الهاتف",
   "changePassword": "تغيير كلمة المرور",
   "changeEmail": "تغيير البريد الإلكتروني",
@@ -39,5 +40,10 @@
   "informationNotAvailable": "المعلومات المطلوبة غير موجودة",
   "conflictOccurred": "حدث تضارب",
   "internalServerError": "خطأ داخلي في الخادم",
-  "noInternetConnection": "لا يوجد اتصال بالإنترنت"
+  "noInternetConnection": "لا يوجد اتصال بالإنترنت",
+  "otpErrorMessage": "الرجاء التأكد من كتابة رمز الـOTP بشكل صحيح",
+  "accountNotActive": "هذا الحساب غير مفعل بعد.",
+  "passwordResetRequired": "يجب إعادة تعيين كلمة المرور قبل تسجيل الدخول.",
+  "missingAccountState": "حالة الحساب غير موجودة في استجابة الخادم.",
+  "missingUserProfile": "ملف المستخدم غير موجود في استجابة الخادم."
 }

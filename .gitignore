@@ -5,10 +5,14 @@
 *.swp
 .DS_Store
 .atom/
+.build/
 .buildlog/
 .history
 .svn/
+.swiftpm/
 migrate_working_dir/
++.g.dart
++.freezed.dart
 
 # IntelliJ related
 *.iml
@@ -25,11 +29,11 @@ migrate_working_dir/
 **/doc/api/
 **/ios/Flutter/.last_build_id
 .dart_tool/
-.flutter-plugins
 .flutter-plugins-dependencies
 .pub-cache/
 .pub/
 /build/
+/coverage/
 
 # Symbolication related
 app.*.symbols
@@ -41,6 +45,36 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-/lib/generated/
-/lib/generated/intl/
-/lib/generated/intl/
+
+# Flutter plugins
+.flutter-plugins
+
+# CocoaPods
+ios/Pods/
+ios/.symlinks/
+macos/Pods/
+macos/.symlinks/
+
+# Keystores and secrets
+*.jks
+*.keystore
+key.properties
+android/key.properties
+*.env
+.env*
+
+pubspec.lock
+# Google services configurations (often ignored in open-source)
+# google-services.json
+# GoogleService-Info.plist
+*.g.dart
+*.gr.dart
+*.freezed.dart
+*.config.dart
+*.mocks.dart
+*.tailor.dart
+
+# Mason cache/lock for local bricks
+.mason/
+mason-lock.json
+/lib/core/utils/assets/

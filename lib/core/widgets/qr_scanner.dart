@@ -1,21 +1,15 @@
 import 'dart:io' as io;
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_mlkit_barcode_scanning/google_mlkit_barcode_scanning.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:scan/scan.dart';
+import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart' hide Barcode;
+
 
 class AppQrScanner extends StatefulWidget {
-  Function(String) onQrScan;
-  Function(QRViewController) onViewCreated;
-  QRViewController? controller;
+  final Function(String) onQrScan;
 
-  AppQrScanner(
-      {super.key,
-      required this.onQrScan,
-      required this.onViewCreated,
-      required this.controller});
+  const AppQrScanner({super.key, required this.onQrScan});
 
   @override
   State<AppQrScanner> createState() => _AppQrScannerState();
@@ -26,40 +20,45 @@ class _AppQrScannerState extends State<AppQrScanner> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   io.File? _image;
   final picker = ImagePicker();
+  final BarcodeScanner _barcodeScanner = BarcodeScanner();
+  QRViewController? _controller;
   bool isFlashOn = false;
-  void barcode({required String qrResult, required String message}) {}
+  bool _hasScanned = false;
 
   Future<void> _onQRViewCreated(QRViewController controller) async {
-    widget.controller = controller;
-    widget.onViewCreated(controller);
+    _controller = controller;
     //This code fixes the issue with the camera that displaying a black screen
-    widget.controller!.pauseCamera();
-    widget.controller!.resumeCamera();
-    widget.controller!.scannedDataStream.listen((scanData) {
-      if (scanData.code != null) {
-        widget.onQrScan.call(scanData.code.toString());
-        return;
-      }
+    await _controller?.pauseCamera();
+    await _controller?.resumeCamera();
+    _controller?.scannedDataStream.listen((scanData) {
+      final code = scanData.code;
+      if (_hasScanned || code == null || code.isEmpty) return;
+      _hasScanned = true;
+      _controller?.pauseCamera();
+      widget.onQrScan.call(code);
     });
   }
 
   Future<void> pickImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
-    if (pickedFile != null) {
-      _image = io.File(pickedFile.path);
+    if (pickedFile == null) return;
 
-      final result = await Scan.parse(_image!.path);
+    _image = io.File(pickedFile.path);
+    final inputImage = InputImage.fromFile(_image!);
+    final barcodes = await _barcodeScanner.processImage(inputImage);
 
-      if (mounted) {
-        widget.onQrScan(result ?? ''.toString());
-      }
-    }
+    if (!mounted || barcodes.isEmpty) return;
+
+    final code = barcodes.first.rawValue;
+    if (code == null || code.isEmpty) return;
+
+    widget.onQrScan.call(code);
   }
 
   Future<void> flashLight() async {
     try {
-      await widget.controller!.toggleFlash();
+      await _controller?.toggleFlash();
       setState(() {
         isFlashOn = !isFlashOn;
       });
@@ -70,7 +69,7 @@ class _AppQrScannerState extends State<AppQrScanner> {
 
   @override
   void dispose() {
-    widget.controller!.dispose();
+    _barcodeScanner.close();
     super.dispose();
   }
 
@@ -93,26 +92,28 @@ class _AppQrScannerState extends State<AppQrScanner> {
           ),
         ),
         Positioned(
-          bottom: 0.h,
-          right: 0.h,
+          bottom: 15.h,
+          right: 15.w,
           child: IconButton(
-              onPressed: pickImage,
-              icon: Icon(
-                Icons.photo_library_sharp,
-                color: Colors.white,
-                size: 25.w,
-              )),
+            onPressed: pickImage,
+            icon: Icon(
+              Icons.photo_library_sharp,
+              color: Theme.of(context).colorScheme.onPrimary,
+              size: 25.w,
+            ),
+          ),
         ),
         Positioned(
-          bottom: 0.h,
-          left: 0.h,
+          bottom: 15.h,
+          left: 15.w,
           child: IconButton(
-              onPressed: flashLight,
-              icon: Icon(
-                isFlashOn ? Icons.flash_on : Icons.flash_off,
-                color: Colors.white,
-                size: 25.w,
-              )),
+            onPressed: flashLight,
+            icon: Icon(
+              isFlashOn ? Icons.flash_on : Icons.flash_off,
+              color: Theme.of(context).colorScheme.onPrimary,
+              size: 25.w,
+            ),
+          ),
         ),
       ],
     );

@@ -5,6 +5,7 @@ import 'package:my_flutter_template/core/models/error_response_model.dart';
 import 'package:my_flutter_template/core/utils/error_fromatter.dart';
 import 'package:my_flutter_template/generated/l10n.dart';
 
+
 class ServerException extends Equatable implements Exception {
   final String? message;
 
@@ -30,71 +31,66 @@ class ApiException extends ServerException {
 }
 
 class FetchDataException extends ServerException {
-  FetchDataException([message])
-      : super((message != null && message.toString().isNotEmpty)
-            ? message.toString()
-            : S.current.errorDuringCommunication);
+  FetchDataException([String? message])
+      : super(
+    _resolveExceptionMessage(message, S.current.errorDuringCommunication),
+  );
 }
 
 class EmptyResponseException extends ServerException {
-  EmptyResponseException([message])
-      : super((message != null && message.toString().isNotEmpty)
-            ? message.toString()
-            : S.current.noDataOrContentAvailable);
+  EmptyResponseException([String? message])
+      : super(
+    _resolveExceptionMessage(message, S.current.noDataOrContentAvailable),
+  );
 }
 
 class BadRequestException extends ServerException {
-  BadRequestException([message])
-      : super((message != null && message.toString().isNotEmpty)
-            ? message.toString()
-            : S.current.invalidRequest);
+  BadRequestException([String? message])
+      : super(_resolveExceptionMessage(message, S.current.invalidRequest));
 }
 
 class BadResponseException extends ServerException {
-  BadResponseException([message])
-      : super((message != null && message.toString().isNotEmpty)
-            ? message.toString()
-            : S.current.invalidResponse);
+  BadResponseException([String? message])
+      : super(_resolveExceptionMessage(message, S.current.invalidResponse));
 }
 
 class UnauthorizedException extends ServerException {
-  UnauthorizedException([message])
-      : super((message != null && message.toString().isNotEmpty)
-            ? message.toString()
-            : S.current.unauthorized);
+  UnauthorizedException([String? message])
+      : super(_resolveExceptionMessage(message, S.current.unauthorized));
 }
 
 class NotFoundException extends ServerException {
-  NotFoundException([message])
-      : super((message != null && message.toString().isNotEmpty)
-            ? message.toString()
-            : S.current.informationNotAvailable);
+  NotFoundException([String? message])
+      : super(
+    _resolveExceptionMessage(message, S.current.informationNotAvailable),
+  );
 }
 
 class ConflictException extends ServerException {
-  ConflictException([message])
-      : super((message != null && message.toString().isNotEmpty)
-            ? message.toString()
-            : S.current.conflictOccurred);
+  ConflictException([String? message])
+      : super(_resolveExceptionMessage(message, S.current.conflictOccurred));
 }
 
 class InternalServerErrorException extends ServerException {
-  InternalServerErrorException([message])
-      : super((message != null && message.toString().isNotEmpty)
-            ? message.toString()
-            : S.current.internalServerError);
+  InternalServerErrorException([String? message])
+      : super(_resolveExceptionMessage(message, S.current.internalServerError));
 }
 
 class NoInternetConnectionException extends ServerException {
-  NoInternetConnectionException([message])
-      : super((message != null && message.toString().isNotEmpty)
-            ? message.toString()
-            : S.current.noInternetConnection);
+  NoInternetConnectionException([String? message])
+      : super(_resolveExceptionMessage(message, S.current.noInternetConnection));
 }
 
 class CacheException extends ServerException {
-  CacheException([message])
-      : super((message != null && message.toString().isNotEmpty)
-            ? message.toString()
-            : S.current.noDataOrContentAvailable);
+  CacheException([String? message])
+      : super(
+    _resolveExceptionMessage(message, S.current.noDataOrContentAvailable),
+  );
+}
+
+String _resolveExceptionMessage(String? message, String fallback) {
+  if (message != null && message.trim().isNotEmpty) {
+    return message;
+  }
+  return fallback;
 }

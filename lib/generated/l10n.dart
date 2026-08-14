@@ -18,8 +18,10 @@ class S {
   static S? _current;
 
   static S get current {
-    assert(_current != null,
-        'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
+    assert(
+      _current != null,
+      'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.',
+    );
     return _current!;
   }
 
@@ -41,8 +43,10 @@ class S {
 
   static S of(BuildContext context) {
     final instance = S.maybeOf(context);
-    assert(instance != null,
-        'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
+    assert(
+      instance != null,
+      'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?',
+    );
     return instance!;
   }
 
@@ -52,12 +56,7 @@ class S {
 
   /// `Hello World!`
   String get helloWorld {
-    return Intl.message(
-      'Hello World!',
-      name: 'helloWorld',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Hello World!', name: 'helloWorld', desc: '', args: []);
   }
 
   /// `My Flutter Template`
@@ -72,12 +71,7 @@ class S {
 
   /// `Oops!`
   String get opps {
-    return Intl.message(
-      'Oops!',
-      name: 'opps',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Oops!', name: 'opps', desc: '', args: []);
   }
 
   /// `Please check your internet connection and try again`
@@ -92,52 +86,27 @@ class S {
 
   /// `Try Again`
   String get tryAgain {
-    return Intl.message(
-      'Try Again',
-      name: 'tryAgain',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Try Again', name: 'tryAgain', desc: '', args: []);
   }
 
   /// `Welcome`
   String get welcome {
-    return Intl.message(
-      'Welcome',
-      name: 'welcome',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Welcome', name: 'welcome', desc: '', args: []);
   }
 
   /// `Agree`
   String get agree {
-    return Intl.message(
-      'Agree',
-      name: 'agree',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Agree', name: 'agree', desc: '', args: []);
   }
 
   /// `OK`
   String get ok {
-    return Intl.message(
-      'OK',
-      name: 'ok',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('OK', name: 'ok', desc: '', args: []);
   }
 
   /// `Cancel`
   String get cancel {
-    return Intl.message(
-      'Cancel',
-      name: 'cancel',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Cancel', name: 'cancel', desc: '', args: []);
   }
 
   /// `Something went wrong`
@@ -232,22 +201,12 @@ class S {
 
   /// `Continue`
   String get continio {
-    return Intl.message(
-      'Continue',
-      name: 'continio',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Continue', name: 'continio', desc: '', args: []);
   }
 
   /// `Check`
   String get check {
-    return Intl.message(
-      'Check',
-      name: 'check',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Check', name: 'check', desc: '', args: []);
   }
 
   /// `The code has been sent to your phone number`
@@ -262,22 +221,12 @@ class S {
 
   /// `Resend`
   String get resend {
-    return Intl.message(
-      'Resend',
-      name: 'resend',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Resend', name: 'resend', desc: '', args: []);
   }
 
   /// `Enter PIN`
   String get enterPin {
-    return Intl.message(
-      'Enter PIN',
-      name: 'enterPin',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Enter PIN', name: 'enterPin', desc: '', args: []);
   }
 
   /// `Enter the number of the friend to be added`
@@ -292,22 +241,12 @@ class S {
 
   /// `Save`
   String get save {
-    return Intl.message(
-      'Save',
-      name: 'save',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Save', name: 'save', desc: '', args: []);
   }
 
   /// `Add Friend`
   String get addFriend {
-    return Intl.message(
-      'Add Friend',
-      name: 'addFriend',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Add Friend', name: 'addFriend', desc: '', args: []);
   }
 
   /// `Use a strong PIN for your account`
@@ -332,12 +271,7 @@ class S {
 
   /// `Log Out`
   String get logout {
-    return Intl.message(
-      'Log Out',
-      name: 'logout',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Log Out', name: 'logout', desc: '', args: []);
   }
 
   /// `Password must be at least 8 digits`

@@ -1,7 +1,7 @@
 {
   "@@locale": "en",
   "helloWorld": "Hello World!",
-  "appName": "My Flutter Template",
+  "appName": "Kuttab",
   "opps": "Oops!",
   "internetConnectionError": "Please check your internet connection and try again",
   "tryAgain": "Try Again",
@@ -9,6 +9,7 @@
   "agree": "Agree",
   "ok": "OK",
   "cancel": "Cancel",
+  "signIn": "Sign in",
   "somethingWentWrong": "Something went wrong",
   "qrParsingError": "An error occurred while parsing the QR code",
   "reloadScreen": "Reload Screen",
@@ -39,5 +40,10 @@
   "informationNotAvailable": "The requested information is not available",
   "conflictOccurred": "A conflict occurred",
   "internalServerError": "Internal server error",
-  "noInternetConnection": "No internet connection"
+  "noInternetConnection": "No internet connection",
+  "otpErrorMessage": "Please enter the otp in correct form",
+  "accountNotActive": "This account is not active yet.",
+  "passwordResetRequired": "You need to reset your password before signing in.",
+  "missingAccountState": "Account state is missing from server response.",
+  "missingUserProfile": "User profile is missing from server response."
 }

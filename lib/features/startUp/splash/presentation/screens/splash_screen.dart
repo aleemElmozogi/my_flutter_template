@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_flutter_template/config/routes/app_router.dart';
 import 'package:my_flutter_template/core/widgets/app_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_flutter_template/core/widgets/loading_indicator.dart';
+import 'package:my_flutter_template/features/authentication/auth/presentation/cubit/auth_cubit.dart';
 
 @RoutePage()
 class SplashScreen extends StatefulWidget {
@@ -15,24 +17,29 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  late Timer _timer;
-
-  _goNext() => context.router.replaceAll([const LoginRoute()]);
-
-  _startDelay() {
-    _timer = Timer(const Duration(seconds: 4), () => _goNext());
-  }
-
   @override
   void initState() {
     super.initState();
-    _startDelay();
-  }
-
-  @override
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
+    // context.read<AuthCubit>().restoreSession().then((isAuthenticated) {
+    //   if (!mounted) {
+    //     return;
+    //   }
+    //
+    //   if (isAuthenticated) {
+    //     final role = context.read<AuthCubit>().state.userEntity?.role;
+    //     if (role != null) {
+    //       context.router.replaceAll([MainDashboardRoute(userRole: role)]);
+    //       return;
+    //     }
+    //   }
+    //
+    //   final isFirstStart = context.read<AuthCubit>().getIsFirstStart;
+    //   if (isFirstStart) {
+    //     context.router.replaceAll([StartUpRoute()]);
+    //     return;
+    //   }
+    //   context.router.replaceAll([LoginRoute()]);
+    // });
   }
 
   @override

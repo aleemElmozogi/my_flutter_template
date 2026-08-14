@@ -14,8 +14,9 @@ class LangRepositoryImpl implements LangRepository {
   LangRepositoryImpl({required this.langLocalDataSource});
   @override
   UseCaseResponse<bool> changeLang({required String langCode}) async {
-    final langIsChanged =
-        await langLocalDataSource.changeLang(langCode: langCode);
+    final langIsChanged = await langLocalDataSource.changeLang(
+      langCode: langCode,
+    );
     return Right(langIsChanged);
   }
 

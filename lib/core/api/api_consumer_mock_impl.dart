@@ -16,7 +16,7 @@ import 'package:injectable/injectable.dart';
 import 'api_helper.dart';
 
 @mock
-@Injectable(as: ApiConsumer)
+@Singleton(as: ApiConsumer, order: -1)
 class DioConsumerMockImpl implements ApiConsumer {
   final Dio client = Dio();
   final NetworkInfo networkInfo;
@@ -24,10 +24,11 @@ class DioConsumerMockImpl implements ApiConsumer {
   DioConsumerMockImpl(this.networkInfo) {
     client.httpClientAdapter = IOHttpClientAdapter(
       createHttpClient: () {
-        final HttpClient client =
-            HttpClient(context: SecurityContext(withTrustedRoots: false));
+        final HttpClient client = HttpClient(
+          context: SecurityContext(withTrustedRoots: false),
+        );
         client.badCertificateCallback =
-            ((X509Certificate cert, String host, int port) {
+        ((X509Certificate cert, String host, int port) {
           return true;
         });
         return client;
@@ -38,33 +39,43 @@ class DioConsumerMockImpl implements ApiConsumer {
 
   @override
   Future<T> request<T extends JsonModel>(
-    ResponseModelCreator<T> responseCreator, {
-    required String path,
-    required NetworkMethod method,
-    bool formDataIsEnabled = false,
-    Map<String, String> header = const {},
-    Map<String, dynamic> body = const {},
-    Map<String, dynamic> queryParameters = const {},
-    Map<String, dynamic> mockResponse = const {},
-    String authorization = '',
-  }) async {
+      ResponseModelCreator<T> responseCreator, {
+        required String path,
+        required NetworkMethod method,
+        bool formDataIsEnabled = false,
+        Map<String, String> header = const {},
+        Map<String, dynamic> body = const {},
+        Map<String, dynamic> queryParameters = const {},
+        Map<String, dynamic> mockResponse = const {},
+        String authorization = '',
+      }) async {
     if (!await networkInfo.isConnected) {
       throw NoInternetConnectionException();
     }
 
     try {
-      await Future.delayed(const Duration(seconds: 2));
-      final response = Response(
-          data: jsonEncode(mockResponse),
-          statusCode: jsonDecode(jsonEncode(mockResponse))["statusCode"] ?? 200,
-          requestOptions: RequestOptions());
-      return di
-          .getIt<ApiHelper>()
-          .handleResponseAsJson<T>(responseCreator, response);
+      final encodedResponse = jsonEncode(mockResponse);
+      final decodedResponse =
+      jsonDecode(encodedResponse) as Map<String, dynamic>;
+      final response = Response<String>(
+        data: encodedResponse,
+        statusCode: decodedResponse['statusCode'] as int? ?? 200,
+        requestOptions: RequestOptions(),
+      );
+      return di.getIt<ApiHelper>().handleResponseAsJson<T>(
+        responseCreator,
+        response,
+      );
+    } on ApiException {
+      rethrow;
     } on DioException catch (error) {
-      return di.getIt<ApiHelper>().handleDioError(error);
-    } on Exception catch (e) {
-      throw FetchDataException(e.toString());
+      di.getIt<ApiHelper>().handleDioError(error);
+      rethrow;
+    } on Exception {
+      di.getIt<ApiHelper>().handleDioError(
+        DioException(requestOptions: RequestOptions()),
+      );
+      rethrow;
     }
   }
 }
