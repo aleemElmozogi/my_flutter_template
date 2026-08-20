@@ -45,3 +45,9 @@ app.*.map.json
 /android/app/release
 /lib/generated/
 /lib/generated/intl/
+*.tailor.dart
+*.freezed.dart
+*.gen.dart
+/lib/core/utils/assets/fonts.gen.dart
+*.g.dart
+/pubspec.lock
