@@ -6,6 +6,8 @@
 // *                                                                              *
 // ********************************************************************************
 
+import 'package:bloc/bloc.dart';
+import 'package:firebase_core/firebase_core.dart';
 // import 'package:pretty_bloc_observer/pretty_bloc_observer.dart';
 import 'core/di/injection.dart' as di;
 import 'package:flutter/material.dart';
