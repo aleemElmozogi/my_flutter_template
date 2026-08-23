@@ -2,10 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_flutter_template/config/themes/app_theme.dart';
-import 'package:my_flutter_template/config/themes/theme_cubit.dart';
+import 'package:my_flutter_template/core/widgets/app_language_selector.dart';
 import 'package:my_flutter_template/core/widgets/app_button.dart';
 import 'package:my_flutter_template/core/widgets/app_scaffold.dart';
 import 'package:my_flutter_template/core/widgets/app_text.dart';
+import 'package:my_flutter_template/core/widgets/app_theme_mode_selector.dart';
 import 'package:my_flutter_template/features/authentication/auth/presentation/cubit/auth_cubit.dart';
 import 'package:my_flutter_template/generated/l10n.dart';
 
@@ -43,7 +44,9 @@ class ProfileScreen extends StatelessWidget {
             textColor: theme.appColors.mutedText,
           ),
           const SizedBox(height: 24),
-          const _ThemeModeSelector(),
+          const AppLanguageSelector(),
+          const SizedBox(height: 20),
+          const AppThemeModeSelector(),
           const SizedBox(height: 24),
           AppButton(
             title: S.of(context).logoutTitle,
@@ -54,73 +57,6 @@ class ProfileScreen extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class _ThemeModeSelector extends StatelessWidget {
-  const _ThemeModeSelector();
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        AppText(
-          S.of(context).theme,
-          fontWeight: FontWeight.w700,
-          textAlign: TextAlign.start,
-        ),
-        const SizedBox(height: 10),
-        BlocBuilder<ThemeCubit, ThemeState>(
-          buildWhen: (previous, current) =>
-              previous.themeMode != current.themeMode,
-          builder: (context, state) {
-            return SegmentedButton<ThemeMode>(
-              selected: {state.themeMode},
-              style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.resolveWith((states) {
-                  if (states.contains(WidgetState.selected)) {
-                    return theme.colorScheme.primaryContainer;
-                  }
-                  return theme.appColors.fieldFill;
-                }),
-                foregroundColor: WidgetStateProperty.resolveWith((states) {
-                  if (states.contains(WidgetState.selected)) {
-                    return theme.colorScheme.onPrimaryContainer;
-                  }
-                  return theme.colorScheme.onSurface;
-                }),
-                side: WidgetStateProperty.all(
-                  BorderSide(color: theme.appColors.border),
-                ),
-              ),
-              segments: [
-                ButtonSegment(
-                  value: ThemeMode.system,
-                  icon: const Icon(Icons.settings_suggest_outlined),
-                  label: Text(S.of(context).systemTheme),
-                ),
-                ButtonSegment(
-                  value: ThemeMode.light,
-                  icon: const Icon(Icons.light_mode_outlined),
-                  label: Text(S.of(context).lightTheme),
-                ),
-                ButtonSegment(
-                  value: ThemeMode.dark,
-                  icon: const Icon(Icons.dark_mode_outlined),
-                  label: Text(S.of(context).darkTheme),
-                ),
-              ],
-              onSelectionChanged: (selection) {
-                context.read<ThemeCubit>().changeThemeMode(selection.single);
-              },
-            );
-          },
-        ),
-      ],
     );
   }
 }

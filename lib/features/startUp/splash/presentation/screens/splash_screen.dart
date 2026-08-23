@@ -19,14 +19,20 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  void _goNext(bool firstStart) => context.router.replaceAll(
-    firstStart ? [OnBoardingRoute()] : [LoginRoute()],
-  );
+  void _goNext(StartupAuthResult startupResult) {
+    final List<PageRouteInfo> routes = switch (startupResult) {
+      StartupAuthResult.firstStart => [OnBoardingRoute()],
+      StartupAuthResult.authenticated => [const MainShellRoute()],
+      StartupAuthResult.unAuthenticated => [LoginRoute()],
+    };
+    context.router.replaceAll(routes);
+  }
 
   @override
   void initState() {
     super.initState();
-    context.read<AuthCubit>().firstStart.then((value) {
+    context.read<AuthCubit>().resolveStartupAuth().then((value) {
+      if (!mounted) return;
       _goNext(value);
     });
   }

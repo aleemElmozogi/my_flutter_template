@@ -4,7 +4,9 @@ import 'package:my_flutter_template/core/utils/assets_manager.dart';
 import 'package:my_flutter_template/core/widgets/app_button.dart';
 import 'package:my_flutter_template/core/widgets/app_scaffold.dart';
 import 'package:my_flutter_template/core/widgets/app_text.dart';
+import 'package:my_flutter_template/features/authentication/auth/presentation/cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_flutter_template/generated/l10n.dart';
@@ -77,8 +79,10 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                 SizedBox(height: 20.h),
                 AppButton(
                   title: S.of(context).next,
-                  onTab: () {
+                  onTab: () async {
                     if (controller.page == pages.length - 1) {
+                      await context.read<AuthCubit>().completeFirstStart();
+                      if (!context.mounted) return;
                       context.router.replace(LoginRoute());
                     } else {
                       controller.nextPage(

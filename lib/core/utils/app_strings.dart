@@ -14,5 +14,7 @@ class AppStrings {
   static const String themeMode = 'themeMode';
   static const String notificationTopicSubscribe = 'notificationTopicSubscribe';
   static const String isFirstStart = 'isFirstStart';
+  static const String rememberLogin = 'rememberLogin';
+  static const String biometricLogin = 'biometricLogin';
   static const String accessToken = 'accessToken';
 }

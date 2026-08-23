@@ -22,6 +22,8 @@ class _LoginFormFields {
 
   static const phone = 'phone';
   static const password = 'password';
+  static const rememberLogin = 'rememberLogin';
+  static const biometricLogin = 'biometricLogin';
 }
 
 @RoutePage()
@@ -61,6 +63,19 @@ class LoginScreen extends StatelessWidget {
                 hintText: S.of(context).password,
                 prefixIcon: Icons.lock_rounded,
               ),
+              const SizedBox(height: 10),
+              FormBuilderCheckbox(
+                name: _LoginFormFields.rememberLogin,
+                initialValue: false,
+                activeColor: Theme.of(context).colorScheme.primary,
+                title: AppText(S.of(context).rememberThisLogin),
+              ),
+              FormBuilderCheckbox(
+                name: _LoginFormFields.biometricLogin,
+                initialValue: false,
+                activeColor: Theme.of(context).colorScheme.primary,
+                title: AppText(S.of(context).enableBiometricLogin),
+              ),
               const SizedBox(height: 15),
               BlocBuilder<AuthCubit, AuthState>(
                 buildWhen: (previous, current) =>
@@ -96,20 +111,33 @@ class LoginScreen extends StatelessWidget {
     final input = form?.input;
     if (input == null) return;
 
-    context.read<AuthCubit>().login(input.phone, input.password);
+    context.read<AuthCubit>().login(
+      input.phone,
+      input.password,
+      rememberLogin: input.rememberLogin,
+      biometricLogin: input.biometricLogin,
+    );
   }
 }
 
 extension on FormBuilderState {
-  ({String phone, String password})? get input {
+  ({String phone, String password, bool rememberLogin, bool biometricLogin})?
+  get input {
     final phone = value[_LoginFormFields.phone];
     final password = value[_LoginFormFields.password];
+    final rememberLogin = value[_LoginFormFields.rememberLogin] == true;
+    final biometricLogin = value[_LoginFormFields.biometricLogin] == true;
 
     if (phone is! String || password is! String) return null;
 
     final trimmedPhone = phone.trim();
     if (trimmedPhone.isEmpty || password.isEmpty) return null;
 
-    return (phone: trimmedPhone, password: password);
+    return (
+      phone: trimmedPhone,
+      password: password,
+      rememberLogin: rememberLogin,
+      biometricLogin: biometricLogin,
+    );
   }
 }

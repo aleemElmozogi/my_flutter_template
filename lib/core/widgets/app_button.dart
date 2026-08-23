@@ -43,30 +43,26 @@ class AppButton extends StatelessWidget {
     return SizedBox(
       height: height?.h,
       width: width,
-      child: Material(
-        elevation: elevation, // Apply elevation to Material widget
-        color: effectiveBackgroundColor,
-        borderRadius: BorderRadius.circular(borderRadius.r),
-        child: TextButton(
-          isSemanticButton: isSemanticButton,
-          style: ButtonStyle(
-            overlayColor: withSplash
-                ? null
-                : WidgetStateColor.resolveWith((states) => Colors.transparent),
-            padding: WidgetStateProperty.all<EdgeInsets>(innerPadding),
-            foregroundColor: WidgetStateProperty.all<Color>(
-              foregroundColor ?? effectiveTitleColor,
-            ),
-            shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(borderRadius),
-                side: BorderSide(color: borderColor ?? Colors.transparent),
-              ),
+      child: TextButton(
+        isSemanticButton: isSemanticButton,
+        style: ButtonStyle(
+          overlayColor: withSplash
+              ? null
+              : WidgetStateColor.resolveWith((states) => Colors.transparent),
+          padding: WidgetStateProperty.all<EdgeInsets>(innerPadding),
+          foregroundColor: WidgetStateProperty.all<Color>(
+            foregroundColor ?? effectiveTitleColor,
+          ),
+          backgroundColor: WidgetStateColor.resolveWith((states) => effectiveBackgroundColor),
+          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(borderRadius.r),
+              side: BorderSide(color: borderColor ?? Colors.transparent),
             ),
           ),
-          onPressed: () => onTab(),
-          child: Center(child: AppText(title, textColor: effectiveTitleColor)),
         ),
+        onPressed: () => onTab(),
+        child: Center(child: AppText(title, textColor: effectiveTitleColor)),
       ),
     );
   }

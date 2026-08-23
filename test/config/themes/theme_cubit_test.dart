@@ -62,13 +62,28 @@ class _FakeLocalStorage implements LocalStorage {
   Future<String> get refreshToken async => '';
 
   @override
+  Future<String> get savedLoginPassword async => '';
+
+  @override
+  Future<String> get savedLoginPhone async => '';
+
+  @override
+  Future<bool> get biometricLoginEnabled async => false;
+
+  @override
   Future<bool> get isFirstStart async => false;
 
   @override
   Future<bool> get isSubscribeToNotificationTopic async => true;
 
   @override
+  Future<bool> get rememberLogin async => false;
+
+  @override
   Future<void> appStarted() async {}
+
+  @override
+  Future<void> clearLoginCredentials() async {}
 
   @override
   Future<bool> changeLang({required String langCode}) async => true;
@@ -84,6 +99,13 @@ class _FakeLocalStorage implements LocalStorage {
 
   @override
   Future<void> refreshRefreshTokenToken(String value) async {}
+
+  @override
+  Future<void> saveLoginCredentials({
+    required String phone,
+    required String password,
+    required bool biometricEnabled,
+  }) async {}
 
   @override
   Future<void> subscribeToNotificationTopic() async {}

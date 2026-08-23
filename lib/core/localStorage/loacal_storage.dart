@@ -9,10 +9,20 @@ abstract class LocalStorage {
   Future<String> get accessToken;
   Future<String> get publicToken;
   Future<String> get refreshToken;
+  Future<String> get savedLoginPhone;
+  Future<String> get savedLoginPassword;
   Future<bool> get isFirstStart;
+  Future<bool> get rememberLogin;
+  Future<bool> get biometricLoginEnabled;
   Future<bool> get isSubscribeToNotificationTopic;
   Future<void> refreshAccessToken(String value);
   Future<void> refreshRefreshTokenToken(String value);
+  Future<void> saveLoginCredentials({
+    required String phone,
+    required String password,
+    required bool biometricEnabled,
+  });
+  Future<void> clearLoginCredentials();
   Future<void> subscribeToNotificationTopic();
   Future<void> appStarted();
   Future<void> unSubscribeToNotificationTopic();
@@ -76,7 +86,7 @@ class LocalStorageImpl implements LocalStorage {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
 
-    return (sharedPreferences.getBool(AppStrings.isFirstStart) ?? false);
+    return (sharedPreferences.getBool(AppStrings.isFirstStart) ?? true);
   }
 
   @override
@@ -122,6 +132,20 @@ class LocalStorageImpl implements LocalStorage {
       '';
 
   @override
+  Future<String> get savedLoginPhone async =>
+      await secureStorage.read(
+        key: LocalStorageKeys.savedLoginPhone.toEncryptedKey,
+      ) ??
+      '';
+
+  @override
+  Future<String> get savedLoginPassword async =>
+      await secureStorage.read(
+        key: LocalStorageKeys.savedLoginPassword.toEncryptedKey,
+      ) ??
+      '';
+
+  @override
   Future<String> get publicToken async =>
       await secureStorage.read(
         key: LocalStorageKeys.publicToken.toEncryptedKey,
@@ -139,6 +163,59 @@ class LocalStorageImpl implements LocalStorage {
     key: LocalStorageKeys.refreshToken.toEncryptedKey,
     value: value.toString(),
   );
+
+  @override
+  Future<bool> get rememberLogin async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    return sharedPreferences.getBool(AppStrings.rememberLogin) ?? false;
+  }
+
+  @override
+  Future<bool> get biometricLoginEnabled async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    return sharedPreferences.getBool(AppStrings.biometricLogin) ?? false;
+  }
+
+  @override
+  Future<void> saveLoginCredentials({
+    required String phone,
+    required String password,
+    required bool biometricEnabled,
+  }) async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    await Future.wait([
+      secureStorage.write(
+        key: LocalStorageKeys.savedLoginPhone.toEncryptedKey,
+        value: phone,
+      ),
+      secureStorage.write(
+        key: LocalStorageKeys.savedLoginPassword.toEncryptedKey,
+        value: password,
+      ),
+      sharedPreferences.setBool(AppStrings.rememberLogin, true),
+      sharedPreferences.setBool(AppStrings.biometricLogin, biometricEnabled),
+    ]);
+  }
+
+  @override
+  Future<void> clearLoginCredentials() async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    await Future.wait([
+      secureStorage.delete(
+        key: LocalStorageKeys.savedLoginPhone.toEncryptedKey,
+      ),
+      secureStorage.delete(
+        key: LocalStorageKeys.savedLoginPassword.toEncryptedKey,
+      ),
+      sharedPreferences.setBool(AppStrings.rememberLogin, false),
+      sharedPreferences.setBool(AppStrings.biometricLogin, false),
+    ]);
+  }
+
   @override
   Future<void> refreshPublicToken(String value) => secureStorage.write(
     key: LocalStorageKeys.publicToken.toEncryptedKey,
