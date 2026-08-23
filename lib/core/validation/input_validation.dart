@@ -11,29 +11,30 @@ class InputValidation {
 
     return ValidationBuilder().required().add((value) {
       if (value == null || value.isEmpty) {
-        return 'الرجاء إدخال المبلغ';
+        return S.current.amountRequired;
       }
-      if (!amountRegex.hasMatch(value)) return 'صيغة المبلغ غير صحيحة';
+      if (!amountRegex.hasMatch(value)) return S.current.invalidAmountFormat;
       final parsed = double.tryParse(value);
-      if (parsed == null) return 'الرجاء إدخال مبلغ صحيح';
-      if (parsed <= 0) return 'المبلغ يجب أن يكون أكبر من الصفر';
+      if (parsed == null) return S.current.validAmountRequired;
+      if (parsed <= 0) return S.current.amountMustBePositive;
       return null;
     }).build();
   }
 
   static StringValidationCallback requiredLimitedAmountValidation(
-      double currentBalance) {
+    double currentBalance,
+  ) {
     final amountRegex = RegExp(r'^\d+(\.\d{1,2})?$');
 
     return ValidationBuilder().required().add((value) {
-      if (value == null || value.isEmpty) return 'الرجاء إدخال المبلغ';
-      if (!amountRegex.hasMatch(value)) return 'صيغة المبلغ غير صحيحة';
+      if (value == null || value.isEmpty) return S.current.amountRequired;
+      if (!amountRegex.hasMatch(value)) return S.current.invalidAmountFormat;
       final parsed = double.tryParse(value);
-      if (parsed == null) return 'الرجاء إدخال مبلغ صحيح';
+      if (parsed == null) return S.current.validAmountRequired;
       if (parsed > currentBalance) {
-        return 'المبلغ يتجاوز الرصيد الحالي ($currentBalance)';
+        return S.current.amountExceedsCurrentBalance(currentBalance.toString());
       }
-      if (parsed <= 0) return 'المبلغ يجب أن يكون أكبر من الصفر';
+      if (parsed <= 0) return S.current.amountMustBePositive;
       return null;
     }).build();
   }
@@ -63,7 +64,7 @@ class InputValidation {
   static StringValidationCallback intRequiredValidation() {
     return ValidationBuilder()
         .required()
-        .regExp(RegExp(r'^-?\d+$'), 'يحب تحديد اسم المدينة')
+        .regExp(RegExp(r'^-?\d+$'), S.current.cityNameRequired)
         .build();
   }
 

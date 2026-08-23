@@ -22,6 +22,25 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+def dartDefines = [:]
+if (project.hasProperty('dart-defines')) {
+    project.property('dart-defines')
+            .split(',')
+            .findAll { it != null && !it.isEmpty() }
+            .each { encodedDefine ->
+                def decodedDefine = new String(encodedDefine.decodeBase64(), 'UTF-8')
+                def defineParts = decodedDefine.split('=', 2)
+                if (defineParts.length == 2) {
+                    dartDefines[defineParts[0]] = defineParts[1]
+                }
+            }
+}
+
+def googleMapsApiKey = localProperties.getProperty('GOOGLE_MAPS_API_KEY')
+        ?: System.getenv('GOOGLE_MAPS_API_KEY')
+        ?: dartDefines['GOOGLE_MAPS_API_KEY']
+        ?: ''
+
 android {
     namespace "com.aleem.template.my_flutter_template"
     compileSdk flutter.compileSdkVersion
@@ -48,6 +67,9 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        manifestPlaceholders += [
+                googleMapsApiKey: googleMapsApiKey
+        ]
     }
 
     flavorDimensions "environment"

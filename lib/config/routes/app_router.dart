@@ -1,4 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:my_flutter_template/features/authenticated/home/presentation/screens/home_screen.dart';
+import 'package:my_flutter_template/features/authenticated/main/presentation/screens/main_shell_screen.dart';
+import 'package:my_flutter_template/features/authenticated/notifications/presentation/screens/notifications_screen.dart';
+import 'package:my_flutter_template/features/authenticated/profile/presentation/screens/profile_screen.dart';
 import 'package:my_flutter_template/features/startUp/onBoarding/presentation/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
@@ -11,46 +15,41 @@ part 'app_router.gr.dart';
 @AutoRouterConfig()
 class AppRouter extends RootStackRouter {
   AppRouter(
-
-// required AuthGuard authGuard,
-// required SoftGuard softGuard,
-// required OtpGuard otpGuard,
-// // required ChangePasswordGuard changePasswordGuard
-      )
-      :
-// _authGuard = authGuard,
-//         _softGuard = softGuard,
-//         _otpGuard = otpGuard,
-//         // _changePasswordGuard = changePasswordGuard,
-        super();
+    // required AuthGuard authGuard,
+    // required SoftGuard softGuard,
+    // required OtpGuard otpGuard,
+    // // required ChangePasswordGuard changePasswordGuard
+  ) : // _authGuard = authGuard,
+      //         _softGuard = softGuard,
+      //         _otpGuard = otpGuard,
+      //         // _changePasswordGuard = changePasswordGuard,
+      super();
   // final AuthGuard _authGuard;
   // final SoftGuard _softGuard;
   // final OtpGuard _otpGuard;
   // // final ChangePasswordGuard _changePasswordGuard;
   @override
   RouteType get defaultRouteType => const RouteType.adaptive();
-// is first open
+  // is first open
   bool isFirstOpen = true;
   @override
   late final List<AutoRoute> routes = [
     AutoRoute(page: SplashRoute.page, initial: true),
     AutoRoute(page: OnBoardingRoute.page),
     AutoRoute(page: LoginRoute.page),
-
-    // // private routes
-    // AutoRoute(page: MainRoute.page, initial: true, guards: [
-    //   _softGuard
-    // ], children: [
-    //   AutoRoute(page: HomeRoute.page),
-    //   AutoRoute(page: SearchRoute.page),
-    //   AutoRoute(page: NotificationsRoute.page),
-    //   AutoRoute(page: ProfileRoute.page),
-    // ]),
+    AutoRoute(
+      page: MainShellRoute.page,
+      children: [
+        AutoRoute(page: HomeRoute.page, path: 'home'),
+        AutoRoute(page: NotificationsRoute.page, path: 'notifications'),
+        AutoRoute(page: ProfileRoute.page, path: 'profile'),
+      ],
+    ),
   ];
 
   @override
   List<AutoRouteGuard> get guards => [
-        // _authGuard,
-        // _changePasswordGuard,
-      ];
+    // _authGuard,
+    // _changePasswordGuard,
+  ];
 }

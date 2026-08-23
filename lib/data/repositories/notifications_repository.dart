@@ -1,6 +1,4 @@
 import 'dart:developer';
-import 'package:my_flutter_template/core/di/injection.dart' as di;
-import 'package:my_flutter_template/core/network/network_info.dart';
 import 'package:my_flutter_template/data/services/fcm_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -10,14 +8,9 @@ import 'package:injectable/injectable.dart';
 class NotificationsRepository {
   final FcmService _fcmService;
 
-  final NetworkInfo _networkInfo;
-
-  NotificationsRepository(this._fcmService, [NetworkInfo? networkInfo])
-      : _networkInfo = networkInfo ?? di.getIt<NetworkInfo>() {
+  NotificationsRepository(this._fcmService) {
     onBackgroundMessage = _firebaseMessagingBackgroundHandler;
   }
-
-  Future<bool> get _hasConnection async => await _networkInfo.isConnected;
 
   set onBackgroundMessage(BackgroundMessageHandler handler) {
     _fcmService.onBackgroundMessage = handler;

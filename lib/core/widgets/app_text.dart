@@ -1,14 +1,13 @@
-import 'package:my_flutter_template/core/utils/app_colors.dart';
-import 'package:my_flutter_template/core/utils/app_strings.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:my_flutter_template/core/utils/app_strings.dart';
 
 class AppText extends StatelessWidget {
   final String title;
   final double fontSize;
   final int? maxLines;
   final TextAlign textAlign;
-  final Color textColor;
+  final Color? textColor;
   final TextOverflow overflow;
   final FontWeight fontWeight;
 
@@ -20,7 +19,7 @@ class AppText extends StatelessWidget {
     this.overflow = TextOverflow.ellipsis,
     this.maxLines,
     this.textAlign = TextAlign.center,
-    this.textColor = AppColors.black,
+    this.textColor,
   });
 
   @override
@@ -31,10 +30,11 @@ class AppText extends StatelessWidget {
       maxLines: maxLines,
       overflow: overflow,
       style: TextStyle(
-          fontSize: fontSize.sp,
-          color: textColor,
-          fontWeight: fontWeight,
-          fontFamily: AppStrings.fontFamily),
+        fontSize: fontSize.sp,
+        color: textColor ?? Theme.of(context).colorScheme.onSurface,
+        fontWeight: fontWeight,
+        fontFamily: AppStrings.fontFamily,
+      ),
     );
   }
 }

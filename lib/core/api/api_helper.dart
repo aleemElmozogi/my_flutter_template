@@ -11,8 +11,10 @@ import 'package:injectable/injectable.dart';
 import 'api_consumer.dart';
 
 abstract class ApiHelper {
-  T handleResponseAsJson<T extends JsonModel>(
-      ResponseModelCreator<T> responseCreator, Response<String> response);
+  T handleResponseAsJson<T extends JsonModel<dynamic>>(
+    ResponseModelCreator<T> responseCreator,
+    Response<String> response,
+  );
   dynamic handleDioError(DioException error);
   dynamic handleStatusCodeError(int statusCode);
 }
@@ -66,17 +68,23 @@ class ApiHelperImpl implements ApiHelper {
         break;
       case DioExceptionType.connectionError:
         throw NoInternetConnectionException();
+      case DioExceptionType.transformTimeout:
+        // TODO: Handle this case.
+        throw UnimplementedError();
     }
   }
 
   @override
-  T handleResponseAsJson<T extends JsonModel>(
-      ResponseModelCreator<T> responseCreator, Response<String> response) {
-    var parsedResponse = responseCreator() as ResponseModel;
+  T handleResponseAsJson<T extends JsonModel<dynamic>>(
+    ResponseModelCreator<T> responseCreator,
+    Response<String> response,
+  ) {
+    var parsedResponse = responseCreator() as ResponseModel<dynamic, Object>;
     try {
       final messageResponse = jsonDecode(response.data!);
-      final errorResponse =
-          ErrorResponseModel.fromJson(messageResponse as Map<String, dynamic>);
+      final errorResponse = ErrorResponseModel.fromJson(
+        messageResponse as Map<String, dynamic>,
+      );
 
       if ((response.statusCode != null &&
               response.statusCode! >= 200 &&
@@ -86,7 +94,8 @@ class ApiHelperImpl implements ApiHelper {
               errorResponse.statusCode! < 300)) {
         // Handle success response
         parsedResponse =
-            responseCreator().fromJson(messageResponse) as ResponseModel;
+            responseCreator().fromJson(messageResponse)
+                as ResponseModel<dynamic, Object>;
         return parsedResponse as T;
       } else {
         // Handle error response
@@ -105,8 +114,9 @@ class ApiHelperImpl implements ApiHelper {
   dynamic _handleBackEndError(Response<dynamic>? response) {
     if (response != null) {
       final decodedResponse = jsonDecode(response.data as String);
-      final errorResponse =
-          ErrorResponseModel.fromJson(decodedResponse as Map<String, dynamic>);
+      final errorResponse = ErrorResponseModel.fromJson(
+        decodedResponse as Map<String, dynamic>,
+      );
       throw ApiException(errorResponse);
     }
   }

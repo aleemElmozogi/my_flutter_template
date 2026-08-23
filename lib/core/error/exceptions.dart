@@ -1,4 +1,3 @@
-
 import 'package:equatable/equatable.dart';
 import 'package:my_flutter_template/core/models/error_response_model.dart';
 import 'package:my_flutter_template/generated/l10n.dart';
@@ -21,78 +20,98 @@ class ApiException extends ServerException {
   final ErrorResponseModel errorResponse;
 
   ApiException(this.errorResponse, [String? message])
-      : super(message ?? errorResponse.message);
+    : super(message ?? errorResponse.message);
 
   @override
   List<Object?> get props => [errorResponse, message];
 }
 
 class FetchDataException extends ServerException {
-  FetchDataException([message])
-      : super((message != null && message.toString().isNotEmpty)
+  FetchDataException([Object? message])
+    : super(
+        (message != null && message.toString().isNotEmpty)
             ? message.toString()
-            : S.current.errorDuringCommunication);
+            : S.current.errorDuringCommunication,
+      );
 }
 
 class EmptyResponseException extends ServerException {
-  EmptyResponseException([message])
-      : super((message != null && message.toString().isNotEmpty)
+  EmptyResponseException([Object? message])
+    : super(
+        (message != null && message.toString().isNotEmpty)
             ? message.toString()
-            : S.current.noDataOrContentAvailable);
+            : S.current.noDataOrContentAvailable,
+      );
 }
 
 class BadRequestException extends ServerException {
-  BadRequestException([message])
-      : super((message != null && message.toString().isNotEmpty)
+  BadRequestException([Object? message])
+    : super(
+        (message != null && message.toString().isNotEmpty)
             ? message.toString()
-            : S.current.invalidRequest);
+            : S.current.invalidRequest,
+      );
 }
 
 class BadResponseException extends ServerException {
-  BadResponseException([message])
-      : super((message != null && message.toString().isNotEmpty)
+  BadResponseException([Object? message])
+    : super(
+        (message != null && message.toString().isNotEmpty)
             ? message.toString()
-            : S.current.invalidResponse);
+            : S.current.invalidResponse,
+      );
 }
 
 class UnauthorizedException extends ServerException {
-  UnauthorizedException([message])
-      : super((message != null && message.toString().isNotEmpty)
+  UnauthorizedException([Object? message])
+    : super(
+        (message != null && message.toString().isNotEmpty)
             ? message.toString()
-            : S.current.unauthorized);
+            : S.current.unauthorized,
+      );
 }
 
 class NotFoundException extends ServerException {
-  NotFoundException([message])
-      : super((message != null && message.toString().isNotEmpty)
+  NotFoundException([Object? message])
+    : super(
+        (message != null && message.toString().isNotEmpty)
             ? message.toString()
-            : S.current.informationNotAvailable);
+            : S.current.informationNotAvailable,
+      );
 }
 
 class ConflictException extends ServerException {
-  ConflictException([message])
-      : super((message != null && message.toString().isNotEmpty)
+  ConflictException([Object? message])
+    : super(
+        (message != null && message.toString().isNotEmpty)
             ? message.toString()
-            : S.current.conflictOccurred);
+            : S.current.conflictOccurred,
+      );
 }
 
 class InternalServerErrorException extends ServerException {
-  InternalServerErrorException([message])
-      : super((message != null && message.toString().isNotEmpty)
+  InternalServerErrorException([Object? message])
+    : super(
+        (message != null && message.toString().isNotEmpty)
             ? message.toString()
-            : S.current.internalServerError);
+            : S.current.internalServerError,
+      );
 }
 
 class NoInternetConnectionException extends ServerException {
-  NoInternetConnectionException([message])
-      : super((message != null && message.toString().isNotEmpty)
+  NoInternetConnectionException([Object? message])
+    : super(
+        (message != null && message.toString().isNotEmpty)
             ? message.toString()
-            : S.current.noInternetConnection);
+            : S.current.noInternetConnection,
+      );
 }
 
 class CacheException extends ServerException {
-  CacheException([message])
-      : super((message != null && message.toString().isNotEmpty)
+  CacheException([Object? message])
+    : super(
+        (message != null && message.toString().isNotEmpty)
             ? message.toString()
-            : S.current.noDataOrContentAvailable);
+            : S.current.noDataOrContentAvailable,
+      );
 }

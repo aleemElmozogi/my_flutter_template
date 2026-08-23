@@ -1,10 +1,11 @@
 import 'dart:io';
-import 'package:my_flutter_template/core/utils/app_colors.dart';
+import 'package:my_flutter_template/config/themes/app_theme.dart';
 import 'package:my_flutter_template/core/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:my_flutter_template/generated/l10n.dart';
 
 import 'app_custom_button.dart';
 
@@ -39,6 +40,8 @@ class _AppImagePickerFormFieldState extends State<AppImagePickerFormField> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return FormBuilderField<String>(
       name: widget.name,
       validator: widget.validator,
@@ -46,8 +49,9 @@ class _AppImagePickerFormFieldState extends State<AppImagePickerFormField> {
         return Column(
           children: [
             AppCustomButton(
-              borderColor:
-                  field.hasError ? Colors.red.shade900 : AppColors.grey,
+              borderColor: field.hasError
+                  ? theme.colorScheme.error
+                  : theme.appColors.border,
               contentPadding: EdgeInsets.all(_imagePath != null ? 0 : 5.r),
 
               onPressed: () async => await _pickImage(field),
@@ -67,21 +71,15 @@ class _AppImagePickerFormFieldState extends State<AppImagePickerFormField> {
                         Icon(
                           Icons.photo,
                           size: 35.r,
-                          color: AppColors.primary,
+                          color: theme.colorScheme.primary,
                         ),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        const AppText(
-                          'قم برفع صورتك',
-                        ),
-                        SizedBox(
-                          height: 2.h,
-                        ),
-                        const AppText(
-                          'اضغط هنا لتصفح الكاميرا ورفع صورتك',
+                        SizedBox(height: 10.h),
+                        AppText(S.of(context).uploadImageTitle),
+                        SizedBox(height: 2.h),
+                        AppText(
+                          S.of(context).uploadImageDescription,
                           maxLines: 2,
-                          textColor: AppColors.grey,
+                          textColor: theme.appColors.mutedText,
                         ),
                       ],
                     ),
@@ -91,7 +89,7 @@ class _AppImagePickerFormFieldState extends State<AppImagePickerFormField> {
                 padding: EdgeInsets.only(top: 5.h),
                 child: AppText(
                   field.errorText ?? '',
-                  textColor: Colors.red.shade900,
+                  textColor: theme.colorScheme.error,
                   fontSize: 10.sp,
                 ),
               ),

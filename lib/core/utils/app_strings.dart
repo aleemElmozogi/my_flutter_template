@@ -11,9 +11,8 @@ class AppStrings {
   static const String englishCode = 'en';
   static const String arabicCode = 'ar';
   static const String locale = 'locale';
+  static const String themeMode = 'themeMode';
   static const String notificationTopicSubscribe = 'notificationTopicSubscribe';
   static const String isFirstStart = 'isFirstStart';
   static const String accessToken = 'accessToken';
-  static const String googleMapsApiKey = 'AIzaSyD3Fol2RWtjq3NHUhZYtOIPAYKkT9Hw0tg';
-
 }

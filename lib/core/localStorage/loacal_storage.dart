@@ -1,8 +1,7 @@
-
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:my_flutter_template/core/enums/local_keys.dart';
 import 'package:my_flutter_template/core/utils/app_locale.dart';
 import 'package:my_flutter_template/core/utils/app_strings.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -20,14 +19,19 @@ abstract class LocalStorage {
   Future<void> refreshPublicToken(String value);
   Future<bool> changeLang({required String langCode});
   Future<String> getSavedLang();
+  Future<bool> saveThemeMode(String themeMode);
+  Future<String?> getSavedThemeMode();
 }
 
 @Singleton(as: LocalStorage)
 class LocalStorageImpl implements LocalStorage {
   final FlutterSecureStorage secureStorage = const FlutterSecureStorage(
-      aOptions:
-          AndroidOptions(encryptedSharedPreferences: true, resetOnError: false),
-      iOptions: IOSOptions(accessibility: KeychainAccessibility.first_unlock));
+    aOptions: AndroidOptions(
+      encryptedSharedPreferences: true,
+      resetOnError: false,
+    ),
+    iOptions: IOSOptions(accessibility: KeychainAccessibility.first_unlock),
+  );
   LocalStorageImpl();
 
   @override
@@ -44,6 +48,20 @@ class LocalStorageImpl implements LocalStorage {
     return sharedPreferences.containsKey(AppStrings.locale)
         ? sharedPreferences.getString(AppStrings.locale)!
         : AppLocale.ar.languageCode;
+  }
+
+  @override
+  Future<bool> saveThemeMode(String themeMode) async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    return sharedPreferences.setString(AppStrings.themeMode, themeMode);
+  }
+
+  @override
+  Future<String?> getSavedThemeMode() async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    return sharedPreferences.getString(AppStrings.themeMode);
   }
 
   @override
@@ -76,7 +94,9 @@ class LocalStorageImpl implements LocalStorage {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
     await sharedPreferences.setBool(
-        AppStrings.notificationTopicSubscribe, true);
+      AppStrings.notificationTopicSubscribe,
+      true,
+    );
   }
 
   @override
@@ -85,38 +105,46 @@ class LocalStorageImpl implements LocalStorage {
         await SharedPreferences.getInstance();
 
     await sharedPreferences.setBool(
-        AppStrings.notificationTopicSubscribe, false);
+      AppStrings.notificationTopicSubscribe,
+      false,
+    );
   }
 
   @override
   Future<String> get accessToken async =>
       await secureStorage.read(
-          key: LocalStorageKeys.accessToken.toEncryptedKey) ??
+        key: LocalStorageKeys.accessToken.toEncryptedKey,
+      ) ??
       '';
 
   @override
   Future<String> get refreshToken async =>
       await secureStorage.read(
-          key: LocalStorageKeys.refreshToken.toEncryptedKey) ??
+        key: LocalStorageKeys.refreshToken.toEncryptedKey,
+      ) ??
       '';
 
   @override
   Future<String> get publicToken async =>
       await secureStorage.read(
-          key: LocalStorageKeys.publicToken.toEncryptedKey) ??
+        key: LocalStorageKeys.publicToken.toEncryptedKey,
+      ) ??
       '';
 
   @override
   Future<void> refreshAccessToken(String value) => secureStorage.write(
-      key: LocalStorageKeys.accessToken.toEncryptedKey,
-      value: value.toString());
+    key: LocalStorageKeys.accessToken.toEncryptedKey,
+    value: value.toString(),
+  );
 
   @override
   Future<void> refreshRefreshTokenToken(String value) => secureStorage.write(
-      key: LocalStorageKeys.refreshToken.toEncryptedKey,
-      value: value.toString());
+    key: LocalStorageKeys.refreshToken.toEncryptedKey,
+    value: value.toString(),
+  );
   @override
   Future<void> refreshPublicToken(String value) => secureStorage.write(
-      key: LocalStorageKeys.publicToken.toEncryptedKey,
-      value: value.toString());
+    key: LocalStorageKeys.publicToken.toEncryptedKey,
+    value: value.toString(),
+  );
 }

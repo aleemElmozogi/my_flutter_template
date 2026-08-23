@@ -21,6 +21,7 @@ class AuthCubit extends Cubit<AuthState> {
       authState: AuthStatus.unAuthenticated,
     ));
     await _localStorage.refreshAccessToken('');
+    await _localStorage.refreshRefreshTokenToken('');
     emit(state.copyWith(userEntity: null));
   }
 
@@ -31,6 +32,7 @@ class AuthCubit extends Cubit<AuthState> {
       authState: AuthStatus.unAuthenticated,
     ));
     await _localStorage.refreshAccessToken('');
+    await _localStorage.refreshRefreshTokenToken('');
     emit(state.copyWith(
       userEntity: null,
     ));

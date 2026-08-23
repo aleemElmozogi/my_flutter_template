@@ -6,7 +6,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=3.7.0 <4.0.0"
+  sdk: ">=3.8.0 <4.0.0"
 
 
 dependencies:
@@ -28,7 +28,7 @@ dependencies:
   dio: ^5.9.0
   connectivity_plus: ^7.0.0
   dartz: ^0.10.1
-  json_annotation: ^4.9.0
+  json_annotation: ^4.11.0
 #  pretty_bloc_observer: ^1.0.4
   get_it: ^8.2.0
   shared_preferences: ^2.5.3
@@ -66,6 +66,7 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   freezed: ^3.2.0
   json_serializable: ^6.11.0
+  intl_utils: ^2.8.11
   awesome_snackbar_content:
     git:
       url: https://github.com/aleemElmozogi/awesome_snackbar_content.git
@@ -76,7 +77,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  generate: true
+  generate: false
 
   assets:
     - assets/images/

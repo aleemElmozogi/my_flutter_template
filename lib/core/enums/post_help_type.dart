@@ -1,3 +1,4 @@
+import 'package:my_flutter_template/generated/l10n.dart';
 
 enum PostHelpType {
   donation(0),
@@ -18,22 +19,18 @@ enum PostHelpType {
   String get name {
     switch (this) {
       case PostHelpType.donation:
-        return 'Total donations';
+        return S.current.totalDonations;
       case PostHelpType.volunteer:
-        return 'Total tree planted';
-      default:
-        return '';
+        return S.current.totalTreePlanted;
     }
   }
 
   String get title {
     switch (this) {
       case PostHelpType.donation:
-        return 'Donations';
+        return S.current.donations;
       case PostHelpType.volunteer:
-        return 'Volunteer';
-      default:
-        return '';
+        return S.current.volunteer;
     }
   }
 

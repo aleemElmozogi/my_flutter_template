@@ -1,4 +1,5 @@
 import 'package:my_flutter_template/core/utils/assets_manager.dart';
+import 'package:my_flutter_template/generated/l10n.dart';
 
 enum ImpactType {
   donation(0),
@@ -20,11 +21,11 @@ enum ImpactType {
   String get name {
     switch (this) {
       case ImpactType.donation:
-        return 'إجمالي التبرعات';
+        return S.current.totalDonations;
       case ImpactType.posts:
-        return 'إجمالي الحملات';
+        return S.current.totalCampaigns;
       case ImpactType.volunteer:
-        return 'إجمالي المتطوعين';
+        return S.current.totalVolunteers;
     }
   }
 

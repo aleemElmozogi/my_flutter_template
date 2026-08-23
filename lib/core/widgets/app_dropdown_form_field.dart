@@ -1,4 +1,3 @@
-import 'package:my_flutter_template/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
@@ -26,6 +25,9 @@ class AppDropdownFormField<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Semantics(
       label: name,
       child: FormBuilderDropdown<T>(
@@ -35,19 +37,17 @@ class AppDropdownFormField<T> extends StatelessWidget {
         onChanged: onChanged,
         decoration: InputDecoration(
           labelText: labelText,
-          labelStyle: const TextStyle(color: AppColors.grey),
-          filled: true,
-          fillColor: AppColors.lightGrey, // Background fill color
-          border: outlineInputBorder(AppColors.black),
+          border: outlineInputBorder(colorScheme.outline),
           enabledBorder: outlineInputBorder(Colors.transparent),
-          errorBorder: outlineInputBorder(AppColors.red),
-          focusedErrorBorder: outlineInputBorder(AppColors.red),
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 15.0, vertical: 12.0),
+          errorBorder: outlineInputBorder(colorScheme.error),
+          focusedErrorBorder: outlineInputBorder(colorScheme.error),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 15.0,
+            vertical: 12.0,
+          ),
           hintText: hintText,
-          hintStyle: const TextStyle(color: AppColors.grey),
           prefixIcon: prefixIcon != null
-              ? Icon(prefixIcon, color: AppColors.grey)
+              ? Icon(prefixIcon, color: theme.hintColor)
               : null,
         ),
         items: items,
@@ -56,7 +56,7 @@ class AppDropdownFormField<T> extends StatelessWidget {
   }
 
   OutlineInputBorder outlineInputBorder(Color color) => OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10.0),
-        borderSide: BorderSide(color: color, width: 0.5),
-      );
+    borderRadius: BorderRadius.circular(10.0),
+    borderSide: BorderSide(color: color, width: 0.5),
+  );
 }

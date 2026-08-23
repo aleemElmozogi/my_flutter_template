@@ -5,7 +5,7 @@ part 'user_content_model.freezed.dart';
 part 'user_content_model.g.dart';
 
 @freezed
-class UserContentModel with _$UserContentModel {
+abstract class UserContentModel with _$UserContentModel {
   const factory UserContentModel({
     @JsonKey(name: 'fullName') @Default('') String userName,
     @JsonKey(name: 'email') @Default('') String userEmail,

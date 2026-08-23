@@ -13,6 +13,7 @@ analyzer:
     - "test/.test_coverage.dart"
     - "bin/cache/**"
     - "lib/generated_plugin_registrant.dart"
+    - "lib/generated/intl/**"
     - "lib/core/di/injection.config.dart"
 
   # For more information see: https://dart.dev/tools/analysis
@@ -58,4 +59,3 @@ analyzer:
 # Explicitly disable only the rules we do not want.
 linter:
   rules:
-

@@ -1,4 +1,3 @@
-import 'package:my_flutter_template/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
@@ -12,11 +11,15 @@ class AppTextFormField extends StatefulWidget {
   final String? labelText;
   final String? hintText;
   final String? Function(String?)? validator;
-  final Function(String?)? onChanged;
+  final ValueChanged<String?>? onChanged;
   final String? initalValue;
   final TextEditingController? controller;
   final IconData? prefixIcon;
+  final Widget? suffixIcon;
   final TextInputType? keyboardType;
+  final TextAlign textAlign;
+  final String? errorText;
+  final int? errorMaxLines;
 
   const AppTextFormField({
     required this.name,
@@ -31,13 +34,17 @@ class AppTextFormField extends StatefulWidget {
     this.initalValue,
     this.controller,
     this.prefixIcon,
+    this.suffixIcon,
     this.maxLength,
     this.keyboardType,
+    this.textAlign = TextAlign.start,
+    this.errorText,
+    this.errorMaxLines,
     super.key,
   });
 
   @override
-  _AppTextFormFieldState createState() => _AppTextFormFieldState();
+  State<AppTextFormField> createState() => _AppTextFormFieldState();
 }
 
 class _AppTextFormFieldState extends State<AppTextFormField> {
@@ -45,6 +52,9 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Semantics(
       label: widget.name,
       child: FormBuilderTextField(
@@ -57,37 +67,29 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
         validator: widget.validator,
         obscureText: widget.isPassword ? _obscureText : false,
         keyboardType: widget.keyboardType,
+        textAlign: widget.textAlign,
         onTapOutside: (event) {
           FocusScope.of(context).unfocus();
         },
         decoration: InputDecoration(
           labelText: widget.labelText,
-          labelStyle: const TextStyle(color: AppColors.grey),
-
-          filled: true,
-          fillColor: AppColors.lightGrey, // Background fill color
-          border: outlineInputBorder(AppColors.black),
+          border: outlineInputBorder(colorScheme.outline),
           enabledBorder: outlineInputBorder(
-              widget.enabledBorderColor ?? Colors.transparent),
-          errorBorder: outlineInputBorder(AppColors.red),
-          focusedErrorBorder: outlineInputBorder(AppColors.red),
-          contentPadding:
-              const EdgeInsets.all(15.0), // Padding inside the text field
-          hintText: widget.hintText, // Placeholder text
-          hintStyle: const TextStyle(
-            color: AppColors.grey,
+            widget.enabledBorderColor ?? Colors.transparent,
           ),
+          errorBorder: outlineInputBorder(colorScheme.error),
+          focusedErrorBorder: outlineInputBorder(colorScheme.error),
+          hintText: widget.hintText,
+          errorText: widget.errorText,
+          errorMaxLines: widget.errorMaxLines,
           prefixIcon: widget.prefixIcon == null
               ? null
-              : Icon(
-                  widget.prefixIcon,
-                  color: AppColors.grey,
-                ),
+              : Icon(widget.prefixIcon, color: theme.hintColor),
           suffixIcon: widget.isPassword
               ? IconButton(
                   icon: Icon(
                     _obscureText ? Icons.visibility : Icons.visibility_off,
-                    color: AppColors.primary,
+                    color: colorScheme.primary,
                   ),
                   onPressed: () {
                     setState(() {
@@ -95,17 +97,17 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
                     });
                   },
                 )
-              : null,
+              : widget.suffixIcon,
         ),
       ),
     );
   }
 
   OutlineInputBorder outlineInputBorder(Color color) => OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10.0), // Rounded corners
-        borderSide: BorderSide(
-          color: color, // Border color when focused and there's an error
-          width: widget.borderWidth,
-        ),
-      );
+    borderRadius: BorderRadius.circular(10.0), // Rounded corners
+    borderSide: BorderSide(
+      color: color, // Border color when focused and there's an error
+      width: widget.borderWidth,
+    ),
+  );
 }

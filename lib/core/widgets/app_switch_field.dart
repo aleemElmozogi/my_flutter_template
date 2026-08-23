@@ -19,19 +19,19 @@ class AppToggleSwitch<T> extends FormBuilderField<T> {
     String? Function(T?)? validator,
     ValueChanged<T?>? onChanged,
   }) : super(
-          name: name,
-          validator: validator,
-          initialValue: initialValue,
-          builder: (FormFieldState<T> field) {
-            return _AppToggleSwitchWidget(
-              field: field,
-              labels: labels,
-              textDirectionRTL: textDirectionRTL,
-              minWidth: .6.sw,
-              fontSize: fontSize,
-            );
-          },
-        );
+         name: name,
+         validator: validator,
+         initialValue: initialValue,
+         builder: (FormFieldState<T> field) {
+           return _AppToggleSwitchWidget(
+             field: field,
+             labels: labels,
+             textDirectionRTL: textDirectionRTL,
+             minWidth: .6.sw,
+             fontSize: fontSize,
+           );
+         },
+       );
 }
 
 class _AppToggleSwitchWidget<T> extends StatelessWidget {
@@ -51,10 +51,12 @@ class _AppToggleSwitchWidget<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final sortedLabels = labels.entries.toList();
     final labelList = sortedLabels.map((e) => e.value).toList();
-    final initialLabelIndex =
-        sortedLabels.indexWhere((e) => e.key == field.value);
+    final initialLabelIndex = sortedLabels.indexWhere(
+      (e) => e.key == field.value,
+    );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,11 +69,13 @@ class _AppToggleSwitchWidget<T> extends StatelessWidget {
           totalSwitches: labels.length,
           fontSize: fontSize ?? 14.sp,
           labels: labelList,
-          inactiveFgColor: Colors.white,
+          inactiveFgColor: theme.colorScheme.onSurface,
           activeBgColor: List.generate(
-              labels.length, (index) => Theme.of(context).primaryColor),
-          inactiveBgColor: Theme.of(context).disabledColor,
-          dividerColor: Theme.of(context).primaryColor,
+            labels.length,
+            (index) => theme.colorScheme.primary,
+          ),
+          inactiveBgColor: theme.colorScheme.surfaceContainerHighest,
+          dividerColor: theme.colorScheme.primary,
           onToggle: (int? index) {
             if (index != null && index < sortedLabels.length) {
               field.didChange(sortedLabels[index].key);
@@ -82,7 +86,7 @@ class _AppToggleSwitchWidget<T> extends StatelessWidget {
           SizedBox(height: 5.h),
           AppText(
             field.errorText ?? '',
-            textColor: Colors.red.shade900,
+            textColor: theme.colorScheme.error,
             fontSize: 10.sp,
           ),
         ],

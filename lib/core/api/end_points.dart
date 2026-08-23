@@ -3,6 +3,9 @@ class EndPoints {
 
   static const String signIn = '$baseUrl/api/Auth/SignIn';
   static const String registration = '$baseUrl/api/Auth/Registration';
+  static const String refreshToken = '$baseUrl/api/Auth/RefreshToken';
+  static const String sendOtp = '$baseUrl/api/Auth/SendOtp';
+  static const String verifyOtp = '$baseUrl/api/Auth/VerifyOtp';
 
   static const String addLike = '$baseUrl/api/UserInterActions/AddLike';
 

@@ -24,20 +24,21 @@ class DioConsumerMockImpl implements ApiConsumer {
   DioConsumerMockImpl(this.networkInfo) {
     client.httpClientAdapter = IOHttpClientAdapter(
       createHttpClient: () {
-        final HttpClient client =
-            HttpClient(context: SecurityContext(withTrustedRoots: false));
+        final HttpClient client = HttpClient(
+          context: SecurityContext(withTrustedRoots: false),
+        );
         client.badCertificateCallback =
             ((X509Certificate cert, String host, int port) {
-          return true;
-        });
+              return true;
+            });
         return client;
       },
     );
-    client.interceptors.add(AppInterceptors());
+    client.interceptors.add(AppInterceptors(client));
   }
 
   @override
-  Future<T> request<T extends JsonModel>(
+  Future<T> request<T extends JsonModel<dynamic>>(
     ResponseModelCreator<T> responseCreator, {
     required String path,
     required NetworkMethod method,
@@ -53,24 +54,27 @@ class DioConsumerMockImpl implements ApiConsumer {
     }
 
     try {
-      await Future.delayed(const Duration(seconds: 2));
+      await Future<void>.delayed(const Duration(seconds: 2));
+      final statusCode =
+          jsonDecode(jsonEncode(mockResponse))["statusCode"] as int? ?? 200;
       final response = Response<String>(
-          data: jsonEncode(mockResponse),
-          statusCode:
-              jsonDecode(jsonEncode(mockResponse))["statusCode"] as int ?? 200,
-          requestOptions: RequestOptions());
-      return di
-          .getIt<ApiHelper>()
-          .handleResponseAsJson<T>(responseCreator, response);
+        data: jsonEncode(mockResponse),
+        statusCode: statusCode,
+        requestOptions: RequestOptions(),
+      );
+      return di.getIt<ApiHelper>().handleResponseAsJson<T>(
+        responseCreator,
+        response,
+      );
     } on ApiException {
       rethrow;
     } on DioException catch (error) {
       di.getIt<ApiHelper>().handleDioError(error);
       rethrow;
     } on Exception {
-      di
-          .getIt<ApiHelper>()
-          .handleDioError(DioException(requestOptions: RequestOptions()));
+      di.getIt<ApiHelper>().handleDioError(
+        DioException(requestOptions: RequestOptions()),
+      );
       rethrow;
     }
   }

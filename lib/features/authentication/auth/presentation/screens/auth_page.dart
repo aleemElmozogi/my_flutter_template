@@ -13,8 +13,16 @@ import 'package:my_flutter_template/features/authentication/auth/presentation/cu
 import 'package:my_flutter_template/features/authentication/auth/presentation/cubit/auth_state.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:my_flutter_template/generated/l10n.dart';
 
 part '../listeners/sign_in_listener.dart';
+
+class _LoginFormFields {
+  const _LoginFormFields._();
+
+  static const phone = 'phone';
+  static const password = 'password';
+}
 
 @RoutePage()
 class LoginScreen extends StatelessWidget {
@@ -27,112 +35,81 @@ class LoginScreen extends StatelessWidget {
     return AppScaffold(
       listenersList: listeners,
       body: SingleChildScrollView(
-        child: BlocBuilder<AuthCubit, AuthState>(
-          buildWhen: (previous, current) =>
-              previous.signInStatus != current.signInStatus,
-          builder: (context, state) {
-            return FormBuilder(
-              key: _formKey,
-              child: Column(
+        child: FormBuilder(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AppText(
+                S.of(context).loginTitle,
+                fontWeight: FontWeight.w700,
+                fontSize: 20.sp,
+              ),
+              SizedBox(height: 30.h),
+              AppTextFormField(
+                name: _LoginFormFields.phone,
+                validator: InputValidation.phoneNumberValidation(),
+                hintText: S.of(context).phoneNumber,
+                maxLength: 9,
+                prefixIcon: Icons.phone,
+              ),
+              const SizedBox(height: 20),
+              AppTextFormField(
+                name: _LoginFormFields.password,
+                validator: InputValidation.requiredValidation(),
+                isPassword: true,
+                hintText: S.of(context).password,
+                prefixIcon: Icons.lock_rounded,
+              ),
+              const SizedBox(height: 15),
+              BlocBuilder<AuthCubit, AuthState>(
+                buildWhen: (previous, current) =>
+                    previous.signInStatus != current.signInStatus,
+                builder: (context, state) {
+                  return state.signInStatus.isInProgress
+                      ? const Center(child: AppLoadingIndicator())
+                      : AppButton(
+                          title: S.of(context).loginTitle,
+                          onTab: () => _submitLogin(context),
+                        );
+                },
+              ),
+              const SizedBox(height: 20),
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  AppText(
-                    'تسجيل الدخول',
-                    fontWeight: FontWeight.w700,
-                    fontSize: 20.sp,
-                  ),
-                  SizedBox(height: 30.h),
-                  AppTextFormField(
-                    name: 'phone',
-                    validator: InputValidation.phoneNumberValidation(),
-                    hintText: 'رقم الهاتف',
-                    maxLength: 9,
-                    prefixIcon: Icons.phone,
-                  ),
-                  const SizedBox(height: 20),
-                  AppTextFormField(
-                    name: 'password',
-                    validator: InputValidation.requiredValidation(),
-                    isPassword: true,
-                    hintText: 'كلمة المرور',
-                    prefixIcon: Icons.lock_rounded,
-                  ),
-                  const SizedBox(height: 15),
-                  // InkWell(
-                  //   onTap: () => context.router.push(PhoneInputRoute(
-                  //       onSuccess: (v) => context.router
-                  //           .push(ForgetPasswordRoute(phoneNumber: v)))),
-                  //   child: AppText(
-                  //     'نسيت كلمة السر؟',
-                  //     textColor: AppColors.primary,
-                  //     fontSize: 15.sp,
-                  //   ),
-                  // ),
-                  const SizedBox(height: 15),
-                  BlocBuilder<AuthCubit, AuthState>(
-                    buildWhen: (previous, current) =>
-                        previous.signInStatus != current.signInStatus,
-                    builder: (context, state) {
-                      return state.signInStatus.isInProgress
-                          ? const Center(child: AppLoadingIndicator())
-                          : AppButton(
-                              title: "تسجيل الدخول",
-                              onTab: () {
-                                if (_formKey.currentState!.saveAndValidate()) {
-                                  final creeds = _formKey.currentState?.input;
-                                  if (creeds != null) {
-                                    context
-                                        .read<AuthCubit>()
-                                        .login(creeds.phone, creeds.password);
-                                  }
-                                }
-                              });
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      AppText(
-                        'ليس لديك حساب؟ ',
-                        fontSize: 15.sp,
-                      ),
-                      // InkWell(
-                      //   onTap: () => context.router.push(PhoneInputRoute(
-                      //       onSuccess: (v) => context.router
-                      //           .push(RegisterRoute(phoneNumber: v)))),
-                      //   child: AppText(
-                      //     'التسجيل',
-                      //     fontSize: 15.sp,
-                      //     textColor: AppColors.primary,
-                      //   ),
-                      // ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  // InkWell(
-                  //   onTap: () => context.router.replaceAll([const MainRoute()]),
-                  //   child: AppText(
-                  //     'الإستمرار كضيف',
-                  //     textColor: AppColors.primary,
-                  //     fontSize: 15.sp,
-                  //   ),
-                  // ),
+                  AppText(S.of(context).dontHaveAccount, fontSize: 15.sp),
                 ],
               ),
-            );
-          },
+              const SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  void _submitLogin(BuildContext context) {
+    final form = _formKey.currentState;
+    if (form?.saveAndValidate() != true) return;
+
+    final input = form?.input;
+    if (input == null) return;
+
+    context.read<AuthCubit>().login(input.phone, input.password);
   }
 }
 
 extension on FormBuilderState {
   ({String phone, String password})? get input {
-    final phone = value['phone'] as String?;
-    final password = value['password'] as String?;
-    if (phone == null || password == null) return null;
-    return (phone: phone, password: password);
+    final phone = value[_LoginFormFields.phone];
+    final password = value[_LoginFormFields.password];
+
+    if (phone is! String || password is! String) return null;
+
+    final trimmedPhone = phone.trim();
+    if (trimmedPhone.isEmpty || password.isEmpty) return null;
+
+    return (phone: trimmedPhone, password: password);
   }
 }

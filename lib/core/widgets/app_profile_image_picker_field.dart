@@ -1,10 +1,11 @@
 import 'dart:io';
-import 'package:my_flutter_template/core/utils/app_colors.dart';
+import 'package:my_flutter_template/config/themes/app_theme.dart';
 import 'package:my_flutter_template/core/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:my_flutter_template/generated/l10n.dart';
 
 import 'app_custom_button.dart';
 
@@ -39,12 +40,12 @@ class _AppProfilePickerFormFieldState extends State<AppProfilePickerFormField> {
           children: [
             ListTile(
               leading: const Icon(Icons.camera_alt),
-              title: const AppText('التقاط صورة بالكاميرا'),
+              title: AppText(S.of(context).takePhotoWithCamera),
               onTap: () => Navigator.of(context).pop(ImageSource.camera),
             ),
             ListTile(
               leading: const Icon(Icons.photo_library),
-              title: const AppText('اختيار صورة من المعرض'),
+              title: AppText(S.of(context).choosePhotoFromGallery),
               onTap: () => Navigator.of(context).pop(ImageSource.gallery),
             ),
           ],
@@ -65,6 +66,8 @@ class _AppProfilePickerFormFieldState extends State<AppProfilePickerFormField> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return FormBuilderField<String>(
       name: widget.name,
       validator: widget.validator,
@@ -73,8 +76,9 @@ class _AppProfilePickerFormFieldState extends State<AppProfilePickerFormField> {
           children: [
             AppCustomButton(
               borderRadius: 50.r,
-              borderColor:
-                  field.hasError ? Colors.red.shade900 : AppColors.grey,
+              borderColor: field.hasError
+                  ? theme.colorScheme.error
+                  : theme.appColors.border,
               contentPadding: EdgeInsets.all(_imagePath != null ? 10.r : 5.r),
               onPressed: () async => await _pickImage(field),
               child: _imagePath != null
@@ -86,17 +90,14 @@ class _AppProfilePickerFormFieldState extends State<AppProfilePickerFormField> {
                         width: 80.r,
                       ),
                     )
-                  : Icon(
-                      Icons.person,
-                      size: 80.r,
-                    ),
+                  : Icon(Icons.person, size: 80.r),
             ),
             if (field.hasError)
               Padding(
                 padding: EdgeInsets.only(top: 5.h),
                 child: AppText(
                   field.errorText ?? '',
-                  textColor: Colors.red.shade900,
+                  textColor: theme.colorScheme.error,
                   fontSize: 10.sp,
                 ),
               ),

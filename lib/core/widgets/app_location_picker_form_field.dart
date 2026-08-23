@@ -1,12 +1,12 @@
-import 'package:my_flutter_template/core/utils/app_strings.dart';
+import 'package:my_flutter_template/config/env/app_environment.dart';
 import 'package:my_flutter_template/core/utils/dialog_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:map_location_picker/map_location_picker.dart';
-import 'package:my_flutter_template/core/utils/app_colors.dart';
+import 'package:my_flutter_template/config/themes/app_theme.dart';
 import 'package:my_flutter_template/core/widgets/app_text.dart';
+import 'package:my_flutter_template/generated/l10n.dart';
 import 'app_custom_button.dart';
 
 class AppLocationPickerFormField extends StatefulWidget {
@@ -40,12 +40,10 @@ class _AppLocationPickerFormFieldState
           config: MapLocationPickerConfig(
             initialZoom: 15,
             initialPosition: LatLng(30.033333, 31.233334),
-            apiKey: AppStrings.googleMapsApiKey,
+            apiKey: AppEnvironment.googleMapsApiKey,
             hideMoreOptions: true,
             onNext: (result) {
               if (result != null) {
-                result.geometry.location.lat;
-                String? address = result.formattedAddress;
                 for (var component in result.addressComponents) {
                   if (component.types.contains('locality')) {
                     setState(() {
@@ -73,6 +71,8 @@ class _AppLocationPickerFormFieldState
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return FormBuilderField<String>(
       name: widget.name,
       validator: widget.validator,
@@ -80,50 +80,50 @@ class _AppLocationPickerFormFieldState
         return Column(
           children: [
             AppCustomButton(
-              borderColor:
-                  field.hasError ? Colors.red.shade900 : AppColors.grey,
+              borderColor: field.hasError
+                  ? theme.colorScheme.error
+                  : theme.appColors.border,
               contentPadding: EdgeInsets.all(
                 _selectedLocation != null ? 0 : 5.r,
               ),
               onPressed: () async => await _pickLocation(field, context),
-              child:
-                  _selectedLocation != null
-                      ? SizedBox(
-                        height: 100.h,
-                        width: 1.sw,
-                        child: Center(
-                          child: AppText(
-                            'تم اختيار العنوان',
-                            textColor: AppColors.primary,
-                            fontSize: 15.sp,
-                          ),
+              child: _selectedLocation != null
+                  ? SizedBox(
+                      height: 100.h,
+                      width: 1.sw,
+                      child: Center(
+                        child: AppText(
+                          S.of(context).locationSelected,
+                          textColor: theme.colorScheme.primary,
+                          fontSize: 15.sp,
                         ),
-                      )
-                      : Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.location_on_outlined,
-                            size: 35.r,
-                            color: AppColors.primary,
-                          ),
-                          SizedBox(height: 10.h),
-                          const AppText('اختر موقعك'),
-                          SizedBox(height: 2.h),
-                          const AppText(
-                            'اضغط هنا لفتح الخريطة واختيار موقعك',
-                            maxLines: 2,
-                            textColor: AppColors.grey,
-                          ),
-                        ],
                       ),
+                    )
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.location_on_outlined,
+                          size: 35.r,
+                          color: theme.colorScheme.primary,
+                        ),
+                        SizedBox(height: 10.h),
+                        AppText(S.of(context).chooseLocation),
+                        SizedBox(height: 2.h),
+                        AppText(
+                          S.of(context).chooseLocationDescription,
+                          maxLines: 2,
+                          textColor: theme.appColors.mutedText,
+                        ),
+                      ],
+                    ),
             ),
             if (field.hasError)
               Padding(
                 padding: EdgeInsets.only(top: 5.h),
                 child: AppText(
                   field.errorText ?? '',
-                  textColor: Colors.red.shade900,
+                  textColor: theme.colorScheme.error,
                   fontSize: 10.sp,
                 ),
               ),

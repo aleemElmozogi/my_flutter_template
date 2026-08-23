@@ -21,16 +21,17 @@ class AppNetworkImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isMock = di.getIt<di.AppSettings>().environment.isMock;
-    final String fullImageUrl = '${isMock ? '' : '${EndPoints.baseUrl}/'}$imageUrl';
+    final bool isMock = di.getIt<di.AppSettings>().isMock;
+    final String fullImageUrl =
+        '${isMock ? '' : '${EndPoints.baseUrl}/'}$imageUrl';
 
     return ImageNetwork(
-        onTap: onTap,
-        image: fullImageUrl,
-        height: height.r,
-        width: height.r,
-        fitAndroidIos: BoxFit.cover,
-        onError: Icon(onErrorIcon)
-        );
+      onTap: onTap,
+      image: fullImageUrl,
+      height: height.r,
+      width: height.r,
+      fitAndroidIos: BoxFit.cover,
+      onError: Icon(onErrorIcon),
+    );
   }
 }

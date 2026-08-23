@@ -1,66 +1,54 @@
 import 'package:intl/intl.dart';
+import 'package:my_flutter_template/generated/l10n.dart';
 
 extension StringExtension on String {
   String get formatAmount {
-    // Create a NumberFormat object with the desired pattern
     NumberFormat formatter = NumberFormat.currency(
-        locale: 'ar', symbol: 'د.ل'); // Adjust locale and symbol as needed
+      locale: Intl.getCurrentLocale(),
+      symbol: S.current.currencySymbol,
+    );
     return formatter.format(double.tryParse(this) ?? 0);
   }
 
   String get monthName {
     final int monthNumber = int.tryParse(this) ?? 0;
-    // List<String> monthNames = [
-    //   '', // leave an empty string for index 0
-    //   'January',
-    //   'February',
-    //   'March',
-    //   'April',
-    //   'May',
-    //   'June',
-    //   'July',
-    //   'August',
-    //   'September',
-    //   'October',
-    //   'November',
-    //   'December'
-    // ];
     List<String> monthNames = [
-      '', // leave an empty string for index 0
-      'يناير', // January
-      'فبراير', // February
-      'مارس', // March
-      'أبريل', // April
-      'مايو', // May
-      'يونيو', // June
-      'يوليو', // July
-      'أغسطس', // August
-      'سبتمبر', // September
-      'أكتوبر', // October
-      'نوفمبر', // November
-      'ديسمبر' // December
+      '',
+      S.current.january,
+      S.current.february,
+      S.current.march,
+      S.current.april,
+      S.current.may,
+      S.current.june,
+      S.current.july,
+      S.current.august,
+      S.current.september,
+      S.current.october,
+      S.current.november,
+      S.current.december,
     ];
 
-    // Check if the month number is valid
     if (monthNumber < 1 || monthNumber > 12) {
       return '';
     }
 
     return monthNames[monthNumber];
   }
+
   String get formatMoney {
     final int number = int.tryParse(trim()) ?? 0;
 
     if (number >= 1000000) {
       int floored = (number * 10) ~/ 1000000;
-      return '${floored ~/ 10}.${floored % 10} مليون';
+      return S.current.millionAmount('${floored ~/ 10}.${floored % 10}');
     } else if (number >= 1000) {
       int floored = (number * 10) ~/ 1000;
-      return '${floored ~/ 10}.${floored % 10} ألف';
+      return S.current.thousandAmount('${floored ~/ 10}.${floored % 10}');
     }
 
     return number.toString();
   }
+
   String get reverseName {
     List<String> words = split(' ');
 

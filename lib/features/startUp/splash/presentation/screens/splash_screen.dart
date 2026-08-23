@@ -19,10 +19,9 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
-  _goNext(bool firstStart) => context.router
-      .replaceAll(firstStart ? [OnBoardingRoute()] : [LoginRoute()]);
-
+  void _goNext(bool firstStart) => context.router.replaceAll(
+    firstStart ? [OnBoardingRoute()] : [LoginRoute()],
+  );
 
   @override
   void initState() {
@@ -32,14 +31,12 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
       backgroundColorGradient: const [
         AppColors.primary,
-        AppColors.lightPrimary
+        AppColors.lightPrimary,
       ],
       body: Center(
         child: Column(
@@ -49,9 +46,15 @@ class _SplashScreenState extends State<SplashScreen> {
             SizedBox(height: 35.h),
             const Spacer(),
             Hero(
-                tag: 'appLogo',
-                child: SvgPicture.asset(ImgAssets.appLogo,
-                    color: AppColors.white)),
+              tag: 'appLogo',
+              child: SvgPicture.asset(
+                ImgAssets.appLogo,
+                colorFilter: const ColorFilter.mode(
+                  AppColors.white,
+                  BlendMode.srcIn,
+                ),
+              ),
+            ),
             const Spacer(),
             const AppLoadingIndicator(fillColor: AppColors.white),
             SizedBox(height: 35.h),

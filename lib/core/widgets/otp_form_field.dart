@@ -1,4 +1,4 @@
-import 'package:my_flutter_template/core/utils/app_colors.dart';
+import 'package:my_flutter_template/config/themes/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,14 +9,17 @@ class AppOtpFormField extends StatelessWidget {
   final int length;
   final String name;
   final String? Function(String?)? validator;
-  const AppOtpFormField(
-      {super.key,
-      required this.length,
-      required this.name,
-      required this.validator});
+  const AppOtpFormField({
+    super.key,
+    required this.length,
+    required this.name,
+    required this.validator,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return FormBuilderField<String>(
       name: name,
       builder: (FormFieldState<String> field) {
@@ -34,15 +37,13 @@ class AppOtpFormField extends StatelessWidget {
             validator: validator,
             pinTheme: PinTheme(
               shape: PinCodeFieldShape.box,
-              activeColor: AppColors.lightGrey,
-              activeFillColor: AppColors.lightGrey,
-              inactiveColor: AppColors.lightGrey,
-              inactiveFillColor: AppColors.lightGrey,
-              selectedColor: AppColors.primary,
-              selectedFillColor: AppColors.lightGrey,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(7),
-              ),
+              activeColor: theme.appColors.border,
+              activeFillColor: theme.appColors.fieldFill,
+              inactiveColor: theme.appColors.border,
+              inactiveFillColor: theme.appColors.fieldFill,
+              selectedColor: theme.colorScheme.primary,
+              selectedFillColor: theme.appColors.fieldFill,
+              borderRadius: const BorderRadius.all(Radius.circular(7)),
               fieldHeight: 50.h,
             ),
           ),

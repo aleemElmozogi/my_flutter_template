@@ -7,13 +7,13 @@ part 'pagination_metadata_model.g.dart';
 @JsonSerializable()
 class MetadataModel extends JsonModel<MetadataModel> {
   @JsonKey(name: 'page')
-  int? page;
+  final int? page;
 
   @JsonKey(name: 'pageSize')
-  int? pageSize;
+  final int? pageSize;
 
   @JsonKey(name: 'totalPages')
-  int? totalPages;
+  final int? totalPages;
 
   MetadataModel({this.page, this.pageSize, this.totalPages});
 
