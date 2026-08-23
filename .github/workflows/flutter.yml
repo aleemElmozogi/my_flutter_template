@@ -28,7 +28,7 @@ jobs:
         run: flutter pub run intl_utils:generate
 
       - name: Analyze project source
-        run: flutter analyze
+        run: flutter analyze lib test --no-pub
 
       - name: Run tests
-        run: flutter test
+        run: flutter test --no-pub
