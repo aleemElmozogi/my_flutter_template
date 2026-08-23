@@ -52,6 +52,7 @@ app.*.map.json
 *.g.dart
 /pubspec.lock
 *.gr.dart
+*config.dart
 
 # Local app environment values. Commit only examples/templates.
 env/*.json
