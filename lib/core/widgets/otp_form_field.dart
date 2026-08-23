@@ -1,14 +1,7 @@
-import 'package:my_flutter_template/config/themes/app_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class AppOtpFormField extends StatelessWidget {
-  final int length;
-  final String name;
-  final String? Function(String?)? validator;
   const AppOtpFormField({
     super.key,
     required this.length,
@@ -16,39 +9,37 @@ class AppOtpFormField extends StatelessWidget {
     required this.validator,
   });
 
+  final int length;
+  final String name;
+  final String? Function(String?)? validator;
+
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final colorScheme = Theme.of(context).colorScheme;
 
-    return FormBuilderField<String>(
+    return FormBuilderTextField(
       name: name,
-      builder: (FormFieldState<String> field) {
-        return Directionality(
-          textDirection: TextDirection.ltr,
-          child: PinCodeTextField(
-            appContext: context,
-            length: length,
-            keyboardType: TextInputType.number,
-            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-            enableActiveFill: true,
-            onCompleted: field.didChange,
-            // onChanged: field.didChange,
-            errorTextDirection: TextDirection.rtl,
-            validator: validator,
-            pinTheme: PinTheme(
-              shape: PinCodeFieldShape.box,
-              activeColor: theme.appColors.border,
-              activeFillColor: theme.appColors.fieldFill,
-              inactiveColor: theme.appColors.border,
-              inactiveFillColor: theme.appColors.fieldFill,
-              selectedColor: theme.colorScheme.primary,
-              selectedFillColor: theme.appColors.fieldFill,
-              borderRadius: const BorderRadius.all(Radius.circular(7)),
-              fieldHeight: 50.h,
-            ),
-          ),
-        );
-      },
+      validator: validator,
+      keyboardType: TextInputType.number,
+      textDirection: TextDirection.ltr,
+      textAlign: TextAlign.center,
+      maxLength: length,
+      decoration: InputDecoration(
+        counterText: '',
+        hintText: List.filled(length, '0').join(),
+        filled: true,
+        fillColor: colorScheme.surfaceContainerHighest,
+        border: _outlineInputBorder(colorScheme.outlineVariant),
+        enabledBorder: _outlineInputBorder(Colors.transparent),
+        focusedBorder: _outlineInputBorder(colorScheme.primary),
+        errorBorder: _outlineInputBorder(colorScheme.error),
+        focusedErrorBorder: _outlineInputBorder(colorScheme.error),
+      ),
     );
   }
+
+  OutlineInputBorder _outlineInputBorder(Color color) => OutlineInputBorder(
+    borderRadius: BorderRadius.circular(12),
+    borderSide: BorderSide(color: color, width: 1),
+  );
 }

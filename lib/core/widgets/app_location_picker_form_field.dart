@@ -44,23 +44,30 @@ class _AppLocationPickerFormFieldState
             hideMoreOptions: true,
             onNext: (result) {
               if (result != null) {
-                for (var component in result.addressComponents) {
-                  if (component.types.contains('locality')) {
-                    setState(() {
-                      city = component.longName;
-                    });
-                  } else if (component.types.contains('country')) {
-                    setState(() {
-                      country = component.longName;
-                    });
+                final addressComponents = result.addressComponents;
+                if (addressComponents != null) {
+                  for (final component in addressComponents) {
+                    final types = component.types ?? const <String>[];
+                    if (types.contains('locality')) {
+                      setState(() {
+                        city = component.longName;
+                      });
+                    } else if (types.contains('country')) {
+                      setState(() {
+                        country = component.longName;
+                      });
+                    }
                   }
                 }
-                setState(() {
-                  _selectedLocation =
-                      "Address\nLat: ${result.geometry.location.lat}, Lng: ${result.geometry.location.lng}";
-                });
-                field.didChange(_selectedLocation);
-                Navigator.pop(context);
+                final location = result.geometry?.location;
+                if (location != null) {
+                  setState(() {
+                    _selectedLocation =
+                        "Address\nLat: ${location.lat}, Lng: ${location.lng}";
+                  });
+                  field.didChange(_selectedLocation);
+                  Navigator.pop(context);
+                }
               }
             },
           ),

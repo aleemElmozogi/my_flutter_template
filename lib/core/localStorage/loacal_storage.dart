@@ -26,10 +26,7 @@ abstract class LocalStorage {
 @Singleton(as: LocalStorage)
 class LocalStorageImpl implements LocalStorage {
   final FlutterSecureStorage secureStorage = const FlutterSecureStorage(
-    aOptions: AndroidOptions(
-      encryptedSharedPreferences: true,
-      resetOnError: false,
-    ),
+    aOptions: AndroidOptions(resetOnError: false),
     iOptions: IOSOptions(accessibility: KeychainAccessibility.first_unlock),
   );
   LocalStorageImpl();
