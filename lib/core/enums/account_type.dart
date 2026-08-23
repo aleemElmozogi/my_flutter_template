@@ -1,19 +1,17 @@
 enum AccountTypeStatus {
-  merchant(2),
-  customer(3);
+  helper(2),
+  organization(3);
 
-  bool get isUser => this == AccountTypeStatus.customer;
-  bool get isMerchant => this == AccountTypeStatus.merchant;
+  bool get isUser => this == AccountTypeStatus.helper;
+  bool get isOrganization => this == AccountTypeStatus.organization;
   const AccountTypeStatus(this.value);
   factory AccountTypeStatus.fromJson(int key) {
     switch (key) {
-      case 2:
-        return AccountTypeStatus.merchant;
       case 3:
-        return AccountTypeStatus.customer;
-
+        return AccountTypeStatus.organization;
+      case 2:
       default:
-        return AccountTypeStatus.customer;
+        return AccountTypeStatus.helper;
     }
   }
 

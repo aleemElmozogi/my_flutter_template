@@ -2,7 +2,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'json_model.dart';
 
-
 part 'pagination_metadata_model.g.dart';
 
 @JsonSerializable()

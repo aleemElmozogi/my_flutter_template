@@ -10,12 +10,11 @@ import 'package:injectable/injectable.dart';
 
 import 'api_consumer.dart';
 
-
 abstract class ApiHelper {
-  T handleResponseAsJson<T extends JsonModel>(
-      ResponseModelCreator<T> responseCreator,
-      Response<String> response,
-      );
+  T handleResponseAsJson<T extends JsonModel<dynamic>>(
+    ResponseModelCreator<T> responseCreator,
+    Response<String> response,
+  );
   dynamic handleDioError(DioException error);
   dynamic handleStatusCodeError(int statusCode);
 }
@@ -65,20 +64,22 @@ class ApiHelperImpl implements ApiHelper {
       case DioExceptionType.unknown:
         throw NoInternetConnectionException();
       case DioExceptionType.badCertificate:
-        throw FetchDataException();
+        // TODO: Handle this case.
+        break;
       case DioExceptionType.connectionError:
         throw NoInternetConnectionException();
       case DioExceptionType.transformTimeout:
-        throw FetchDataException();
+        // TODO: Handle this case.
+        throw UnimplementedError();
     }
   }
 
   @override
-  T handleResponseAsJson<T extends JsonModel>(
-      ResponseModelCreator<T> responseCreator,
-      Response<String> response,
-      ) {
-    var parsedResponse = responseCreator() as ResponseModel;
+  T handleResponseAsJson<T extends JsonModel<dynamic>>(
+    ResponseModelCreator<T> responseCreator,
+    Response<String> response,
+  ) {
+    var parsedResponse = responseCreator() as ResponseModel<dynamic, Object>;
     try {
       final messageResponse = jsonDecode(response.data!);
       final errorResponse = ErrorResponseModel.fromJson(
@@ -86,14 +87,15 @@ class ApiHelperImpl implements ApiHelper {
       );
 
       if ((response.statusCode != null &&
-          response.statusCode! >= 200 &&
-          response.statusCode! < 300) &&
+              response.statusCode! >= 200 &&
+              response.statusCode! < 300) &&
           (errorResponse.statusCode != null &&
               errorResponse.statusCode! >= 200 &&
               errorResponse.statusCode! < 300)) {
         // Handle success response
         parsedResponse =
-        responseCreator().fromJson(messageResponse) as ResponseModel;
+            responseCreator().fromJson(messageResponse)
+                as ResponseModel<dynamic, Object>;
         return parsedResponse as T;
       } else {
         // Handle error response

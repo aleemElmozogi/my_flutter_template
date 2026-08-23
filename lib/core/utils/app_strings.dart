@@ -1,5 +1,4 @@
 class AppStrings {
-  static const String appName = 'Dinaro';
   static const String fontFamily = 'Tajawal';
   static const String noRouteFound = 'No Route Found';
   static const String cachedGoldNissap = 'CACHED_SILVER_NISSAP';
@@ -12,6 +11,10 @@ class AppStrings {
   static const String englishCode = 'en';
   static const String arabicCode = 'ar';
   static const String locale = 'locale';
+  static const String themeMode = 'themeMode';
   static const String notificationTopicSubscribe = 'notificationTopicSubscribe';
+  static const String isFirstStart = 'isFirstStart';
+  static const String rememberLogin = 'rememberLogin';
+  static const String biometricLogin = 'biometricLogin';
   static const String accessToken = 'accessToken';
 }

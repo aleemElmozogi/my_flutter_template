@@ -25,7 +25,8 @@ class AppDropdownFormField<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
 
     return Semantics(
       label: name,
@@ -34,13 +35,9 @@ class AppDropdownFormField<T> extends StatelessWidget {
         initialValue: initialValue,
         validator: validator,
         onChanged: onChanged,
-        dropdownColor: colorScheme.surface,
         decoration: InputDecoration(
           labelText: labelText,
-          labelStyle: TextStyle(color: colorScheme.outline),
-          filled: true,
-          fillColor: colorScheme.surfaceContainerHighest,
-          border: outlineInputBorder(colorScheme.onSurface),
+          border: outlineInputBorder(colorScheme.outline),
           enabledBorder: outlineInputBorder(Colors.transparent),
           errorBorder: outlineInputBorder(colorScheme.error),
           focusedErrorBorder: outlineInputBorder(colorScheme.error),
@@ -49,9 +46,8 @@ class AppDropdownFormField<T> extends StatelessWidget {
             vertical: 12.0,
           ),
           hintText: hintText,
-          hintStyle: TextStyle(color: colorScheme.outline),
           prefixIcon: prefixIcon != null
-              ? Icon(prefixIcon, color: colorScheme.outline)
+              ? Icon(prefixIcon, color: theme.hintColor)
               : null,
         ),
         items: items,

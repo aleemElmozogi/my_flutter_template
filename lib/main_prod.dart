@@ -1,4 +1,3 @@
-
 import 'bootstrap.dart';
 import 'core/flavors/app_flavor.dart';
 

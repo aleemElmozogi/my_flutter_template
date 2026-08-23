@@ -1,21 +1,18 @@
 import 'dart:convert';
 
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:my_flutter_template/core/enums/account_state.dart';
 import 'package:my_flutter_template/core/models/json_model.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:my_flutter_template/features/authentication/auth/data/models/user_content_model.dart';
 
 part 'credentials_content_model.g.dart';
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class CredentialsContentModel extends JsonModel<CredentialsContentModel> {
   CredentialsContentModel({
     required this.accessToken,
     required this.refreshToken,
-    required this.accountState,
     required this.user,
   });
-
   factory CredentialsContentModel.fromJson(Map<String, dynamic> json) =>
       _$CredentialsContentModelFromJson(json);
 
@@ -28,8 +25,6 @@ class CredentialsContentModel extends JsonModel<CredentialsContentModel> {
   final String accessToken;
   @JsonKey(defaultValue: '')
   final String refreshToken;
-  @JsonKey(defaultValue: AccountState.inactive, fromJson: AccountState.fromJson)
-  final AccountState accountState;
   @JsonKey(name: 'userProfile')
   final UserContentModel user;
 
@@ -41,5 +36,5 @@ class CredentialsContentModel extends JsonModel<CredentialsContentModel> {
       CredentialsContentModel.fromJson(json);
 
   @override
-  List<Object?> get props => [user, accountState, refreshToken, accessToken];
+  List<Object?> get props => [];
 }

@@ -1,8 +1,10 @@
 import 'package:my_flutter_template/core/enums/validation_status.dart';
-import 'package:my_flutter_template/core/utils/app_colors.dart';
+import 'package:my_flutter_template/core/widgets/app_button.dart';
 import 'package:my_flutter_template/core/widgets/app_text.dart';
+import 'package:my_flutter_template/core/widgets/app_text_form_field.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:my_flutter_template/generated/l10n.dart';
 
 class FieldDialog extends StatelessWidget {
   const FieldDialog({
@@ -22,63 +24,57 @@ class FieldDialog extends StatelessWidget {
   final String? submitButtonTitle;
   final String errorText;
   final String hintText;
-  final Function() onTap;
-  final Function()? onClear;
-  final Function(String text) onTextChange;
+  final VoidCallback onTap;
+  final VoidCallback? onClear;
+  final ValueChanged<String> onTextChange;
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(15.0),
-        ),
+        borderRadius: BorderRadius.all(Radius.circular(15.0)),
       ),
-      title: Center(
-        child: AppText(
-          title,
+      title: Center(child: AppText(title)),
+      content: FormBuilder(
+        child: AppTextFormField(
+          name: 'field_dialog_value',
+          hintText: hintText,
+          textAlign: TextAlign.center,
+          keyboardType: const TextInputType.numberWithOptions(decimal: true),
+          errorMaxLines: 2,
+          errorText: inputValidation.isValid ? null : errorText,
+          enabledBorderColor: Theme.of(context).colorScheme.primary,
+          onChanged: (value) => onTextChange(value ?? ''),
         ),
-      ),
-      content: TextField(
-        textAlign: TextAlign.center,
-        keyboardType: const TextInputType.numberWithOptions(decimal: true),
-        decoration: InputDecoration(
-            hintText: hintText,
-            errorMaxLines: 2,
-            enabledBorder: const UnderlineInputBorder(
-              borderSide: BorderSide(color: AppColors.primary),
-            ),
-            errorText: inputValidation.isValid ? null : errorText),
-        onChanged: onTextChange,
       ),
       actions: <Widget>[
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextButton(
-              style: TextButton.styleFrom(
-                textStyle: Theme.of(context).textTheme.labelLarge,
+            Expanded(
+              child: AppButton(
+                title: submitButtonTitle ?? S.of(context).confirm,
+                onTab: onTap,
               ),
-              onPressed: onTap,
-              child: AppText(submitButtonTitle ?? 'تأكيد'),
             ),
-            TextButton(
-              style: TextButton.styleFrom(
-                textStyle: Theme.of(context).textTheme.labelLarge,
+            const SizedBox(width: 10),
+            Expanded(
+              child: AppButton(
+                title: S.of(context).cancel,
+                backgroundColor: Theme.of(context).colorScheme.surface,
+                borderColor: Theme.of(context).colorScheme.primary,
+                titleColor: Theme.of(context).colorScheme.primary,
+                onTab: () {
+                  if (onClear != null) {
+                    onClear!();
+                  }
+                  Navigator.pop(context);
+                },
               ),
-              child: const AppText('إلغاء'),
-              onPressed: () {
-                if (onClear != null) {
-                  onClear!();
-                }
-               Navigator.pop(context);
-              },
             ),
           ],
         ),
-        const SizedBox(
-          height: 10,
-        )
+        const SizedBox(height: 10),
       ],
     );
   }

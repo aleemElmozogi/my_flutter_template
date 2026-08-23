@@ -1,83 +1,151 @@
 import 'package:my_flutter_template/core/enums/auth_status.dart';
 import 'package:my_flutter_template/core/enums/fetch_status.dart';
 import 'package:my_flutter_template/core/localStorage/loacal_storage.dart';
+import 'package:my_flutter_template/core/requests/login_request.dart';
+import 'package:my_flutter_template/features/authentication/auth/domain/usecases/auth_usecase.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:my_flutter_template/features/authentication/auth/data/models/login_request.dart';
-import 'package:my_flutter_template/features/authentication/auth/domain/usecases/auth_usecase.dart';
-import 'package:my_flutter_template/features/authentication/auth/domain/usecases/notification_issubscribed_usecase.dart';
-import 'package:my_flutter_template/features/authentication/auth/domain/usecases/notification_subscripe_usecase.dart';
-import 'package:my_flutter_template/features/authentication/auth/domain/usecases/notification_unsubscripe_usecase.dart';
-import 'package:my_flutter_template/features/authentication/auth/domain/usecases/set_up_remote_notification.dart';
+import 'package:local_auth/local_auth.dart';
 
 import 'auth_state.dart';
+
+enum StartupAuthResult { firstStart, authenticated, unAuthenticated }
 
 @LazySingleton()
 class AuthCubit extends Cubit<AuthState> {
   final AuthUsecase _authUsecase;
   final LocalStorage _localStorage;
+  final LocalAuthentication _localAuthentication = LocalAuthentication();
 
-  AuthCubit({
-    required AuthUsecase authUsecase,
-    required SetUpRemoteNotificationUsecase setUpRemoteNotificationUsecase,
-    required IsSubscribedToTopicUsecase isSubscribedToTopicUsecase,
-    required UnSubscribeToTopicUsecase unSubscribeToTopicUsecase,
-    required LocalStorage localStorage,
-    required SubscribeToTopicUsecase subscribeToTopicUsecase,
-  }) : _authUsecase = authUsecase,
-       _localStorage = localStorage,
-       super(const AuthState());
-
-  void onEmailChange(String email) {
-    emit(state.copyWith(email: email));
-  }
-
-  void onPinChange(String value) {
-    emit(state.copyWith(pin: value));
-  }
+  AuthCubit(this._authUsecase, this._localStorage) : super(const AuthState());
 
   Future<void> logOut() async {
     emit(state.copyWith(authState: AuthStatus.unAuthenticated));
     await _localStorage.refreshAccessToken('');
-    emit(state.copyWith(userEntity: null, pin: '', email: ''));
+    await _localStorage.refreshRefreshTokenToken('');
+    await _localStorage.clearLoginCredentials();
+    emit(state.copyWith(userEntity: null));
+  }
+
+  Future<bool> get firstStart async => await _localStorage.isFirstStart;
+
+  Future<void> completeFirstStart() => _localStorage.appStarted();
+
+  Future<StartupAuthResult> resolveStartupAuth() async {
+    if (await _localStorage.isFirstStart) {
+      return StartupAuthResult.firstStart;
+    }
+
+    if (!await _localStorage.rememberLogin) {
+      return StartupAuthResult.unAuthenticated;
+    }
+
+    final phone = await _localStorage.savedLoginPhone;
+    final password = await _localStorage.savedLoginPassword;
+    if (phone.isEmpty || password.isEmpty) {
+      await _localStorage.clearLoginCredentials();
+      return StartupAuthResult.unAuthenticated;
+    }
+
+    if (await _localStorage.biometricLoginEnabled &&
+        !await _authenticateWithBiometrics()) {
+      return StartupAuthResult.unAuthenticated;
+    }
+
+    if ((await _localStorage.accessToken).isNotEmpty) {
+      emit(state.copyWith(authState: AuthStatus.authenticated));
+      return StartupAuthResult.authenticated;
+    }
+
+    final response = await _authUsecase(
+      LoginRequest(password: password, phone: phone),
+    );
+    return response.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            authState: AuthStatus.unAuthenticated,
+            message: failure.message.toString(),
+          ),
+        );
+        return StartupAuthResult.unAuthenticated;
+      },
+      (userContent) {
+        emit(
+          state.copyWith(
+            userEntity: userContent,
+            authState: AuthStatus.authenticated,
+          ),
+        );
+        return StartupAuthResult.authenticated;
+      },
+    );
   }
 
   Future<void> onForceLogout() async {
     emit(state.copyWith(authState: AuthStatus.unAuthenticated));
     await _localStorage.refreshAccessToken('');
-    emit(state.copyWith(userEntity: null, pin: '', email: ''));
+    await _localStorage.refreshRefreshTokenToken('');
+    await _localStorage.clearLoginCredentials();
+    emit(state.copyWith(userEntity: null));
   }
 
-  Future<void> login() async {
+  Future<void> login(
+    String phone,
+    String password, {
+    bool rememberLogin = false,
+    bool biometricLogin = false,
+  }) async {
     emit(state.copyWith(signInStatus: CallStatus.inProgress));
     final response = await _authUsecase(
-      LoginRequest(pin: state.pin, email: state.email),
+      LoginRequest(password: password, phone: phone),
     );
-    response.fold(
-      (failure) => emit(
+    await response.fold<Future<void>>(
+      (failure) async => emit(
         state.copyWith(
           signInStatus: CallStatus.failed,
+          authState: AuthStatus.unAuthenticated,
           message: failure.message.toString(),
         ),
       ),
       (userContent) async {
-        // if (rememberMe) {
-        //   await _localStorage.saveLoginCredentials(
-        //     phone: phone,
-        //     password: password,
-        //   );
-        // } else {
-        //   // await _localStorage.clearLoginCredentials();
-        // }
+        final biometricEnabled =
+            biometricLogin && await _authenticateWithBiometrics();
+        final shouldRememberLogin = rememberLogin || biometricEnabled;
+
+        if (shouldRememberLogin) {
+          await _localStorage.saveLoginCredentials(
+            phone: phone,
+            password: password,
+            biometricEnabled: biometricEnabled,
+          );
+        } else {
+          await _localStorage.clearLoginCredentials();
+        }
         emit(
           state.copyWith(
-            // userEntity: userContent,
+            userEntity: userContent,
             signInStatus: CallStatus.success,
             authState: AuthStatus.authenticated,
-            message: '',
           ),
         );
       },
     );
+  }
+
+  Future<bool> _authenticateWithBiometrics() async {
+    try {
+      if (!await _localAuthentication.canCheckBiometrics) {
+        return false;
+      }
+      return await _localAuthentication.authenticate(
+        localizedReason: 'Authenticate to continue',
+        biometricOnly: true,
+        persistAcrossBackgrounding: true,
+      );
+    } catch (_) {
+      return false;
+    }
   }
 }

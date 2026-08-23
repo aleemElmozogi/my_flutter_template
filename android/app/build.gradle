@@ -1,6 +1,5 @@
 plugins {
     id "com.android.application"
-    id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
 }
 
@@ -22,18 +21,33 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+def dartDefines = [:]
+if (project.hasProperty('dart-defines')) {
+    project.property('dart-defines')
+            .split(',')
+            .findAll { it != null && !it.isEmpty() }
+            .each { encodedDefine ->
+                def decodedDefine = new String(encodedDefine.decodeBase64(), 'UTF-8')
+                def defineParts = decodedDefine.split('=', 2)
+                if (defineParts.length == 2) {
+                    dartDefines[defineParts[0]] = defineParts[1]
+                }
+            }
+}
+
+def googleMapsApiKey = localProperties.getProperty('GOOGLE_MAPS_API_KEY')
+        ?: System.getenv('GOOGLE_MAPS_API_KEY')
+        ?: dartDefines['GOOGLE_MAPS_API_KEY']
+        ?: ''
+
 android {
     namespace "com.aleem.template.my_flutter_template"
     compileSdk flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = '1.8'
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     sourceSets {
@@ -41,7 +55,6 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.aleem.template.my_flutter_template"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
@@ -49,14 +62,34 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        manifestPlaceholders += [
+                googleMapsApiKey: googleMapsApiKey
+        ]
+    }
+
+    flavorDimensions "environment"
+    productFlavors {
+        mock {
+            dimension "environment"
+            applicationIdSuffix ".mock"
+            versionNameSuffix "-mock"
+        }
+        prod {
+            dimension "environment"
+        }
     }
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
         }
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
     }
 }
 

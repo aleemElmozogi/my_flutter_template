@@ -1,6 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:my_flutter_template/core/error/exceptions.dart';
-import 'package:my_flutter_template/core/error/failures.dart';
 import 'package:my_flutter_template/core/usecases/usecase.dart';
 import 'package:injectable/injectable.dart';
 import 'package:my_flutter_template/features/startUp/splash/data/datasources/lang_local_data_source.dart';
@@ -14,9 +12,8 @@ class LangRepositoryImpl implements LangRepository {
   LangRepositoryImpl({required this.langLocalDataSource});
   @override
   UseCaseResponse<bool> changeLang({required String langCode}) async {
-    final langIsChanged = await langLocalDataSource.changeLang(
-      langCode: langCode,
-    );
+    final langIsChanged =
+        await langLocalDataSource.changeLang(langCode: langCode);
     return Right(langIsChanged);
   }
 

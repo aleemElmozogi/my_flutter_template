@@ -5,9 +5,8 @@ import 'package:google_mlkit_barcode_scanning/google_mlkit_barcode_scanning.dart
 import 'package:image_picker/image_picker.dart';
 import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart' hide Barcode;
 
-
 class AppQrScanner extends StatefulWidget {
-  final Function(String) onQrScan;
+  final ValueChanged<String> onQrScan;
 
   const AppQrScanner({super.key, required this.onQrScan});
 

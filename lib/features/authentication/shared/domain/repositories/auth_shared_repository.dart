@@ -6,11 +6,4 @@ import 'package:my_flutter_template/features/authentication/shared/data/models/r
 abstract class AuthSharedRepository {
   Future<Either<Failure, String>> sendOtp(PhoneNumberRequest request);
   Future<Either<Failure, void>> verifyOtp(VerifyOtpRequest request);
-  // Future<Either<Failure, List<CityContentModel>>> fetchCities();
-  // Future<Either<Failure, List<CityCircleContentModel>>> fetchCityCircles(
-  //   FetchCircleRequest request,
-  // );
-  // Future<Either<Failure, StudentInfoContentModel>> fetchStudentInfo(
-  //   PhoneNumberRequest request,
-  // );
 }

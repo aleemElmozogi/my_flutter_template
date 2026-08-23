@@ -3,10 +3,9 @@ import 'dart:io';
 import 'package:my_flutter_template/core/api/api_consumer.dart';
 import 'package:my_flutter_template/core/api/api_interceptors.dart';
 import 'package:my_flutter_template/core/api/end_points.dart';
-import 'package:my_flutter_template/core/api/status_code.dart';
 import 'package:my_flutter_template/core/error/exceptions.dart';
 import 'package:my_flutter_template/core/models/json_model.dart';
-import 'package:my_flutter_template/core/network/netwok_info.dart';
+import 'package:my_flutter_template/core/network/network_info.dart';
 import 'package:my_flutter_template/core/utils/network_method.dart';
 import 'package:my_flutter_template/core/di/injection.dart' as di;
 import 'package:dio/dio.dart';
@@ -23,6 +22,19 @@ class DioConsumerProdImpl implements ApiConsumer {
   final NetworkInfo networkInfo;
 
   DioConsumerProdImpl(this.networkInfo) {
+    client.httpClientAdapter = IOHttpClientAdapter(
+      createHttpClient: () {
+        final HttpClient client = HttpClient(
+          context: SecurityContext(withTrustedRoots: false),
+        );
+        client.badCertificateCallback =
+            ((X509Certificate cert, String host, int port) {
+              return true;
+            });
+        return client;
+      },
+    );
+
     client.options
       ..baseUrl = EndPoints.baseUrl
       ..responseType = ResponseType.plain
@@ -31,35 +43,43 @@ class DioConsumerProdImpl implements ApiConsumer {
       ..receiveTimeout = const Duration(seconds: 60)
       ..sendTimeout = const Duration(seconds: 60)
       ..validateStatus = (status) {
-        return status! < StatusCode.internalServerError;
+        return status != null && status < 300;
       };
-    client.interceptors.add(AppInterceptors());
+    client.interceptors.add(
+      PrettyDioLogger(
+        requestHeader: true,
+        requestBody: true,
+        responseBody: true,
+        responseHeader: false,
+        error: true,
+        compact: true,
+        maxWidth: 90,
+      ),
+    );
+    client.interceptors.add(AppInterceptors(client));
   }
 
   @override
-  Future<T> request<T extends JsonModel>(
-      ResponseModelCreator<T> responseCreator, {
-        required String path,
-        required NetworkMethod method,
-        Map<String, String> header = const {},
-        Map<String, dynamic> body = const {},
-        Map<String, dynamic> queryParameters = const {},
-        Map<String, dynamic> mockResponse = const {},
-        String authorization = '',
-      }) async {
+  Future<T> request<T extends JsonModel<dynamic>>(
+    ResponseModelCreator<T> responseCreator, {
+    required String path,
+    required NetworkMethod method,
+    Map<String, String> header = const {},
+    Map<String, dynamic> body = const {},
+    Map<String, dynamic> queryParameters = const {},
+    Map<String, dynamic> mockResponse = const {},
+    String authorization = '',
+  }) async {
     if (!await networkInfo.isConnected) {
       throw NoInternetConnectionException();
     }
     client.options = _configureDioOptions(method, authorization, header);
     try {
-      final response = await client.request<String>(
-        path,
-        queryParameters: Map<String, dynamic>.from(queryParameters)
-          ..removeWhere((key, value) => value == null),
-        data: method == NetworkMethod.multipart
-            ? FormData.fromMap(body)
-            : (Map<String, dynamic>.from(body)
-          ..removeWhere((key, value) => value == null)),
+      final response = await _sendRequest(
+        path: path,
+        method: method,
+        queryParameters: queryParameters,
+        body: body,
       );
       return di.getIt<ApiHelper>().handleResponseAsJson<T>(
         responseCreator,
@@ -78,14 +98,32 @@ class DioConsumerProdImpl implements ApiConsumer {
     }
   }
 
+  Future<Response<String>> _sendRequest({
+    required String path,
+    required NetworkMethod method,
+    required Map<String, dynamic> queryParameters,
+    required Map<String, dynamic> body,
+  }) {
+    return client.request<String>(
+      path,
+      queryParameters: Map<String, dynamic>.from(queryParameters)
+        ..removeWhere((key, value) => value == null),
+      data: method == NetworkMethod.multipart
+          ? FormData.fromMap(body)
+          : (Map<String, dynamic>.from(body)
+              ..removeWhere((key, value) => value == null)),
+    );
+  }
+
   BaseOptions _configureDioOptions(
-      NetworkMethod method,
-      String authorization,
-      Map<String, String> header,
-      ) => BaseOptions(
+    NetworkMethod method,
+    String authorization,
+    Map<String, String> header,
+  ) => BaseOptions(
     method: method.key,
     sendTimeout: const Duration(minutes: 1),
     receiveTimeout: const Duration(minutes: 1),
+    validateStatus: (status) => status != null && status < 300,
     headers: _handleHttpHeader(
       method: method,
       authorization: authorization,

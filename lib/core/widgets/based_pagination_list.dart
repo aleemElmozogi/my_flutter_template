@@ -1,6 +1,6 @@
+import 'package:my_flutter_template/core/widgets/app_text.dart';
 import 'package:flutter/material.dart';
-
-import 'app_text.dart';
+import 'package:my_flutter_template/generated/l10n.dart';
 
 typedef ItemBuilder<T> =
     Widget Function(BuildContext context, T item, int index);
@@ -16,7 +16,7 @@ class BasePaginationList<T> extends StatefulWidget {
   final Widget? emptyWidget;
 
   const BasePaginationList({
-    super.key,
+    Key? key,
     required this.items,
     required this.itemBuilder,
     required this.onFetchMore,
@@ -24,10 +24,10 @@ class BasePaginationList<T> extends StatefulWidget {
     required this.hasMore,
     this.loadingWidget,
     this.emptyWidget,
-  });
+  }) : super(key: key);
 
   @override
-  State<BasePaginationList<T>> createState() => _BasePaginationListState<T>();
+  _BasePaginationListState<T> createState() => _BasePaginationListState<T>();
 }
 
 class _BasePaginationListState<T> extends State<BasePaginationList<T>> {
@@ -59,7 +59,7 @@ class _BasePaginationListState<T> extends State<BasePaginationList<T>> {
   Widget build(BuildContext context) {
     if (widget.items.isEmpty && !widget.isLoadingMore) {
       return widget.emptyWidget ??
-          const Center(child: AppText("لا يوجد عناصر في الوقت الحالي 🧐"));
+          Center(child: AppText(S.of(context).emptyListMessage));
     }
 
     return ListView.builder(

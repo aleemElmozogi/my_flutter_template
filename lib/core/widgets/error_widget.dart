@@ -1,10 +1,8 @@
-import 'package:my_flutter_template/core/utils/app_colors.dart';
 import 'package:my_flutter_template/core/utils/media_query_values.dart';
+import 'package:my_flutter_template/core/widgets/app_custom_button.dart';
 import 'package:my_flutter_template/core/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:my_flutter_template/generated/l10n.dart';
-
-import 'app_custom_button.dart';
 
 class AppErrorWidget extends StatelessWidget {
   final VoidCallback? onPress;
@@ -13,8 +11,6 @@ class AppErrorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -22,7 +18,7 @@ class AppErrorWidget extends StatelessWidget {
         Center(
           child: Icon(
             Icons.warning_amber_rounded,
-            color: colorScheme.error, // changed from primary to error
+            color: Theme.of(context).colorScheme.primary,
             size: 150,
           ),
         ),

@@ -1,10 +1,8 @@
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:my_flutter_template/core/flavors/app_flavor.dart';
-import 'package:my_flutter_template/features/authentication/auth/domain/repositories/auth_repository.dart' show AuthRepository;
-import 'package:my_flutter_template/features/authentication/shared/data/repositories/auth_repository_impl.dart';
+import 'package:my_flutter_template/data/repositories/auth_repository.dart';
 import 'package:my_flutter_template/features/authentication/shared/domain/repositories/auth_shared_repository.dart';
 
 import 'injection.config.dart';

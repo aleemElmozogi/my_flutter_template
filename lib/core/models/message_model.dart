@@ -19,5 +19,6 @@ class MessageModel extends ResponseModel<MessageModel, String> {
   }
 
   @override
-  List<Object?> get props => [statusCode, message, data];
+  // TODO: implement props
+  List<Object?> get props => [];
 }

@@ -24,21 +24,22 @@ class AppDateFormField extends StatefulWidget {
   });
 
   @override
-  State<AppDateFormField> createState() => _AppDateFormFieldState();
+  _AppDateFormFieldState createState() => _AppDateFormFieldState();
 }
 
 class _AppDateFormFieldState extends State<AppDateFormField> {
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
 
     return FormBuilderDateTimePicker(
       controller: widget.controller,
       name: widget.name,
       inputType: InputType.date,
-      initialDate: DateTime.now(),
+      initialDate: widget.lastDate ?? DateTime(2013),
       firstDate: widget.firstDate ?? DateTime(1950),
-      lastDate: widget.lastDate ?? DateTime.now(),
+      lastDate: widget.lastDate ?? DateTime(2013, 12, 31),
       validator: (value) {
         if (widget.validator != null) {
           return widget.validator!(value?.toString());
@@ -47,19 +48,14 @@ class _AppDateFormFieldState extends State<AppDateFormField> {
       },
       decoration: InputDecoration(
         labelText: widget.labelText,
-        labelStyle: TextStyle(color: colorScheme.outline),
-        filled: true,
-        fillColor: colorScheme.surfaceContainerHighest,
-        border: outlineInputBorder(colorScheme.onSurface),
+        border: outlineInputBorder(colorScheme.outline),
         enabledBorder: outlineInputBorder(Colors.transparent),
         errorBorder: outlineInputBorder(colorScheme.error),
         focusedErrorBorder: outlineInputBorder(colorScheme.error),
-        contentPadding: const EdgeInsets.all(15.0),
         hintText: widget.hintText,
-        hintStyle: TextStyle(color: colorScheme.outline),
         prefixIcon: widget.prefixIcon == null
             ? null
-            : Icon(widget.prefixIcon, color: colorScheme.outline),
+            : Icon(widget.prefixIcon, color: theme.hintColor),
       ),
     );
   }

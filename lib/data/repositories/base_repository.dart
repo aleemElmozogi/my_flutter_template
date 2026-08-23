@@ -3,8 +3,7 @@ import 'package:my_flutter_template/core/api/api_consumer.dart';
 import 'package:my_flutter_template/core/error/exceptions.dart';
 import 'package:my_flutter_template/core/error/failures.dart';
 import 'package:my_flutter_template/core/localStorage/loacal_storage.dart';
-import 'package:my_flutter_template/core/models/message_model.dart';
-import 'package:my_flutter_template/core/network/netwok_info.dart';
+import 'package:my_flutter_template/core/network/network_info.dart';
 import 'package:my_flutter_template/generated/l10n.dart';
 
 abstract class BaseRepository {
@@ -37,101 +36,58 @@ abstract class BaseRepository {
       return Right(result);
     } on ApiException catch (e) {
       // Handle API-specific errors
-      return Left(
-        ApiFailure.withMessage(e.message ?? S.current.errorDuringCommunication),
-      );
+      return Left(ApiFailure.withMessage(
+          e.message ?? S.current.errorDuringCommunication));
     } on FetchDataException catch (e) {
       // Handle fetch data errors
-      return Left(
-        FetchErrorFailure.withMessage(
-          e.message ?? S.current.errorDuringCommunication,
-        ),
-      );
+      return Left(FetchErrorFailure.withMessage(
+          e.message ?? S.current.errorDuringCommunication));
     } on EmptyResponseException catch (e) {
       // Handle cases of empty response
-      return Left(
-        FetchErrorFailure.withMessage(
-          e.message ?? S.current.noDataOrContentAvailable,
-        ),
-      );
+      return Left(FetchErrorFailure.withMessage(
+          e.message ?? S.current.noDataOrContentAvailable));
     } on BadRequestException catch (e) {
       // Handle bad request errors
       return Left(
-        ServerFailure.withMessage(e.message ?? S.current.invalidRequest),
-      );
+          ServerFailure.withMessage(e.message ?? S.current.invalidRequest));
     } on BadResponseException catch (e) {
       // Handle invalid response errors
       return Left(
-        ServerFailure.withMessage(e.message ?? S.current.invalidResponse),
-      );
+          ServerFailure.withMessage(e.message ?? S.current.invalidResponse));
     } on UnauthorizedException catch (e) {
       // Handle unauthorized errors
       return Left(AuthFailure.withMessage(e.message ?? S.current.unauthorized));
     } on NotFoundException catch (e) {
       // Handle not found errors
-      return Left(
-        ServerFailure.withMessage(
-          e.message ?? S.current.informationNotAvailable,
-        ),
-      );
+      return Left(ServerFailure.withMessage(
+          e.message ?? S.current.informationNotAvailable));
     } on ConflictException catch (e) {
       // Handle conflict errors
       return Left(
-        ServerFailure.withMessage(e.message ?? S.current.conflictOccurred),
-      );
+          ServerFailure.withMessage(e.message ?? S.current.conflictOccurred));
     } on InternalServerErrorException catch (e) {
       // Handle internal server errors
-      return Left(
-        ServerFailure.withMessage(e.message ?? S.current.internalServerError),
-      );
+      return Left(ServerFailure.withMessage(
+          e.message ?? S.current.internalServerError));
     } on NoInternetConnectionException catch (e) {
       // Handle no internet connection errors
-      return Left(
-        NetworkFailure.withMessage(e.message ?? S.current.noInternetConnection),
-      );
+      return Left(NetworkFailure.withMessage(
+          e.message ?? S.current.noInternetConnection));
     } on CacheException catch (e) {
       // Handle cache errors
-      return Left(
-        CacheFailure.withMessage(
-          e.message ?? S.current.noDataOrContentAvailable,
-        ),
-      );
-    } on Failure catch (failure) {
-      // Preserve explicitly thrown domain failures from repository success handlers.
-      return Left(failure);
+      return Left(CacheFailure.withMessage(
+          e.message ?? S.current.noDataOrContentAvailable));
     } on ServerException catch (e) {
       // Handle general server exceptions
-      return Left(
-        ServerFailure.withMessage(
-          e.message ?? S.current.errorDuringCommunication,
-        ),
-      );
+      return Left(ServerFailure.withMessage(
+          e.message ?? S.current.errorDuringCommunication));
     } on Exception catch (e) {
       // Handle all other unhandled exceptions
       return Left(FetchErrorFailure.withMessage(e.toString()));
     } catch (e) {
       // Handle all other unhandled exceptions
       return Left(
-        FetchErrorFailure.withMessage(S.current.errorDuringCommunication),
-      );
+          FetchErrorFailure.withMessage(S.current.errorDuringCommunication));
     }
-  }
-
-  Future<Either<Failure, String>> executeMessageRequest({
-    required Future<MessageModel> Function() requestFunction,
-  }) {
-    return executeRequest<MessageModel, String>(
-      requestFunction: requestFunction,
-      onSuccess: (response) async => response.data ?? '',
-    );
-  }
-
-  Future<Either<Failure, void>> executeVoidMessageRequest({
-    required Future<MessageModel> Function() requestFunction,
-  }) {
-    return executeRequest<MessageModel, void>(
-      requestFunction: requestFunction,
-      onSuccess: (_) async {},
-    );
   }
 }

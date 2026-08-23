@@ -1,4 +1,3 @@
-
 import 'package:my_flutter_template/core/usecases/usecase.dart';
 
 abstract class LangRepository {

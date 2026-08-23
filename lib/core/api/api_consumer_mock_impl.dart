@@ -6,7 +6,7 @@ import 'package:my_flutter_template/core/api/api_interceptors.dart';
 import 'package:my_flutter_template/core/di/injection.dart';
 import 'package:my_flutter_template/core/error/exceptions.dart';
 import 'package:my_flutter_template/core/models/json_model.dart';
-import 'package:my_flutter_template/core/network/netwok_info.dart';
+import 'package:my_flutter_template/core/network/network_info.dart';
 import 'package:my_flutter_template/core/utils/network_method.dart';
 import 'package:my_flutter_template/core/di/injection.dart' as di;
 import 'package:dio/dio.dart';
@@ -28,38 +28,38 @@ class DioConsumerMockImpl implements ApiConsumer {
           context: SecurityContext(withTrustedRoots: false),
         );
         client.badCertificateCallback =
-        ((X509Certificate cert, String host, int port) {
-          return true;
-        });
+            ((X509Certificate cert, String host, int port) {
+              return true;
+            });
         return client;
       },
     );
-    client.interceptors.add(AppInterceptors());
+    client.interceptors.add(AppInterceptors(client));
   }
 
   @override
-  Future<T> request<T extends JsonModel>(
-      ResponseModelCreator<T> responseCreator, {
-        required String path,
-        required NetworkMethod method,
-        bool formDataIsEnabled = false,
-        Map<String, String> header = const {},
-        Map<String, dynamic> body = const {},
-        Map<String, dynamic> queryParameters = const {},
-        Map<String, dynamic> mockResponse = const {},
-        String authorization = '',
-      }) async {
+  Future<T> request<T extends JsonModel<dynamic>>(
+    ResponseModelCreator<T> responseCreator, {
+    required String path,
+    required NetworkMethod method,
+    bool formDataIsEnabled = false,
+    Map<String, String> header = const {},
+    Map<String, dynamic> body = const {},
+    Map<String, dynamic> queryParameters = const {},
+    Map<String, dynamic> mockResponse = const {},
+    String authorization = '',
+  }) async {
     if (!await networkInfo.isConnected) {
       throw NoInternetConnectionException();
     }
 
     try {
-      final encodedResponse = jsonEncode(mockResponse);
-      final decodedResponse =
-      jsonDecode(encodedResponse) as Map<String, dynamic>;
+      await Future<void>.delayed(const Duration(seconds: 2));
+      final statusCode =
+          jsonDecode(jsonEncode(mockResponse))["statusCode"] as int? ?? 200;
       final response = Response<String>(
-        data: encodedResponse,
-        statusCode: decodedResponse['statusCode'] as int? ?? 200,
+        data: jsonEncode(mockResponse),
+        statusCode: statusCode,
         requestOptions: RequestOptions(),
       );
       return di.getIt<ApiHelper>().handleResponseAsJson<T>(

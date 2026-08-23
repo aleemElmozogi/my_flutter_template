@@ -4,33 +4,32 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 class AppTextFormField extends StatefulWidget {
   final String name;
   final bool isPassword;
-  final bool autofocus;
   final int? maxLength;
   final Color? enabledBorderColor;
   final double borderWidth;
-  final int? maxLines;
-  final int? minLines;
+  final int maxLines;
   final String? labelText;
   final String? hintText;
-  final Widget? suffixIcon;
   final String? Function(String?)? validator;
-  final Function(String?)? onChanged;
+  final ValueChanged<String?>? onChanged;
   final String? initalValue;
   final TextEditingController? controller;
   final IconData? prefixIcon;
+  final Widget? suffixIcon;
   final TextInputType? keyboardType;
+  final TextAlign textAlign;
+  final String? errorText;
+  final int? errorMaxLines;
 
   const AppTextFormField({
     required this.name,
     this.isPassword = false,
-    this.autofocus = false,
     this.labelText,
     this.enabledBorderColor,
     this.hintText,
     this.onChanged,
     this.validator,
     this.maxLines = 1,
-    this.minLines,
     this.borderWidth = 0.5,
     this.initalValue,
     this.controller,
@@ -38,6 +37,9 @@ class AppTextFormField extends StatefulWidget {
     this.suffixIcon,
     this.maxLength,
     this.keyboardType,
+    this.textAlign = TextAlign.start,
+    this.errorText,
+    this.errorMaxLines,
     super.key,
   });
 
@@ -50,63 +52,53 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
 
     return Semantics(
       label: widget.name,
-      child: Column(
-        children: [
-          FormBuilderTextField(
-            controller: widget.controller,
-            name: widget.name,
-            maxLength: widget.maxLength,
-            onChanged: widget.onChanged,
-            maxLines: widget.maxLines,
-            minLines: widget.isPassword ? null : widget.minLines,
-            initialValue: widget.initalValue,
-            autofocus: widget.autofocus,
-            validator: widget.validator,
-            obscureText: widget.isPassword ? _obscureText : false,
-            keyboardType: widget.keyboardType,
-            onTapOutside: (event) {
-              FocusScope.of(context).unfocus();
-            },
-            decoration: InputDecoration(
-              labelText: widget.labelText,
-              labelStyle: TextStyle(color: colorScheme.outline),
-              filled: true,
-              fillColor: colorScheme.surfaceContainerHighest,
-              border: outlineInputBorder(colorScheme.onSurface),
-              enabledBorder: outlineInputBorder(
-                widget.enabledBorderColor ?? Colors.transparent,
-              ),
-              errorBorder: outlineInputBorder(colorScheme.error),
-              focusedErrorBorder: outlineInputBorder(colorScheme.error),
-              contentPadding: const EdgeInsets.all(
-                15.0,
-              ), // Padding inside the text field
-              errorMaxLines: 2,
-              hintText: widget.hintText, // Placeholder text
-              hintStyle: TextStyle(color: colorScheme.outline),
-              prefixIcon: widget.prefixIcon == null
-                  ? null
-                  : Icon(widget.prefixIcon, color: colorScheme.outline),
-              suffixIcon: widget.isPassword
-                  ? IconButton(
-                      icon: Icon(
-                        _obscureText ? Icons.visibility : Icons.visibility_off,
-                        color: colorScheme.primary,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _obscureText = !_obscureText;
-                        });
-                      },
-                    )
-                  : widget.suffixIcon,
-            ),
+      child: FormBuilderTextField(
+        controller: widget.controller,
+        name: widget.name,
+        maxLength: widget.maxLength,
+        onChanged: widget.onChanged,
+        maxLines: widget.maxLines,
+        initialValue: widget.initalValue,
+        validator: widget.validator,
+        obscureText: widget.isPassword ? _obscureText : false,
+        keyboardType: widget.keyboardType,
+        textAlign: widget.textAlign,
+        onTapOutside: (event) {
+          FocusScope.of(context).unfocus();
+        },
+        decoration: InputDecoration(
+          labelText: widget.labelText,
+          border: outlineInputBorder(colorScheme.outline),
+          enabledBorder: outlineInputBorder(
+            widget.enabledBorderColor ?? Colors.transparent,
           ),
-        ],
+          errorBorder: outlineInputBorder(colorScheme.error),
+          focusedErrorBorder: outlineInputBorder(colorScheme.error),
+          hintText: widget.hintText,
+          errorText: widget.errorText,
+          errorMaxLines: widget.errorMaxLines,
+          prefixIcon: widget.prefixIcon == null
+              ? null
+              : Icon(widget.prefixIcon, color: theme.hintColor),
+          suffixIcon: widget.isPassword
+              ? IconButton(
+                  icon: Icon(
+                    _obscureText ? Icons.visibility : Icons.visibility_off,
+                    color: colorScheme.primary,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _obscureText = !_obscureText;
+                    });
+                  },
+                )
+              : widget.suffixIcon,
+        ),
       ),
     );
   }

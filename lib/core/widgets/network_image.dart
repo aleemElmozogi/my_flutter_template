@@ -1,6 +1,8 @@
+import 'package:my_flutter_template/core/api/end_points.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_network/image_network.dart';
+import 'package:my_flutter_template/core/di/injection.dart' as di;
 
 class AppNetworkImage extends StatelessWidget {
   const AppNetworkImage({
@@ -8,26 +10,28 @@ class AppNetworkImage extends StatelessWidget {
     required this.imageUrl,
     this.height = 50,
     this.onTap,
-    required this.useName, required this.onErrorIcon,
+    required this.onErrorIcon,
   });
 
   final String imageUrl;
   final IconData onErrorIcon;
-  final String useName;
   final Function? onTap;
 
   final double height;
 
   @override
   Widget build(BuildContext context) {
-    return  ImageNetwork(
-          onTap: onTap,
-            image: imageUrl, // Replace with actual URL property name
-            height: height.r,
-            width: height.r,
-            fitAndroidIos: BoxFit.cover,
-            onError:  Icon(
-                onErrorIcon) // Placeholder for failed image loading
-            );
+    final bool isMock = di.getIt<di.AppSettings>().isMock;
+    final String fullImageUrl =
+        '${isMock ? '' : '${EndPoints.baseUrl}/'}$imageUrl';
+
+    return ImageNetwork(
+      onTap: onTap,
+      image: fullImageUrl,
+      height: height.r,
+      width: height.r,
+      fitAndroidIos: BoxFit.cover,
+      onError: Icon(onErrorIcon),
+    );
   }
 }

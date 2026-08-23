@@ -23,8 +23,7 @@ class ServerFailure extends Failure {
       : super(message: message, messages: messages);
   const ServerFailure.withMessage(String message) : super(message: message);
 
-  const ServerFailure.withMessages(List<String> messages)
-      : super(messages: messages);
+  const ServerFailure.withMessages(List<String> messages) : super(messages: messages);
 }
 
 class FetchErrorFailure extends Failure {
@@ -41,8 +40,7 @@ class CacheFailure extends Failure {
       : super(message: message, messages: messages);
   const CacheFailure.withMessage(String message) : super(message: message);
 
-  const CacheFailure.withMessages(List<String> messages)
-      : super(messages: messages);
+  const CacheFailure.withMessages(List<String> messages) : super(messages: messages);
 }
 
 class NetworkFailure extends Failure {
@@ -59,8 +57,7 @@ class AuthFailure extends Failure {
       : super(message: message, messages: messages);
   const AuthFailure.withMessage(String message) : super(message: message);
 
-  const AuthFailure.withMessages(List<String> messages)
-      : super(messages: messages);
+  const AuthFailure.withMessages(List<String> messages) : super(messages: messages);
 
   factory AuthFailure.fromError(dynamic error) {
     if (error is String) {
@@ -73,24 +70,12 @@ class AuthFailure extends Failure {
   }
 }
 
-class InactiveAccountFailure extends AuthFailure {
-  const InactiveAccountFailure([super.message, super.messages]);
-  const InactiveAccountFailure.withMessage(super.message) : super.withMessage();
-}
-
-class ResetPasswordRequiredFailure extends AuthFailure {
-  const ResetPasswordRequiredFailure([super.message, super.messages]);
-  const ResetPasswordRequiredFailure.withMessage(super.message)
-      : super.withMessage();
-}
-
 class ApiFailure extends Failure {
   const ApiFailure([String? message, List<String>? messages])
       : super(message: message, messages: messages);
   const ApiFailure.withMessage(String message) : super(message: message);
 
-  const ApiFailure.withMessages(List<String> messages)
-      : super(messages: messages);
+  const ApiFailure.withMessages(List<String> messages) : super(messages: messages);
 
   factory ApiFailure.fromError(dynamic error) {
     if (error is String) {

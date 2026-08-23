@@ -9,5 +9,5 @@ abstract class LocaleState extends Equatable {
 }
 
 class ChangeLocaleState extends LocaleState {
-  const ChangeLocaleState(super.locale);
+  const ChangeLocaleState(Locale selectedLocale) : super(selectedLocale);
 }
