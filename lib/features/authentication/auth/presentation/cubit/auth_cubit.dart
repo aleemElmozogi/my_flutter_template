@@ -139,7 +139,7 @@ class AuthCubit extends Cubit<AuthState> {
       if (!await _localAuthentication.canCheckBiometrics) {
         return false;
       }
-      return _localAuthentication.authenticate(
+      return await _localAuthentication.authenticate(
         localizedReason: 'Authenticate to continue',
         biometricOnly: true,
         persistAcrossBackgrounding: true,
