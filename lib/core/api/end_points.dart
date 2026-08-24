@@ -1,5 +1,7 @@
+import 'package:my_flutter_template/config/env/app_environment.dart';
+
 class EndPoints {
-  static const String baseUrl = 'http://192.168.0.11:8080';
+  static const String baseUrl = AppEnvironment.apiBaseUrl;
 
   static const String signIn = '$baseUrl/api/Auth/SignIn';
   static const String registration = '$baseUrl/api/Auth/Registration';

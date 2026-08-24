@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:my_flutter_template/core/api/api_consumer.dart';
 import 'package:my_flutter_template/core/api/api_interceptors.dart';
@@ -10,7 +9,6 @@ import 'package:my_flutter_template/core/network/network_info.dart';
 import 'package:my_flutter_template/core/utils/network_method.dart';
 import 'package:my_flutter_template/core/di/injection.dart' as di;
 import 'package:dio/dio.dart';
-import 'package:dio/io.dart';
 import 'package:injectable/injectable.dart';
 
 import 'api_helper.dart';
@@ -22,18 +20,6 @@ class DioConsumerMockImpl implements ApiConsumer {
   final NetworkInfo networkInfo;
 
   DioConsumerMockImpl(this.networkInfo) {
-    client.httpClientAdapter = IOHttpClientAdapter(
-      createHttpClient: () {
-        final HttpClient client = HttpClient(
-          context: SecurityContext(withTrustedRoots: false),
-        );
-        client.badCertificateCallback =
-            ((X509Certificate cert, String host, int port) {
-              return true;
-            });
-        return client;
-      },
-    );
     client.interceptors.add(AppInterceptors(client));
   }
 
