@@ -138,6 +138,8 @@ Do not commit real API keys in Dart, Android manifests, iOS plist files, or Swif
 The template reads Dart-side values from compile-time environment defines:
 
 ```dart
+AppEnvironment.apiBaseUrl
+AppEnvironment.apiSpkiSha256Pins
 AppEnvironment.googleMapsApiKey
 AppEnvironment.aiApiKey
 ```
@@ -152,10 +154,29 @@ Fill `env/dev.json` locally:
 
 ```json
 {
+  "API_BASE_URL": "https://api.example.com",
+  "API_SPKI_SHA256_PINS": "",
   "GOOGLE_MAPS_API_KEY": "your-local-google-maps-key",
   "AI_API_KEY": "your-local-ai-key"
 }
 ```
+
+`API_BASE_URL` must be an absolute HTTPS URL in the prod flavor. The optional
+`API_SPKI_SHA256_PINS` value is a comma-separated list of SPKI SHA-256 pins.
+Always configure both the current pin and a backup pin so certificates can be
+rotated without locking users out of the API. Generate a pin from a server
+certificate with:
+
+```bash
+openssl s_client -servername api.example.com -connect api.example.com:443 </dev/null 2>/dev/null \
+  | openssl x509 -pubkey -noout \
+  | openssl pkey -pubin -outform DER \
+  | openssl dgst -sha256 -binary \
+  | openssl base64 -A
+```
+
+Store the values as `sha256/<current-pin>,sha256/<backup-pin>`. Leave the
+setting empty to use normal platform TLS validation without pinning.
 
 `env/*.json` is ignored by Git, except `env/example.json`.
 

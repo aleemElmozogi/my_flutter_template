@@ -8,6 +8,7 @@ environment:
   sdk: ">=3.10.0 <4.0.0"
 
 dependencies:
+  asn1lib: ^1.6.5
   bloc: ^9.2.0
   equatable: ^2.0.8
   form_validator:

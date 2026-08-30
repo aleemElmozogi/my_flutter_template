@@ -1,7 +1,10 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
+import 'package:my_flutter_template/config/env/app_environment.dart';
 import 'package:my_flutter_template/core/api/api_consumer.dart';
 import 'package:my_flutter_template/core/api/api_interceptors.dart';
+import 'package:my_flutter_template/core/api/api_transport_security.dart';
 import 'package:my_flutter_template/core/api/end_points.dart';
 import 'package:my_flutter_template/core/error/exceptions.dart';
 import 'package:my_flutter_template/core/models/json_model.dart';
@@ -9,7 +12,6 @@ import 'package:my_flutter_template/core/network/network_info.dart';
 import 'package:my_flutter_template/core/utils/network_method.dart';
 import 'package:my_flutter_template/core/di/injection.dart' as di;
 import 'package:dio/dio.dart';
-import 'package:dio/io.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
@@ -22,17 +24,9 @@ class DioConsumerProdImpl implements ApiConsumer {
   final NetworkInfo networkInfo;
 
   DioConsumerProdImpl(this.networkInfo) {
-    client.httpClientAdapter = IOHttpClientAdapter(
-      createHttpClient: () {
-        final HttpClient client = HttpClient(
-          context: SecurityContext(withTrustedRoots: false),
-        );
-        client.badCertificateCallback =
-            ((X509Certificate cert, String host, int port) {
-              return true;
-            });
-        return client;
-      },
+    client.httpClientAdapter = ApiTransportSecurity.createAdapter(
+      baseUrl: EndPoints.baseUrl,
+      allowedSpkiSha256Pins: AppEnvironment.apiSpkiSha256Pins,
     );
 
     client.options
@@ -45,17 +39,19 @@ class DioConsumerProdImpl implements ApiConsumer {
       ..validateStatus = (status) {
         return status != null && status < 300;
       };
-    client.interceptors.add(
-      PrettyDioLogger(
-        requestHeader: true,
-        requestBody: true,
-        responseBody: true,
-        responseHeader: false,
-        error: true,
-        compact: true,
-        maxWidth: 90,
-      ),
-    );
+    if (kDebugMode) {
+      client.interceptors.add(
+        PrettyDioLogger(
+          requestHeader: true,
+          requestBody: true,
+          responseBody: true,
+          responseHeader: false,
+          error: true,
+          compact: true,
+          maxWidth: 90,
+        ),
+      );
+    }
     client.interceptors.add(AppInterceptors(client));
   }
 

@@ -1,8 +1,9 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:dio/io.dart';
+import 'package:my_flutter_template/config/env/app_environment.dart';
 import 'package:my_flutter_template/core/api/api_helper.dart';
+import 'package:my_flutter_template/core/api/api_transport_security.dart';
 import 'package:my_flutter_template/core/api/end_points.dart';
 import 'package:my_flutter_template/core/api/status_code.dart';
 import 'package:my_flutter_template/core/di/injection.dart' as di;
@@ -83,20 +84,13 @@ class AppInterceptors extends Interceptor {
       final refreshClient = Dio(
         BaseOptions(
           responseType: ResponseType.plain,
-          validateStatus:
-              (status) =>
-                  status != null && status < StatusCode.internalServerError,
+          validateStatus: (status) =>
+              status != null && status < StatusCode.internalServerError,
         ),
       );
-      refreshClient.httpClientAdapter = IOHttpClientAdapter(
-        createHttpClient: () {
-          final client = HttpClient(
-            context: SecurityContext(withTrustedRoots: false),
-          );
-          client.badCertificateCallback =
-              (X509Certificate cert, String host, int port) => true;
-          return client;
-        },
+      refreshClient.httpClientAdapter = ApiTransportSecurity.createAdapter(
+        baseUrl: EndPoints.baseUrl,
+        allowedSpkiSha256Pins: AppEnvironment.apiSpkiSha256Pins,
       );
 
       final response = await refreshClient.post<String>(
